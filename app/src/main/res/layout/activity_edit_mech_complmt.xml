@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grad_billing_main"
+    tools:context=".edit_mech_complmt">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/innerScrollConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/bottomConstraint"
+                android:layout_width="match_parent"
+                android:layout_height="198dp"
+
+
+                android:background="@drawable/dr_billing_top"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.v7.widget.AppCompatImageButton
+
+
+                    android:id="@+id/imgClose"
+                    android:layout_width="14dp"
+                    android:layout_height="13.98dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/close"
+                    android:onClick="onclick_close_edit_mech_complmt"
+
+                    android:paddingBottom="0dp"
+                    android:paddingTop="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txvDriverName"
+                    android:layout_width="90dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="195dp"
+                    android:layout_marginTop="55dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:lineSpacingExtra="10sp"
+                    android:text="Ikechukwu"
+                    android:textColor="@color/colorPrimaryTextColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginTop="50dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/default_mech_image" />
+
+
+                <ImageView
+                    android:id="@+id/starImage1"
+                    android:layout_width="13dp"
+                    android:layout_height="12.36dp"
+
+                    android:layout_marginStart="203dp"
+                    android:layout_marginTop="87dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/asterisk_star" />
+
+                <TextView
+                    android:id="@+id/txvMechRating"
+                    android:layout_width="31dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="217dp"
+                    android:layout_marginTop="85dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:text="4.96"
+                    android:textColor="#B9B9B9"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txvMechPortfolio"
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="130dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="8sp"
+                    android:text="Ikechukwu is a Tesla and Bugatti specialist. \nHe has been fixing these vehicles for 5 years."
+                    android:textColor="#B9B9B9"
+                    android:textSize="15sp"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/ConstraintLayer2"
+                android:layout_width="match_parent"
+                android:layout_height="124dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="220dp"
+
+                android:background="@drawable/dr_billing_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:id="@+id/txvLayer2MiniHeader"
+                    android:layout_width="150dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:lineSpacingExtra="10sp"
+                    android:text="Leave a compliment"
+                    android:textColor="@color/colorPrimaryTextColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/appCompatImageButton2"
+                    android:layout_width="35dp"
+                    android:layout_height="31.51dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="46.75dp"
+                    android:background="@drawable/complmt_image1_diamond"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="51dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="85dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:text="Exceptional\nService"
+                    android:textAlignment="center"
+                    android:textColor="#b9b9b9"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/appCompatImageButton3"
+                    android:layout_width="35dp"
+                    android:layout_height="32.54dp"
+                    android:layout_marginStart="89dp"
+                    android:layout_marginTop="46.75dp"
+                    android:background="@drawable/dr_compliment_icon_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="46dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="84dp"
+                    android:layout_marginTop="85dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:text="Very\nFriendly"
+                    android:textAlignment="center"
+                    android:textColor="#b9b9b9"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/appCompatImageButton4"
+                    android:layout_width="35dp"
+                    android:layout_height="33.77dp"
+                    android:layout_marginStart="152dp"
+                    android:layout_marginTop="46dp"
+                    android:background="@drawable/dr_compliment_icon_3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="46dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="145dp"
+                    android:layout_marginTop="85dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:text="Amazing\nExperience"
+                    android:textAlignment="center"
+                    android:textColor="#b9b9b9"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/appCompatImageButton5"
+                    android:layout_width="35dp"
+                    android:layout_height="37.8dp"
+                    android:layout_marginStart="219dp"
+                    android:layout_marginTop="43dp"
+                    android:background="@drawable/dr_compliment_icon_4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="46dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="214dp"
+                    android:layout_marginTop="84dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:text="Expert\nMechanic"
+                    android:textAlignment="center"
+                    android:textColor="#b9b9b9"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/appCompatImageButton6"
+                    android:layout_width="35dp"
+                    android:layout_height="37.8dp"
+                    android:layout_marginStart="275dp"
+                    android:layout_marginTop="43dp"
+                    android:background="@drawable/dr_compliment_icon_5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="46dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="273dp"
+                    android:layout_marginTop="85dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:text="Speedy\nService"
+                    android:textAlignment="center"
+                    android:textColor="#b9b9b9"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/ConstraintLayer3"
+                android:layout_width="match_parent"
+                android:layout_height="124dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="360dp"
+
+                android:background="@drawable/dr_billing_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:id="@+id/txvLayer3MiniHeader"
+                    android:layout_width="210dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:lineSpacingExtra="10sp"
+                    android:text="Write a personal comment"
+                    android:textColor="@color/colorPrimaryTextColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="269dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="79dp"
+                    android:background="#B9B9B9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editTextPersonalMsg"
+                    android:layout_width="199dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="55dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:hint="Thanks for being on time!"
+                    android:inputType="textPersonName"
+                    android:padding="0dp"
+
+                    android:textColor="#B9B9B9"
+                    android:textColorHint="#B9B9B9"
+                    android:textSize="13dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/ConstraintLayer4"
+                android:layout_width="match_parent"
+                android:layout_height="124dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="505dp"
+
+                android:background="@drawable/dr_billing_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:id="@+id/txvLayer4MiniHeader"
+                    android:layout_width="150dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:lineSpacingExtra="10sp"
+                    android:text="Compliments"
+                    android:textColor="@color/colorPrimaryTextColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/appCompatImageButton2C"
+                    android:layout_width="35dp"
+                    android:layout_height="31.51dp"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="42.75dp"
+                    android:background="@drawable/complmt_image1_diamond"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewCPoint"
+                    android:layout_width="20dp"
+                    android:layout_height="9dp"
+                    android:layout_marginStart="54dp"
+                    android:layout_marginTop="35dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:text="200+"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryTextColor"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewC"
+                    android:layout_width="51dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="19dp"
+                    android:layout_marginTop="81dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:text="Exceptional\nService"
+                    android:textAlignment="center"
+                    android:textColor="#b9b9b9"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/appCompatImageButton3C"
+                    android:layout_width="35dp"
+                    android:layout_height="33.77dp"
+                    android:layout_marginStart="95dp"
+                    android:layout_marginTop="43dp"
+                    android:background="@drawable/dr_compliment_icon_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView3cPoint"
+                    android:layout_width="20dp"
+                    android:layout_height="9dp"
+                    android:layout_marginStart="121dp"
+                    android:layout_marginTop="35dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:text="100+"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryTextColor"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView3C"
+                    android:layout_width="50dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="88dp"
+                    android:layout_marginTop="81dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:text="Very\nFriendly"
+                    android:textAlignment="center"
+                    android:textColor="#b9b9b9"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/appCompatImageButton4C"
+                    android:layout_width="35dp"
+                    android:layout_height="33.77dp"
+                    android:layout_marginStart="152dp"
+                    android:layout_marginTop="43dp"
+                    android:background="@drawable/dr_compliment_icon_3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView4cPoint"
+                    android:layout_width="20dp"
+                    android:layout_height="9dp"
+                    android:layout_marginStart="180dp"
+                    android:layout_marginTop="35dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:text="300+"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryTextColor"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView4C"
+                    android:layout_width="46dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="145dp"
+                    android:layout_marginTop="82dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:text="Amazing\nExperience"
+                    android:textAlignment="center"
+                    android:textColor="#b9b9b9"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/ConstraintLayer5"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="645dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_sign_in"
+                    style="@style/home_page_button"
+                    android:layout_width="99dp"
+                    android:layout_height="37dp"
+                    android:layout_marginBottom="21dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/register_button"
+
+                    android:text="Done"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

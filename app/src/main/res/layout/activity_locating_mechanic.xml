@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/default_map_home"
+    tools:context=".locating_mechanic">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/dr_faint_blue_background">
+
+        <ImageView
+            android:id="@+id/appCompatMenuImage1"
+            android:layout_width="20dp"
+            android:layout_height="1.62dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="60dp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/menuvector" />
+
+
+        <ImageView
+            android:id="@+id/appCompatMenuImage2"
+            android:layout_width="20dp"
+            android:layout_height="1.62dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="66.13dp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/menuvector" />
+
+        <ImageView
+            android:id="@+id/appCompatMenuImage3"
+            android:layout_width="20dp"
+            android:layout_height="1.62dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="72.26dp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/menuvector" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/appCompatmechImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="159dp"
+            android:layout_marginTop="198dp"
+            android:background="@null"
+            android:onClick="onclick_goto_billing"
+
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/mech_image" />
+
+        <TextView
+            android:id="@+id/txtVwScreen2SubTitle"
+            android:layout_width="232dp"
+            android:layout_height="92dp"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="287dp"
+
+            android:fontFamily="@font/glacial_indifference_regular"
+            android:text="Just give  us a minute\nwe're trying to connect\nyou to nearby mechanic"
+            android:textColor="#B9B9B9"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

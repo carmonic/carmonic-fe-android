@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grad_billing_main"
+    tools:context=".billing_main">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/innerScrollConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/appCompatMenuImage1"
+                android:layout_width="20dp"
+                android:layout_height="1.62dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="60dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/menu_vector_yellow" />
+
+
+            <ImageView
+                android:id="@+id/appCompatMenuImage2"
+                android:layout_width="20dp"
+                android:layout_height="1.62dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="66.13dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/menu_vector_yellow" />
+
+            <ImageView
+                android:id="@+id/appCompatMenuImage3"
+                android:layout_width="20dp"
+                android:layout_height="1.62dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="72.26dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/menu_vector_yellow" />
+
+            <TextView
+                android:id="@+id/txtVwScreen2Hdr"
+                android:layout_width="263dp"
+                android:layout_height="68dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="96dp"
+                android:fontFamily="@font/glacial_indifference_regular"
+                android:lineHeight="29sp"
+                android:lineSpacingExtra="10sp"
+                android:text="Thank you for choosing\nCarmonic!"
+                android:textAlignment="textStart"
+                android:textColor="#EDD170"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/txtVwScreensubHdr"
+                android:layout_width="211dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="174dp"
+                android:fontFamily="@font/glacial_indifference_regular"
+                android:lineHeight="29sp"
+                android:lineSpacingExtra="10sp"
+                android:text="@string/billing_rider_msg"
+                android:textAlignment="textStart"
+                android:textColor="#B9B9B9"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- android:paddingRight="31dp"    app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"-->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/topconstraint"
+                android:layout_width="match_parent"
+                android:layout_height="274dp"
+                android:layout_marginEnd="26dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="216dp"
+
+
+                android:background="@drawable/dr_billing_top"
+                android:paddingLeft="29dp"
+                android:paddingTop="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+
+
+                    android:id="@+id/txtVwTitle"
+                    android:layout_width="160dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="94dp"
+                    android:layout_marginStart="94dp"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/glacial_indifference_bold"
+                    android:lineHeight="18sp"
+                    android:paddingBottom="0dp"
+                    android:paddingTop="0dp"
+                    android:text="@string/billing_info_str"
+                    android:textAlignment="textStart"
+                    android:textColor="#EDD170"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtVwBillItemDesc0"
+                    android:layout_width="83dp"
+                    android:layout_height="17dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="56dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:lineHeight="14sp"
+                    android:text="Labor rate"
+                    android:textAlignment="textStart"
+                    android:textColor="#B9B9B9"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtVwBillItemAmt0"
+                    android:layout_width="50dp"
+                    android:layout_height="17dp"
+                    android:layout_marginEnd="31dp"
+                    android:layout_marginTop="56dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:lineHeight="14sp"
+                    android:text="#3500"
+                    android:textAlignment="textEnd"
+                    android:textColor="#B9B9B9"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtVwBillItemDesc1"
+                    android:layout_width="83dp"
+                    android:layout_height="17dp"
+                    android:layout_marginTop="89dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:lineHeight="14sp"
+                    android:text="Charges"
+                    android:textAlignment="textStart"
+                    android:textColor="#B9B9B9"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/txtVwBillItemDesc0"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtVwBillItemAmt1"
+                    android:layout_width="50dp"
+                    android:layout_height="17dp"
+                    android:layout_marginEnd="31dp"
+                    android:layout_marginTop="89dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:lineHeight="14sp"
+                    android:text="#500"
+                    android:textAlignment="textEnd"
+                    android:textColor="#B9B9B9"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtVwBillItemDesc2"
+                    android:layout_width="83dp"
+                    android:layout_height="17dp"
+                    android:layout_marginTop="122dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:lineHeight="14sp"
+                    android:text="Lorem Ipsum"
+                    android:textAlignment="textStart"
+                    android:textColor="#B9B9B9"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/txtVwBillItemDesc1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtVwBillItemAmt2"
+                    android:layout_width="50dp"
+                    android:layout_height="17dp"
+                    android:layout_marginEnd="31dp"
+                    android:layout_marginTop="122dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:lineHeight="14sp"
+                    android:text="#2100"
+                    android:textAlignment="textEnd"
+                    android:textColor="#B9B9B9"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtVwBillItemAmtTotal"
+                    android:layout_width="84dp"
+                    android:layout_height="17dp"
+                    android:layout_marginEnd="31dp"
+                    android:layout_marginTop="167dp"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:lineHeight="14sp"
+                    android:text="Total = #6500"
+                    android:textAlignment="textEnd"
+                    android:textColor="#B9B9B9"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtVwBillingSummary"
+                    android:layout_width="292dp"
+                    android:layout_height="45dp"
+
+
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="195dp"
+
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:lineHeight="17sp"
+                    android:lineSpacingExtra="8sp"
+                    android:paddingLeft="1dp"
+
+                    android:text="@string/billing_total_amount_msg"
+                    android:textColor="#EDD170"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/bottomConstraint"
+                android:layout_width="match_parent"
+                android:layout_height="214dp"
+                android:layout_marginEnd="26dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="516dp"
+
+
+                android:background="@drawable/dr_billing_top"
+                android:paddingLeft="29dp"
+                android:paddingTop="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+
+
+                    android:id="@+id/txtVwTitleFeedBack"
+                    android:layout_width="176dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="94dp"
+                    android:layout_marginStart="85dp"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/glacial_indifference_bold"
+                    android:lineHeight="19sp"
+                    android:paddingBottom="0dp"
+                    android:paddingTop="0dp"
+                    android:text="Tell us how Charles did!"
+                    android:textAlignment="textStart"
+                    android:textColor="#EDD170"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="94dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="60dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/default_mech_image" />
+
+
+                <ImageView
+                    android:id="@+id/starImage2"
+                    android:layout_width="20dp"
+                    android:layout_height="19.2dp"
+
+                    android:layout_marginStart="68dp"
+                    android:layout_marginTop="132dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/star_rating" />
+
+                <ImageView
+                    android:id="@+id/starImage3"
+                    android:layout_width="20dp"
+                    android:layout_height="19.2dp"
+
+                    android:layout_marginStart="91dp"
+                    android:layout_marginTop="132dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/star_rating" />
+
+                <ImageView
+                    android:id="@+id/starImage4"
+                    android:layout_width="20dp"
+                    android:layout_height="19.2dp"
+
+                    android:layout_marginStart="114dp"
+                    android:layout_marginTop="132dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/star_rating" />
+
+                <ImageView
+                    android:id="@+id/starImage5"
+                    android:layout_width="20dp"
+                    android:layout_height="19.2dp"
+
+                    android:layout_marginStart="140dp"
+                    android:layout_marginTop="132dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/star_rating" />
+
+                <ImageView
+                    android:id="@+id/starImage1"
+                    android:layout_width="20dp"
+                    android:layout_height="19.2dp"
+
+                    android:layout_marginStart="165dp"
+                    android:layout_marginTop="132dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/star_rating" />
+
+
+                <!--      <android.support.v7.widget.LinearLayoutCompat
+                         android:id="@+id/linearLayoutCustomButton"
+                         android:layout_width="159dp"
+                         android:layout_height="25.14dp"
+                         android:layout_marginEnd="71dp"
+                         android:layout_marginStart="60dp"
+                         android:layout_marginTop="164dp"
+                         android:paddingBottom="1dp"
+                         android:paddingTop="1dp"
+
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintHorizontal_bias="1.0"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintTop_toTopOf="parent"
+                         >
+                     -->
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button"
+
+                    android:layout_width="160dp"
+                    android:layout_height="25.14dp"
+                    android:layout_marginEnd="80dp"
+                    android:layout_marginStart="33dp"
+                    android:layout_marginTop="165dp"
+                    android:background="@drawable/dr_btn_compliment_mechanic"
+                    android:capitalize="words"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:inputType="textCapWords"
+                    android:onClick="onclick_edit_complmt"
+                    android:paddingLeft="20dp"
+                    android:text="Compliment Mechanic"
+                    android:textColor="#EDD170"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <!--  </android.support.v7.widget.LinearLayoutCompat>-->
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/bottomConstraint1"
+                android:layout_width="match_parent"
+                android:layout_height="214dp"
+                android:layout_marginEnd="26dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="596dp"
+                android:paddingLeft="29dp"
+                android:paddingTop="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_sign_in"
+                    style="@style/home_page_button"
+                    android:layout_width="99dp"
+                    android:layout_height="37dp"
+                    android:layout_marginBottom="21dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/register_button"
+                    android:onClick="onclick_bill_done"
+                    android:text="Done"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

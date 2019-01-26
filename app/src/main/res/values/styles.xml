@@ -1,0 +1,71 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <!--<item name="windowActionBar">false</item> -->
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="home_page_button">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/colorYellow</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:fontFamily">@fonts/product_sans_regular</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:inputType">textCapSentences</item>
+
+
+    </style>
+
+    <style name="txtLabel" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/colorYellow</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#EDD170</item>
+        <!-- Label Color in True state and bar color FALSE and TRUE state -->
+        <item name="android:colorAccent">#FFFFFF</item>
+        <item name="android:colorControlNormal">#ffffff</item>
+        <item name="android:colorControlHighlight">#FF0000</item>
+
+        <item name="android:colorControlActivated">@color/colorYellow</item>
+
+    </style>
+
+    <style name="FieldTheme">
+
+        <item name="android:colorAccent">#000000</item>
+
+    </style>
+
+    <style name="textEditStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryTextColor</item>
+        <item name="android:letterSpacing">0.08</item>
+
+    </style>
+
+    <style name="buttonHomeStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryTextColor</item>
+
+        <item name="android:fontFamily">@font/glacial_indifference_bold</item>
+        <!--  <item name="android:lineHeight">14sp</item> -->
+        <item name="android:textAlignment">center</item>
+
+
+    </style>
+</resources>
