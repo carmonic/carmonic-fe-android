@@ -151,18 +151,20 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
+
                 <android.support.v7.widget.AppCompatImageButton
-                    android:id="@+id/appCompatImageButton2"
+                    android:id="@+id/comImageIa"
                     android:layout_width="35dp"
                     android:layout_height="31.51dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="46.75dp"
                     android:background="@drawable/complmt_image1_diamond"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:onClick="OnClick_Com1aImg"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/comTxt1a"
                     android:layout_width="51dp"
                     android:layout_height="22dp"
                     android:layout_marginStart="16dp"
@@ -175,21 +177,43 @@
                     android:textSize="9sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:onClick="OnClick_Com1aTxv"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/comTxt1b"
+                    android:layout_width="71dp"
+                    android:layout_height="71dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="37dp"
+                    android:background="@drawable/dr_compliment_yellow_icon_1"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="OnClick_Com1b"
+                    android:paddingTop="41dp"
+                    android:text="Exceptional\nService"
+                    android:textAlignment="center"
+                    android:textColor="#003D73"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
                 <android.support.v7.widget.AppCompatImageButton
-                    android:id="@+id/appCompatImageButton3"
+                    android:id="@+id/comImg2a"
                     android:layout_width="35dp"
                     android:layout_height="32.54dp"
                     android:layout_marginStart="89dp"
                     android:layout_marginTop="46.75dp"
                     android:background="@drawable/dr_compliment_icon_2"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:onClick="OnClick_Com2aImg"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/comTxv2a"
                     android:layout_width="46dp"
                     android:layout_height="22dp"
                     android:layout_marginStart="84dp"
@@ -201,6 +225,27 @@
                     android:textColor="#b9b9b9"
                     android:textSize="9sp"
                     android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:onClick="OnClick_Com2aTxv"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/comTxt2b"
+                    android:layout_width="71dp"
+                    android:layout_height="71dp"
+                    android:layout_marginStart="73dp"
+                    android:layout_marginTop="36dp"
+                    android:background="@drawable/dr_compliment_yellow_icon_2"
+                    android:fontFamily="@font/glacial_indifference_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="OnClick_Com2b"
+                    android:paddingTop="41dp"
+                    android:text="Very\nFriendly"
+                    android:textAlignment="center"
+                    android:textColor="#003D73"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
