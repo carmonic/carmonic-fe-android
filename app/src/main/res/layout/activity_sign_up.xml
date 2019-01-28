@@ -87,6 +87,7 @@
         android:layout_marginStart="53dp"
         android:layout_marginTop="385dp"
         android:orientation="horizontal"
+
         android:paddingBottom="1dp"
         app:hintTextAppearance="@style/txtLabel"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,6 +97,7 @@
             android:id="@+id/txtEditEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:hint="Email  Address"
             android:inputType="textEmailAddress"
             android:theme="@style/textEditStyle" />
@@ -108,6 +110,7 @@
         android:layout_marginStart="53dp"
         android:layout_marginTop="458dp"
         android:orientation="horizontal"
+
         app:hintTextAppearance="@style/txtLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

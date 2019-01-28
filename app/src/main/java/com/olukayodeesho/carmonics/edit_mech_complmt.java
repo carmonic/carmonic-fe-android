@@ -41,6 +41,29 @@ public class edit_mech_complmt extends AppCompatActivity {
         txtVw2b.setVisibility(View.INVISIBLE);
 
 
+        ImageButton btn3a = findViewById(R.id.comImg3a);
+        btn3a.setVisibility(View.VISIBLE);
+        TextView txtVw3a = findViewById(R.id.comTxv3a);
+        txtVw3a.setVisibility(View.VISIBLE);
+        TextView txtVw3b = findViewById(R.id.comTxt3b);
+        txtVw3b.setVisibility(View.INVISIBLE);
+
+        ImageButton btn4a = findViewById(R.id.comImg4a);
+        btn4a.setVisibility(View.VISIBLE);
+        TextView txtVw4a = findViewById(R.id.comTxv4a);
+        txtVw4a.setVisibility(View.VISIBLE);
+        TextView txtVw4b = findViewById(R.id.comTxt4b);
+        txtVw4b.setVisibility(View.INVISIBLE);
+
+
+        ImageButton btn5a = findViewById(R.id.comImg5a);
+        btn5a.setVisibility(View.VISIBLE);
+        TextView txtVw5a = findViewById(R.id.comTxv5a);
+        txtVw5a.setVisibility(View.VISIBLE);
+        TextView txtVw5b = findViewById(R.id.comTxt5b);
+        txtVw5b.setVisibility(View.INVISIBLE);
+
+
         switch (complimentImageState) {
             case One:
                 txtVw1a.setVisibility(View.VISIBLE);
@@ -69,18 +92,43 @@ public class edit_mech_complmt extends AppCompatActivity {
                 break;
 
             case Three:
+                txtVw3a.setVisibility(View.VISIBLE);
+                btn3a.setVisibility(View.VISIBLE);
+
+                txtVw3b.setVisibility(View.INVISIBLE);
+
                 break;
             case ThreeYellow:
+                txtVw3a.setVisibility(View.INVISIBLE);
+                btn3a.setVisibility(View.INVISIBLE);
+
+                txtVw3b.setVisibility(View.VISIBLE);
                 break;
 
             case Four:
+                txtVw4a.setVisibility(View.VISIBLE);
+                btn4a.setVisibility(View.VISIBLE);
+
+                txtVw4b.setVisibility(View.INVISIBLE);
                 break;
             case FourYellow:
+                txtVw4a.setVisibility(View.INVISIBLE);
+                btn4a.setVisibility(View.INVISIBLE);
+
+                txtVw4b.setVisibility(View.VISIBLE);
                 break;
 
             case Five:
+                txtVw5a.setVisibility(View.VISIBLE);
+                btn5a.setVisibility(View.VISIBLE);
+
+                txtVw5b.setVisibility(View.INVISIBLE);
                 break;
             case FiveYellow:
+                txtVw5a.setVisibility(View.INVISIBLE);
+                btn5a.setVisibility(View.INVISIBLE);
+
+                txtVw5b.setVisibility(View.VISIBLE);
                 break;
             default:
 
@@ -104,6 +152,7 @@ public class edit_mech_complmt extends AppCompatActivity {
         ComplimentImageSelector(ComplimentImageState.OneYellow);
     }
 
+
     public void OnClick_Com2aImg(View view) {
         ComplimentImageSelector(ComplimentImageState.TwoYellow);
     }
@@ -116,6 +165,51 @@ public class edit_mech_complmt extends AppCompatActivity {
     public void OnClick_Com2b(View view) {
 
         ComplimentImageSelector(ComplimentImageState.Two);
+    }
+
+    //segment 3
+    public void OnClick_Com3aImg(View view) {
+        ComplimentImageSelector(ComplimentImageState.ThreeYellow);
+    }
+
+    public void OnClick_Com3aTxv(View view) {
+
+        ComplimentImageSelector(ComplimentImageState.ThreeYellow);
+    }
+
+    public void OnClick_Com3b(View view) {
+
+        ComplimentImageSelector(ComplimentImageState.Three);
+    }
+
+    //segment 4
+    public void OnClick_Com4aImg(View view) {
+        ComplimentImageSelector(ComplimentImageState.FourYellow);
+    }
+
+    public void OnClick_Com4aTxv(View view) {
+
+        ComplimentImageSelector(ComplimentImageState.FourYellow);
+    }
+
+    public void OnClick_Com4b(View view) {
+
+        ComplimentImageSelector(ComplimentImageState.Four);
+    }
+
+    //segment 5
+    public void OnClick_Com5aImg(View view) {
+        ComplimentImageSelector(ComplimentImageState.FiveYellow);
+    }
+
+    public void OnClick_Com5aTxv(View view) {
+
+        ComplimentImageSelector(ComplimentImageState.FiveYellow);
+    }
+
+    public void OnClick_Com5b(View view) {
+
+        ComplimentImageSelector(ComplimentImageState.Five);
     }
 
 
