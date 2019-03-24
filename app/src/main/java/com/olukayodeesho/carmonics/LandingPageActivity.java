@@ -2,26 +2,23 @@ package com.olukayodeesho.carmonics;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
 
-public class sign_up extends AppCompatActivity {
+public class LandingPageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        //setContentView(R.layout.main_drawer_page);
 
+        setContentView(R.layout.main_landing);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
 
-        TextView hdrTv = findViewById(R.id.txtVwScreen2Hdr);
+     /*   TextView hdrTv = findViewById(R.id.txtVwScreen2Hdr);
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceBold.ttf");
         hdrTv.setTypeface(tf);
 
@@ -51,22 +48,34 @@ public class sign_up extends AppCompatActivity {
         txtInMail.setTypeface(tfMail);
 
         TextInputEditText txtEditMail = findViewById(R.id.txtEditEmail);
-        txtEditMail.setTypeface(tfMail);
+        txtEditMail.setTypeface(tfMail);*/
 
 
     }
 
-    public void onclick_back(View view) {
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+    public void proceedToSignIn(View view) {
+        Intent i = new Intent(getApplicationContext(), SignInActivity.class);
         startActivity(i);
 
     }
 
-    public void onclick_regPage1(View view) {
+    public void proceedToSignUp(View view) {
         //  Intent i = new Intent(getApplicationContext(), MainActivity.class);
         //  startActivity(i);
-        Intent i = new Intent(getApplicationContext(), sign_up2.class);
+        Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
         startActivity(i);
+    }
+
+    public void onclick_Register(View view) {
+        Intent i = new Intent(getApplicationContext(), sign_upActivity.class);
+        startActivity(i);
+
+    }
+
+    public void onclick_SignIn(View view) {
+        Intent i = new Intent(getApplicationContext(), SignInActivity.class);
+        startActivity(i);
+
     }
 }
 

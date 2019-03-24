@@ -11,13 +11,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-public class sign_in extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_sign_up2);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
 
@@ -50,15 +49,8 @@ public class sign_in extends AppCompatActivity {
 
     }
 
-    public void onclick_sign_in_back(View view) {
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
-
-    }
-
-
     public void onclick_back2(View view) {
-        Intent i = new Intent(getApplicationContext(), sign_up.class);
+        Intent i = new Intent(getApplicationContext(), sign_upActivity.class);
         startActivity(i);
     }
 
