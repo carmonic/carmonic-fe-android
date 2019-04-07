@@ -11,7 +11,18 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.camsys.carmonic.networking.BackEndDAO;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
 public class SignUpActivity extends AppCompatActivity {
+
+    TextInputLayout txtInputLayPwd = null;
+    TextInputLayout txtInputLayPwd2 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
         Typeface tfSub = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         subTitleTv.setTypeface(tfSub);
 
-        TextInputLayout txtInputLayPwd = findViewById(R.id.txtinputLayPwd);
+        txtInputLayPwd = findViewById(R.id.txtinputLayPwd);
         Typeface tfPwd = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         txtInputLayPwd.setTypeface(tfPwd);
 
@@ -38,7 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
         txtEditPwd.setTypeface(tfEditPwd);
 
 
-        TextInputLayout txtInputLayPwd2 = findViewById(R.id.txtinputLayPwd2);
+        txtInputLayPwd2 = findViewById(R.id.txtinputLayPwd2);
         Typeface tfPwd2 = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         txtInputLayPwd2.setTypeface(tfPwd2);
 
@@ -56,6 +67,25 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void onclick_regPage1(View view) {
         Intent i = new Intent(getApplicationContext(), home_screen.class);
-        startActivity(i);
+        String password = txtInputLayPwd.getEditText().getText().toString();
+        String confirmPassword = txtInputLayPwd2.getEditText().getText().toString();
+        //ToDo: Get name and email details from previous screen
+        if (password.equals(confirmPassword)) {
+            BackEndDAO.signUp("", "", "", password, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (!response.isSuccessful()) {
+                        throw new IOException("Unexpected code " + response);
+                    } else {
+                        startActivity(i);
+                    }
+                }
+            });
+        }
     }
 }
