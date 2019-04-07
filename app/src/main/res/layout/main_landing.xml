@@ -65,7 +65,7 @@
             android:layout_marginEnd="30dp"
             android:layout_marginTop="132dp"
             android:fontFamily="@fonts/product_sans_bold"
-            android:text="@string/carmonics"
+            android:text="@string/carmonic"
             android:textColor="@color/colorBlueHeader"
             android:textSize="38dp"
             android:textStyle="bold"

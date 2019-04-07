@@ -1,4 +1,4 @@
-package com.olukayodeesho.carmonics;
+package com.camsys.carmonic;
 
 import org.junit.Test;
 

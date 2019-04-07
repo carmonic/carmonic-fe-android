@@ -1,4 +1,4 @@
-package com.olukayodeesho.carmonics.fragments;
+package com.camsys.carmonic.fragments;
 
 
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.olukayodeesho.carmonics.R;
+import com.camsys.carmonic.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

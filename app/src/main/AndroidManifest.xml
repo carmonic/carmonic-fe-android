@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.olukayodeesho.carmonics">
+    package="com.camsys.carmonic">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LandingPageActivity"
+            android:name="com.camsys.carmonic.LandingPageActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,28 +20,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".sign_upActivity"
+            android:name="com.camsys.carmonic.sign_upActivity"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".SignInActivity"
+            android:name="com.camsys.carmonic.SignInActivity"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".SignUpActivity"
+            android:name="com.camsys.carmonic.SignUpActivity"
             android:label="@string/title_activity_sign_up2"
             android:theme="@style/AppTheme" />
-        <activity android:name=".home_screen" />
-        <activity android:name=".billing_main" />
-        <activity android:name=".confirm_location" />
-        <activity android:name=".locating_mechanic" />
-        <activity android:name=".edit_mech_complmt" />
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.camsys.carmonic.home_screen" />
+        <activity android:name="com.camsys.carmonic.billing_main" />
+        <activity android:name="com.camsys.carmonic.confirm_location" />
+        <activity android:name="com.camsys.carmonic.locating_mechanic" />
+        <activity android:name="com.camsys.carmonic.edit_mech_complmt" />
+        <activity android:name="com.camsys.carmonic.MainActivity" />
 
         <activity
-            android:name=".nav_drawer"
+            android:name="com.camsys.carmonic.nav_drawer"
             android:label="@string/title_activity_nav_drawer"
             android:theme="@style/AppTheme"></activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

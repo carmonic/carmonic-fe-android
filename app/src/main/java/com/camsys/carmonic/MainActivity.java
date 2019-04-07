@@ -1,4 +1,4 @@
-package com.olukayodeesho.carmonics;
+package com.camsys.carmonic;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,9 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.olukayodeesho.carmonics.fragments.ComplementFragment;
-import com.olukayodeesho.carmonics.fragments.ConfirmLocationFragment;
-import com.olukayodeesho.carmonics.fragments.HomeFragment;
+import com.camsys.carmonic.fragments.ComplementFragment;
+import com.camsys.carmonic.fragments.ConfirmLocationFragment;
+import com.camsys.carmonic.fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar = null;

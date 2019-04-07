@@ -1,4 +1,4 @@
-package com.olukayodeesho.carmonics.fragments;
+package com.camsys.carmonic.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,22 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.olukayodeesho.carmonics.MainActivity;
-import com.olukayodeesho.carmonics.R;
+import com.camsys.carmonic.R;
 
-public class SampleFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // return super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.main_landing, container, false);
+        View view = inflater.inflate(R.layout.activity_home_screen, container, false);
         return view;
     }
 
     public void GoToXPage() {
-        ((MainActivity) this.getActivity()).GoToFragment(new SampleFragment());
+        //  ((MainActivity)this.getActivity()).GoToFragment(new ComplementFragment());
     }
 
 
