@@ -66,12 +66,16 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void onclick_regPage1(View view) {
-        Intent i = new Intent(getApplicationContext(), home_screen.class);
+        String firstname = getIntent().getStringExtra("firstname");
+        String lastname = getIntent().getStringExtra("lastname");
+        String email = getIntent().getStringExtra("email");
         String password = txtInputLayPwd.getEditText().getText().toString();
         String confirmPassword = txtInputLayPwd2.getEditText().getText().toString();
-        //ToDo: Get name and email details from previous screen
+
+        Intent i = new Intent(getApplicationContext(), home_screen.class);
+
         if (password.equals(confirmPassword)) {
-            BackEndDAO.signUp("", "", "", password, new Callback() {
+            BackEndDAO.signUp(firstname, lastname, email, password, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();

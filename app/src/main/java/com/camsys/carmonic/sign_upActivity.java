@@ -10,8 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-
+/*
+ * This Sign Up activity is for the first page with firstname, lastname and email
+ */
 public class sign_upActivity extends AppCompatActivity {
+
+    TextInputLayout txtInName = null;
+    TextInputLayout textInputLayoutLastName = null;
+    TextInputLayout txtInPhone = null;
+    TextInputLayout txtInMail = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +36,23 @@ public class sign_upActivity extends AppCompatActivity {
         Typeface tfSub = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         subTitleTv.setTypeface(tfSub);
 
-        TextInputLayout txtInName = findViewById(R.id.txtinputLayName);
+        txtInName = findViewById(R.id.txtinputLayName);
         Typeface tfName = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
-        subTitleTv.setTypeface(tfName);
+        txtInName.setTypeface(tfName);
 
         TextInputEditText txtEditName = findViewById(R.id.txtEditName);
         Typeface tfEditName = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         txtEditName.setTypeface(tfEditName);
 
+        textInputLayoutLastName = findViewById(R.id.txtinputLayLastName);
+        Typeface tfLastName = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
+        textInputLayoutLastName.setTypeface(tfLastName);
 
-        TextInputLayout txtInPhone = findViewById(R.id.txtinputLayPhone);
+        TextInputEditText txtEditLastName = findViewById(R.id.txtEditLastName);
+        Typeface tfEditLastName = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
+        txtEditLastName.setTypeface(tfEditLastName);
+
+        txtInPhone = findViewById(R.id.txtinputLayPhone);
         Typeface tfInPhone = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         txtInPhone.setTypeface(tfInPhone);
 
@@ -46,7 +60,7 @@ public class sign_upActivity extends AppCompatActivity {
         Typeface tfEditPhone = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         txtEditPhone.setTypeface(tfEditPhone);
 
-        TextInputLayout txtInMail = findViewById(R.id.txtinputLayEmail);
+        txtInMail = findViewById(R.id.txtinputLayEmail);
         Typeface tfMail = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         txtInMail.setTypeface(tfMail);
 
@@ -63,9 +77,16 @@ public class sign_upActivity extends AppCompatActivity {
     }
 
     public void onclick_regPage1(View view) {
-        //  Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        //  startActivity(i);
+        String firstname = txtInName.getEditText().getText().toString();
+        String lastname = textInputLayoutLastName.getEditText().getText().toString();
+        String email = txtInMail.getEditText().getText().toString();
+        String phoneNumber = txtInPhone.getEditText().getText().toString();
+
         Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
+        i.putExtra("firstname", firstname);
+        i.putExtra("lastname", lastname);
+        i.putExtra("email", email);
+        i.putExtra("phonenumber", phoneNumber);
         startActivity(i);
     }
 }
