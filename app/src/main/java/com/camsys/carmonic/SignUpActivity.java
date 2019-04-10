@@ -31,7 +31,6 @@ public class SignUpActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
 
-
         TextView hdrTv = findViewById(R.id.txtVwScreen2Hdr);
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceBold.ttf");
         hdrTv.setTypeface(tf);
@@ -56,8 +55,6 @@ public class SignUpActivity extends AppCompatActivity {
         TextInputEditText txtEditPwd2 = findViewById(R.id.txtEditPwd2);
         Typeface tfEditPwd2 = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         txtEditPwd2.setTypeface(tfEditPwd2);
-
-
     }
 
     public void onclick_back2(View view) {
