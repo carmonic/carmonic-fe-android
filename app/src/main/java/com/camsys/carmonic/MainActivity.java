@@ -52,8 +52,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         GoToHomeFragment();
-        //navigationView.getHeaderView(0).fin
-        //getActionBar().setTitle("");
     }
 
     @Override
@@ -65,12 +63,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
 
     public void HideToolBar() {
         toolbar.setVisibility(View.INVISIBLE);

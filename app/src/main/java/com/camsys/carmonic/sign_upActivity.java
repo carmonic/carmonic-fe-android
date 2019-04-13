@@ -66,14 +66,11 @@ public class sign_upActivity extends AppCompatActivity {
 
         TextInputEditText txtEditMail = findViewById(R.id.txtEditEmail);
         txtEditMail.setTypeface(tfMail);
-
-
     }
 
     public void onclick_back(View view) {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
-
     }
 
     public void onclick_regPage1(View view) {

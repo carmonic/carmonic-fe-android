@@ -69,7 +69,9 @@ public class SignUpActivity extends AppCompatActivity {
         String password = txtInputLayPwd.getEditText().getText().toString();
         String confirmPassword = txtInputLayPwd2.getEditText().getText().toString();
 
-        Intent i = new Intent(getApplicationContext(), home_screen.class);
+        Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+        i.putExtra("firstname", firstname);
+        i.putExtra("lastname", lastname);
 
         if (password.equals(confirmPassword)) {
             BackEndDAO.signUp(firstname, lastname, email, password, new Callback() {

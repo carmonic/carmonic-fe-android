@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.camsys.carmonic.networking.BackEndDAO;
 import com.camsys.carmonic.networking.LoginResponse;
+import com.camsys.carmonic.networking.User;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -73,7 +74,7 @@ public class SignInActivity extends AppCompatActivity {
         String email = txtInputLayEmail.getEditText().getText().toString();
         String password = txtInputLayPassword.getEditText().getText().toString();
 
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        Intent i = new Intent(getApplicationContext(), MapsActivity.class);
 
         BackEndDAO.signIn(email, password, new Callback() {
             @Override
@@ -89,6 +90,9 @@ public class SignInActivity extends AppCompatActivity {
                     String responseBodyString = response.body().string();
                     Gson gson = new Gson();
                     LoginResponse loginResponse = gson.fromJson(responseBodyString, LoginResponse.class);
+                    User user = loginResponse.getUser();
+                    i.putExtra("firstname", user.getFirstname());
+                    i.putExtra("lastname", user.getLastname());
                     startActivity(i);
                 }
             }
