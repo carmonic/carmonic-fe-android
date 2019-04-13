@@ -17,7 +17,6 @@
         android:background="@drawable/default_map_home"
         tools:context=".home_screen">
 
-
         <ImageView
             android:id="@+id/appCompatMenuImage1"
             android:layout_width="20dp"
