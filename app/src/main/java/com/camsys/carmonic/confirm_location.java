@@ -16,21 +16,17 @@ public class confirm_location extends AppCompatActivity {
         setContentView(R.layout.activity_confirm_location);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
-        EditText confirmLocation = findViewById(R.id.editTextConfirmLocation);
+        EditText confirmLocation = findViewById(R.id.txVwHomeHdr);
         confirmLocation.setText(getIntent().getStringExtra("locationAddress"));
 
     }
 
     public void onclick_locating_mechanic(View view) {
-
-// go to tentatively billing
         Intent i = new Intent(getApplicationContext(), locating_mechanic.class);
         startActivity(i);
     }
 
     public void onclick_cancel_location_confirmation(View view) {
-
-// go to tentatively billing
         Intent i = new Intent(getApplicationContext(), home_screen.class);
         startActivity(i);
     }

@@ -2,6 +2,8 @@ package com.camsys.carmonic;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -23,12 +25,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private GoogleMap mMap;
     private boolean mLocationPermissionGranted;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    private LatLng customerPosition;
 
     private DrawerLayout dl;
 
@@ -36,6 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -47,6 +54,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void onclick_mechanic_request(View view) {
         Intent i = new Intent(getApplicationContext(), confirm_location.class);
+        Geocoder geoCoder = new Geocoder(getApplicationContext());
+        List<Address> matches = null;
+        try {
+            matches = geoCoder.getFromLocation(customerPosition.latitude, customerPosition.longitude, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Address bestMatch = (matches.isEmpty() ? null : matches.get(0));
+        StringBuilder strReturnedAddress = new StringBuilder("");
+
+        for (int j = 0; j <= bestMatch.getMaxAddressLineIndex(); j++) {
+            strReturnedAddress.append(bestMatch.getAddressLine(j)).append("\n");
+        }
+        i.putExtra("locationAddress", strReturnedAddress.toString());
         startActivity(i);
     }
 
@@ -73,8 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void onSuccess(Location location) {
                         if (location != null) {
-                            LatLng customerPosition = new LatLng(location.getLatitude(),
-                                    location.getLongitude());
+                            customerPosition = new LatLng(location.getLatitude(), location.getLongitude());
                             mMap.addMarker(new MarkerOptions().position(customerPosition).title(firstname));
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(customerPosition));
                             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));

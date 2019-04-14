@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/grad_billing_main"
@@ -41,8 +42,8 @@
         android:id="@+id/txtVwScreensubHdr"
         android:layout_width="203dp"
         android:layout_height="20dp"
-        android:layout_marginStart="87dp"
-        android:layout_marginTop="163dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="196dp"
         android:fontFamily="@font/glacial_indifference_regular"
         android:lineHeight="19sp"
         android:lineSpacingExtra="10sp"
@@ -54,34 +55,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/topframe"
+        android:layout_width="293dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/dr_home_top"
+        android:paddingLeft="27dp"
+        android:paddingTop="10dp"
+        android:paddingRight="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/txVwHomeHdr"
+            android:layout_width="238dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="79dp"
+            android:layout_marginTop="108dp"
+            android:background="#00ffffff"
+            android:fontFamily="@font/glacial_indifference_bold"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLength="2000"
+            android:maxLines="4"
+            android:textColor="#CCEDD170"
+            android:textColorHint="#CCEDD170"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </android.support.constraint.ConstraintLayout>
+
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_sign_in"
         style="@style/home_page_button"
         android:layout_width="99dp"
         android:layout_height="37dp"
-        android:layout_marginBottom="21dp"
         android:layout_marginEnd="25dp"
+        android:layout_marginBottom="21dp"
         android:background="@drawable/register_button"
         android:onClick="onclick_locating_mechanic"
         android:text="@string/Next"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextConfirmLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="17dp"
-        android:layout_marginEnd="57dp"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="60dp"
-        android:ems="10"
-        android:fontFamily="@font/glacial_indifference_regular"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtVwScreensubHdr" />
 
 </android.support.constraint.ConstraintLayout>

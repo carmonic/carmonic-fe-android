@@ -24,8 +24,11 @@ import okhttp3.Response;
 
 public class SignInActivity extends AppCompatActivity {
 
+    private static final String SIGN_IN_INSTRUCTION_MESSAGE = "Sign into your account";
+
     TextInputLayout txtInputLayEmail = null;
     TextInputLayout txtInputLayPassword = null;
+    TextView subTitleTv = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +42,10 @@ public class SignInActivity extends AppCompatActivity {
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceBold.ttf");
         hdrTv.setTypeface(tf);
 
-        TextView subTitleTv = findViewById(R.id.txtVwScreen2SubTitle);
+        subTitleTv = findViewById(R.id.txtVwScreen2SubTitle);
         Typeface tfSub = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         subTitleTv.setTypeface(tfSub);
+        subTitleTv.setText(SIGN_IN_INSTRUCTION_MESSAGE);
 
         txtInputLayEmail = findViewById(R.id.txtinputLayEmail);
         Typeface tfPwd = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
@@ -79,6 +83,7 @@ public class SignInActivity extends AppCompatActivity {
         BackEndDAO.signIn(email, password, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                // SHow a network error popup
                 e.printStackTrace();
             }
 
@@ -91,9 +96,23 @@ public class SignInActivity extends AppCompatActivity {
                     Gson gson = new Gson();
                     LoginResponse loginResponse = gson.fromJson(responseBodyString, LoginResponse.class);
                     User user = loginResponse.getUser();
-                    i.putExtra("firstname", user.getFirstname());
-                    i.putExtra("lastname", user.getLastname());
-                    startActivity(i);
+
+                    SignInActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            subTitleTv.setText(loginResponse.getAuthInfo().getMessage());
+                            if (user.getToken() != null) {
+                                subTitleTv.setTextColor(Color.GREEN);
+                                i.putExtra("firstname", user.getFirstname());
+                                i.putExtra("lastname", user.getLastname());
+                                startActivity(i);
+                            } else {
+                                subTitleTv.setTextColor(Color.RED);
+                                txtInputLayEmail.getEditText().setText("");
+                                txtInputLayPassword.getEditText().setText("");
+                            }
+                        }
+                    });
                 }
             }
         });

@@ -9,7 +9,7 @@ import okhttp3.RequestBody;
 public class BackEndDAO {
 
     private static OkHttpClient client = new OkHttpClient();
-    private static final String BACKEND_URL = "http://192.168.0.10:3000";
+    private static final String BACKEND_URL = "http://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:3000";
 
     public static void signUp(String firstName, String lastName, String email, String password, Callback callback) {
         String route = "/signup";

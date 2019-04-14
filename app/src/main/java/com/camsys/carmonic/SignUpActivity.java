@@ -12,6 +12,9 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.camsys.carmonic.networking.BackEndDAO;
+import com.camsys.carmonic.networking.LoginResponse;
+import com.camsys.carmonic.networking.User;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -21,8 +24,9 @@ import okhttp3.Response;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    TextInputLayout txtInputLayPwd = null;
-    TextInputLayout txtInputLayPwd2 = null;
+    private TextInputLayout txtInputLayPwd = null;
+    private TextInputLayout txtInputLayPwd2 = null;
+    private TextView subTitleTv = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceBold.ttf");
         hdrTv.setTypeface(tf);
 
-        TextView subTitleTv = findViewById(R.id.txtVwScreen2SubTitle);
+        subTitleTv = findViewById(R.id.txtVwScreen2SubTitle);
         Typeface tfSub = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         subTitleTv.setTypeface(tfSub);
 
@@ -82,10 +86,31 @@ public class SignUpActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
+
                     if (!response.isSuccessful()) {
                         throw new IOException("Unexpected code " + response);
                     } else {
-                        startActivity(i);
+                        String responseBodyString = response.body().string();
+                        Gson gson = new Gson();
+                        LoginResponse loginResponse = gson.fromJson(responseBodyString, LoginResponse.class);
+                        User user = loginResponse.getUser();
+
+                        SignUpActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                subTitleTv.setText(loginResponse.getAuthInfo().getMessage());
+                                if (user.getToken() != null) {
+                                    subTitleTv.setTextColor(Color.GREEN);
+                                    i.putExtra("firstname", user.getFirstname());
+                                    i.putExtra("lastname", user.getLastname());
+                                    startActivity(i);
+                                } else {
+                                    subTitleTv.setTextColor(Color.RED);
+                                    txtInputLayPwd.getEditText().setText("");
+                                    txtInputLayPwd2.getEditText().setText("");
+                                }
+                            }
+                        });
                     }
                 }
             });
