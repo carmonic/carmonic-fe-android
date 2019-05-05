@@ -14,7 +14,6 @@ public class locating_mechanic extends AppCompatActivity {
 
     private static int TIME_OUT = 2000;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,14 +28,10 @@ public class locating_mechanic extends AppCompatActivity {
                 finish();
             }
         }, TIME_OUT);
-
-
     }
 
 
     public void onclick_goto_billing(View view) {
-
-// go to tentatively billing
         Intent i = new Intent(getApplicationContext(), billing_main.class);
         startActivity(i);
     }

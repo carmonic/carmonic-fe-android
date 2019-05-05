@@ -1,9 +1,11 @@
 package com.camsys.carmonic;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +15,7 @@ import android.widget.TextView;
 
 import com.camsys.carmonic.networking.BackEndDAO;
 import com.camsys.carmonic.networking.LoginResponse;
-import com.camsys.carmonic.networking.User;
+import com.camsys.carmonic.principals.User;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -105,6 +107,15 @@ public class SignInActivity extends AppCompatActivity {
                                 subTitleTv.setTextColor(Color.GREEN);
                                 i.putExtra("firstname", user.getFirstname());
                                 i.putExtra("lastname", user.getLastname());
+
+                                // Storing this in SharedPreferences because we need the authToken later on
+                                // ToDo: Long term, we need a more secure way to store this, or to use another mechanism for authentication
+                                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("Authorisation", user.getToken());
+                                editor.putString("User", gson.toJson(user));
+                                editor.apply();
+
                                 startActivity(i);
                             } else {
                                 subTitleTv.setTextColor(Color.RED);

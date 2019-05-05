@@ -1,4 +1,4 @@
-package com.camsys.carmonic.networking;
+package com.camsys.carmonic.principals;
 
 public class User {
 

@@ -1,5 +1,7 @@
 package com.camsys.carmonic.networking;
 
+import com.camsys.carmonic.principals.User;
+
 public class LoginResponse {
 
     private User user;

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.camsys.carmonic.networking.BackEndDAO;
 import com.camsys.carmonic.networking.LoginResponse;
-import com.camsys.carmonic.networking.User;
+import com.camsys.carmonic.principals.User;
 import com.google.gson.Gson;
 
 import java.io.IOException;

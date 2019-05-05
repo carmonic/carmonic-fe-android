@@ -11,8 +11,8 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -36,7 +36,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private LatLng customerPosition;
 
-    private DrawerLayout dl;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        mDrawerLayout = findViewById(R.id.drawerMain);
     }
 
     public void onclick_mechanic_request(View view) {
@@ -69,6 +71,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         i.putExtra("locationAddress", strReturnedAddress.toString());
         startActivity(i);
+    }
+
+    public void onClickMenuImage(View view) {
+        mDrawerLayout.openDrawer(Gravity.START);
     }
 
     /**

@@ -22,7 +22,8 @@ public class confirm_location extends AppCompatActivity {
     }
 
     public void onclick_locating_mechanic(View view) {
-        Intent i = new Intent(getApplicationContext(), locating_mechanic.class);
+        Intent i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
+        i.putExtra("locationAddress", getIntent().getStringExtra("locationAddress"));
         startActivity(i);
     }
 
