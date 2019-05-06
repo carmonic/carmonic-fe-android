@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.camsys.carmonic.networking.BackEndDAO;
@@ -20,6 +22,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -41,12 +45,16 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     private String locationAddress;
     private LatLng customerPosition = null;
 
-    private ConstraintLayout constraintLayout;
+    private ConstraintLayout popUpConstraintLayout;
+    private ConstraintLayout metadataConstraintLayout;
+    private TextView mechanicName;
+    private TextView mechanicProximityMessage;
+    private TextView mechanicStarRating;
+    private ImageView mechanicImage; //ToDo: fetch mechanic image from backend
     private TextView popUpMessage;
 
     private Socket socket;
     private List<Mechanic> mechanicList; //list of closest mechanics to user
-    private Mechanic mechanic; //mechanic that accepted the job
     private User user;
     private boolean mechanicJobAccepted; //true if a mechanic has accepted the job
     private Gson gson = new Gson();
@@ -61,8 +69,13 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         setContentView(R.layout.activity_maps_with_location_confirmed);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        constraintLayout = findViewById(R.id.networkActivityPopUp);
+        popUpConstraintLayout = findViewById(R.id.networkActivityPopUp);
         popUpMessage = findViewById(R.id.txtVwScreen2SubTitle);
+        mechanicName = findViewById(R.id.mechanicName);
+        mechanicProximityMessage = findViewById(R.id.mechanicDistanceMessage);
+        mechanicStarRating = findViewById(R.id.mechanicStarRating);
+        metadataConstraintLayout = findViewById(R.id.metadataConstraint);
+        metadataConstraintLayout.setVisibility(View.INVISIBLE);
         locationAddress = getIntent().getStringExtra("locationAddress");
     }
 
@@ -125,7 +138,6 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
 
                 @Override
                 public void call(Object... args) {
-                    System.out.println("Connected to ws server");
                     socket.emit("customer_register", gson.toJson(user));
                 }
 
@@ -133,16 +145,23 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
 
                 @Override
                 public void call(Object... args) {
-                    Mechanic mechanic = (Mechanic) args[0];
-                    System.out.println("Mechanic accepted job");
+                    JSONObject jsonObject = (JSONObject) args[0];
+                    Mechanic mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
                     mechanicJobAccepted = true;
+                    mechanicName.setText(mechanic.getName());
+                    MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            popUpConstraintLayout.setVisibility(View.INVISIBLE);
+                            metadataConstraintLayout.setVisibility(View.VISIBLE);
+                        }
+                    });
                 }
 
             }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
 
                 @Override
                 public void call(Object... args) {
-
                 }
 
             });

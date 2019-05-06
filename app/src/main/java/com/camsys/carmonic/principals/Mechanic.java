@@ -7,6 +7,7 @@ public class Mechanic {
     private double latitude;
     private double longitude;
     private String phone_number;
+    private double starRating;
 
     public int getId() {
         return id;
@@ -26,5 +27,9 @@ public class Mechanic {
 
     public String getPhoneNumber() {
         return phone_number;
+    }
+
+    private double getStarRating() {
+        return starRating;
     }
 }
