@@ -1,5 +1,6 @@
 package com.camsys.carmonic;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -41,11 +43,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 //ToDo: Merge this class with MapsActivity, there is no need for them to be separate
+//ToDo: Remove the websocket concerns from here
 public class MapsActivityWithLocationConfirmed extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private String locationAddress;
     private LatLng customerPosition = null;
+    private Marker customerMarker = null;
+    private LatLng mechanicPosition = null;
+    private Marker mechanicMarker = null;
 
     private ConstraintLayout popUpConstraintLayout;
     private ConstraintLayout metadataConstraintLayout;
@@ -95,11 +101,9 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
             // ToDo: Handle could not resolve this address, throw error or log
             if (addresses != null || addresses.size() > 0) {
                 Address location = addresses.get(0);
-                location.getLatitude();
-                location.getLongitude();
 
                 customerPosition = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(customerPosition));
+                customerMarker = mMap.addMarker(new MarkerOptions().position(customerPosition));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(customerPosition));
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
@@ -165,6 +169,54 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                         public void run() {
                             popUpConstraintLayout.setVisibility(View.INVISIBLE);
                             metadataConstraintLayout.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+
+            }).on("job_start", new Emitter.Listener() {
+
+                @Override
+                public void call(Object... args) {
+                    JSONObject jsonObject = (JSONObject) args[0];
+                    Mechanic mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
+                }
+
+            }).on("job_conclude", new Emitter.Listener() {
+
+                @Override
+                public void call(Object... args) {
+                    JSONObject jsonObject = (JSONObject) args[0];
+                    Mechanic mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
+                    Intent i = new Intent(getApplicationContext(), edit_mech_complmt.class);
+                    i.putExtra("name", mechanic.getName());
+                    i.putExtra("id", mechanic.getId());
+                    i.putExtra("phoneNumber", mechanic.getPhoneNumber());
+                    i.putExtra("starRating", mechanic.getStarRating());
+                    startActivity(i);
+                }
+
+            }).on("update_location", new Emitter.Listener() {
+
+                @Override
+                public void call(Object... args) {
+                    JSONObject jsonObject = (JSONObject) args[0];
+                    Mechanic mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
+                    mechanicPosition = new LatLng(mechanic.getLatitude(), mechanic.getLongitude());
+                    MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mechanicMarker == null) {
+                                mechanicMarker = mMap.addMarker(new MarkerOptions().position(mechanicPosition));
+                            } else {
+                                mechanicMarker.setPosition(mechanicPosition);
+                            }
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(mechanicPosition));
+                            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+                            user.setLatitude(customerPosition.latitude);
+                            user.setLongitude(customerPosition.longitude);
+
+                            socket.emit("customer_update_location", gson.toJson(mechanic), gson.toJson(user));
                         }
                     });
                 }

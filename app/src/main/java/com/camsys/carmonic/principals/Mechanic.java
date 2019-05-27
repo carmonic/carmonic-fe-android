@@ -29,7 +29,7 @@ public class Mechanic {
         return phone_number;
     }
 
-    private double getStarRating() {
+    public double getStarRating() {
         return starRating;
     }
 }
