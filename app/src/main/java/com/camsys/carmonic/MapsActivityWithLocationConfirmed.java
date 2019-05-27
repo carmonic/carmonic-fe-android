@@ -37,8 +37,10 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
+//ToDo: Merge this class with MapsActivity, there is no need for them to be separate
 public class MapsActivityWithLocationConfirmed extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -133,7 +135,16 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
 
     private void setupSocket() {
         try {
-            socket = IO.socket("http://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:3000");
+            OkHttpClient okHttpClient = BackEndDAO.getClient();
+
+            IO.setDefaultOkHttpWebSocketFactory(okHttpClient);
+            IO.setDefaultOkHttpCallFactory(okHttpClient);
+
+            IO.Options opts = new IO.Options();
+            opts.callFactory = okHttpClient;
+            opts.webSocketFactory = okHttpClient;
+
+            socket = IO.socket(BackEndDAO.getBackendURL(), opts);
             socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
 
                 @Override
