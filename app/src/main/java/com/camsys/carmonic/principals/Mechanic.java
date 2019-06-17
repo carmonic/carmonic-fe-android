@@ -4,6 +4,8 @@ public class Mechanic {
 
     private int id;
     private String name;
+    private String email;
+    private String company;
     private double latitude;
     private double longitude;
     private String phone_number;

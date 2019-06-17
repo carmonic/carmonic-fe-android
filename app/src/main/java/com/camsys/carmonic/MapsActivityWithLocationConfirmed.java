@@ -188,10 +188,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                     JSONObject jsonObject = (JSONObject) args[0];
                     Mechanic mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
                     Intent i = new Intent(getApplicationContext(), edit_mech_complmt.class);
-                    i.putExtra("name", mechanic.getName());
                     i.putExtra("id", mechanic.getId());
-                    i.putExtra("phoneNumber", mechanic.getPhoneNumber());
-                    i.putExtra("starRating", mechanic.getStarRating());
                     startActivity(i);
                 }
 
