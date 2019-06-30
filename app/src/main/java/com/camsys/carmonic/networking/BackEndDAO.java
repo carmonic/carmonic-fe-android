@@ -19,7 +19,7 @@ import okhttp3.RequestBody;
 public class BackEndDAO {
 
     private static OkHttpClient client = getUnsafeOkHttpClient();
-    private static final String BACKEND_URL = "https://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:8443";
+    private static final String BACKEND_URL = "https://192.168.0.10:8443";
 
     public static OkHttpClient getClient() {
         return client;
@@ -70,6 +70,23 @@ public class BackEndDAO {
         HttpUrl.Builder httpBuider = HttpUrl.parse(BACKEND_URL + route).newBuilder();
         httpBuider.addQueryParameter("longitude", Double.toString(longitude));
         httpBuider.addQueryParameter("latitude", Double.toString(latitude));
+
+        Request request = new Request.Builder()
+                .addHeader("Authorization", "Bearer " + token)
+                .url(httpBuider.build())
+                .build();
+
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void getEstimatedDistance(double fromLongitude, double fromLatitude, double toLongitude, double toLatitude, String token, Callback callback) {
+        String route = "/getEstimatedDistance";
+
+        HttpUrl.Builder httpBuider = HttpUrl.parse(BACKEND_URL + route).newBuilder();
+        httpBuider.addQueryParameter("fromLongitude", Double.toString(fromLongitude));
+        httpBuider.addQueryParameter("fromLatitude", Double.toString(fromLatitude));
+        httpBuider.addQueryParameter("toLongitude", Double.toString(toLongitude));
+        httpBuider.addQueryParameter("toLatitude", Double.toString(toLatitude));
 
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + token)

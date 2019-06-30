@@ -2,11 +2,15 @@ package com.camsys.carmonic;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Address;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+
+import java.io.IOException;
+import java.util.List;
 
 public class confirm_location extends AppCompatActivity {
 

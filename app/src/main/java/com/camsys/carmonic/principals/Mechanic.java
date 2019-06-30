@@ -3,7 +3,8 @@ package com.camsys.carmonic.principals;
 public class Mechanic {
 
     private int id;
-    private String name;
+    private String firstname;
+    private String lastname;
     private String email;
     private String company;
     private double latitude;
@@ -11,12 +12,14 @@ public class Mechanic {
     private String phone_number;
     private double starRating;
 
+    private int estimatedDistanceInMins;
+
     public int getId() {
         return id;
     }
 
     public String getName() {
-        return name;
+        return firstname;
     }
 
     public double getLatitude() {
@@ -33,5 +36,9 @@ public class Mechanic {
 
     public double getStarRating() {
         return starRating;
+    }
+
+    public int getEstimatedDistanceInMins() {
+        return estimatedDistanceInMins;
     }
 }

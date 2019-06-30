@@ -48,6 +48,8 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
 
     private GoogleMap mMap;
     private String locationAddress;
+    private double longitude;
+    private double latitude;
     private LatLng customerPosition = null;
     private Marker customerMarker = null;
     private LatLng mechanicPosition = null;
@@ -56,7 +58,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     private ConstraintLayout popUpConstraintLayout;
     private ConstraintLayout metadataConstraintLayout;
     private TextView mechanicName;
-    private TextView mechanicProximityMessage;
+    private TextView mechanicDistanceMessage;
     private TextView mechanicStarRating;
     private ImageView mechanicImage; //ToDo: fetch mechanic image from backend
     private TextView popUpMessage;
@@ -76,15 +78,23 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps_with_location_confirmed);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
         popUpConstraintLayout = findViewById(R.id.networkActivityPopUp);
         popUpMessage = findViewById(R.id.txtVwScreen2SubTitle);
         mechanicName = findViewById(R.id.mechanicName);
-        mechanicProximityMessage = findViewById(R.id.mechanicDistanceMessage);
+        mechanicDistanceMessage = findViewById(R.id.mechanicDistanceMessage);
         mechanicStarRating = findViewById(R.id.mechanicStarRating);
         metadataConstraintLayout = findViewById(R.id.metadataConstraint);
         metadataConstraintLayout.setVisibility(View.INVISIBLE);
+
+        //This will be available if we came from the address confirmation page
         locationAddress = getIntent().getStringExtra("locationAddress");
+
+        //This will be available if we came from the previous maps page
+        longitude = getIntent().getDoubleExtra("longitude", 0.0);
+        latitude = getIntent().getDoubleExtra("latitude", 0.0);
+
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -96,20 +106,22 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         customerPosition = null;
 
         try {
-            addresses = geoCoder.getFromLocationName(locationAddress, 5);
-
-            // ToDo: Handle could not resolve this address, throw error or log
-            if (addresses != null || addresses.size() > 0) {
-                Address location = addresses.get(0);
-
-                customerPosition = new LatLng(location.getLatitude(), location.getLongitude());
-                customerMarker = mMap.addMarker(new MarkerOptions().position(customerPosition));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(customerPosition));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-                setupSocket();
-                getMechanics();
+            if (locationAddress != null) {
+                addresses = geoCoder.getFromLocationName(locationAddress, 5);
+                // ToDo: Handle could not resolve this address, throw error or log
+                if (addresses != null || addresses.size() > 0) {
+                    Address location = addresses.get(0);
+                    customerPosition = new LatLng(location.getLatitude(), location.getLongitude());
+                }
+            } else {
+                customerPosition = new LatLng(latitude, longitude);
             }
+            customerMarker = mMap.addMarker(new MarkerOptions().position(customerPosition));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(customerPosition));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+            setupSocket();
+            getMechanics();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -164,11 +176,22 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                     Mechanic mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
                     mechanicJobAccepted = true;
                     mechanicName.setText(mechanic.getName());
-                    MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+                    BackEndDAO.getEstimatedDistance(mechanic.getLongitude(), mechanic.getLatitude(), customerPosition.longitude, customerPosition.latitude, user.getToken(), new Callback() {
                         @Override
-                        public void run() {
-                            popUpConstraintLayout.setVisibility(View.INVISIBLE);
-                            metadataConstraintLayout.setVisibility(View.VISIBLE);
+                        public void onFailure(Call call, IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            mechanicDistanceMessage.setText(generateProximityMessage(mechanic.getName(), response.body().string()));
+                            MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    popUpConstraintLayout.setVisibility(View.INVISIBLE);
+                                    metadataConstraintLayout.setVisibility(View.VISIBLE);
+                                }
+                            });
                         }
                     });
                 }
@@ -261,5 +284,9 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                 }
             }
         }, 0, MECHANIC_TIME_OUT);
+    }
+
+    private String generateProximityMessage(String firstname, String distance) {
+        return firstname + " is " + distance + " away";
     }
 }
