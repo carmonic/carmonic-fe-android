@@ -19,7 +19,7 @@ import okhttp3.RequestBody;
 public class BackEndDAO {
 
     private static OkHttpClient client = getUnsafeOkHttpClient();
-    private static final String BACKEND_URL = "https://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:8443/test-front-end/mechanic.html";
+    private static final String BACKEND_URL = "https://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:8443";
 
     public static OkHttpClient getClient() {
         return client;
@@ -70,6 +70,24 @@ public class BackEndDAO {
         HttpUrl.Builder httpBuider = HttpUrl.parse(BACKEND_URL + route).newBuilder();
         httpBuider.addQueryParameter("longitude", Double.toString(longitude));
         httpBuider.addQueryParameter("latitude", Double.toString(latitude));
+
+        Request request = new Request.Builder()
+                .addHeader("Authorization", "Bearer " + token)
+                .url(httpBuider.build())
+                .build();
+
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void postFeedback(int starRating, String compliment, String feedback, String customerId, String mechanicId, String token, Callback callback) {
+        String route = "/mechanicFeedback";
+
+        HttpUrl.Builder httpBuider = HttpUrl.parse(BACKEND_URL + route).newBuilder();
+        httpBuider.addQueryParameter("customerId", customerId);
+        httpBuider.addQueryParameter("mechanicId", mechanicId);
+        httpBuider.addQueryParameter("feedback", feedback);
+        httpBuider.addQueryParameter("compliment", compliment);
+        httpBuider.addQueryParameter("starRating", Integer.toString(starRating));
 
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + token)

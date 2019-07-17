@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/grad_billing_main"
-    tools:context=".edit_mech_complmt">
+    tools:context=".FeedbackActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -28,10 +28,7 @@
 
                 android:background="@drawable/dr_billing_top"
 
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                >
 
                 <android.support.v7.widget.AppCompatImageButton
 
@@ -44,8 +41,8 @@
                     android:background="@drawable/close"
                     android:onClick="onclick_close_edit_mech_complmt"
 
-                    android:paddingBottom="0dp"
                     android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -635,6 +632,7 @@
                     android:layout_height="37dp"
                     android:layout_marginBottom="21dp"
                     android:layout_marginEnd="25dp"
+                    android:onClick="OnClickDone"
                     android:background="@drawable/register_button"
 
                     android:text="Done"

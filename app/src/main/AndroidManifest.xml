@@ -59,10 +59,10 @@
             android:label="@string/title_activity_sign_up2"
             android:theme="@style/AppTheme" />
         <activity android:name=".home_screen" />
-        <activity android:name=".billing_main" />
+        <activity android:name=".BillingActivity" />
         <activity android:name=".confirm_location" />
         <activity android:name=".locating_mechanic" />
-        <activity android:name=".edit_mech_complmt" />
+        <activity android:name=".FeedbackActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".nav_drawer"

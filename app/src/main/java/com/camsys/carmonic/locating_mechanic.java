@@ -24,7 +24,7 @@ public class locating_mechanic extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                startActivity(new Intent(locating_mechanic.this, billing_main.class));
+                startActivity(new Intent(locating_mechanic.this, BillingActivity.class));
                 finish();
             }
         }, TIME_OUT);
@@ -32,7 +32,7 @@ public class locating_mechanic extends AppCompatActivity {
 
 
     public void onclick_goto_billing(View view) {
-        Intent i = new Intent(getApplicationContext(), billing_main.class);
+        Intent i = new Intent(getApplicationContext(), BillingActivity.class);
         startActivity(i);
     }
 }

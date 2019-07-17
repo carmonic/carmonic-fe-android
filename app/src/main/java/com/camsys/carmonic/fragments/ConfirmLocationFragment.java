@@ -32,7 +32,7 @@ public class ConfirmLocationFragment extends Fragment {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                //    startActivity(new Intent(locating_mechanic.this, billing_main.class));
+                //    startActivity(new Intent(locating_mechanic.this, BillingActivity.class));
                 // ((MainActivity)this.getActivity()).GoToFragment(new ComplementFragment());
 
             }
