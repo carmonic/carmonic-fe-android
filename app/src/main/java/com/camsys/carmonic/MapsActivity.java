@@ -55,35 +55,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void onclick_mechanic_request(View view) {
-        Intent i;
-        Geocoder geoCoder = new Geocoder(getApplicationContext());
-        List<Address> matches;
-        try {
-            matches = geoCoder.getFromLocation(customerPosition.latitude, customerPosition.longitude, 1);
-            Address bestMatch = (matches == null || matches.isEmpty() ? null : matches.get(0));
-            StringBuilder strReturnedAddress = new StringBuilder("");
-
-            if (bestMatch != null && bestMatch.getMaxAddressLineIndex() > 0) {
-                for (int j = 0; j <= bestMatch.getMaxAddressLineIndex(); j++) {
-                    strReturnedAddress.append(bestMatch.getAddressLine(j)).append("\n");
-                }
-                i = new Intent(getApplicationContext(), confirm_location.class);
-                i.putExtra("locationAddress", strReturnedAddress.toString());
-            } else {
-                i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
+        Intent i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
                 i.putExtra("longitude", customerPosition.longitude);
                 i.putExtra("latitude", customerPosition.latitude);
-            }
 
             startActivity(i);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
-            i.putExtra("longitude", customerPosition.longitude);
-            i.putExtra("latitude", customerPosition.latitude);
-            startActivity(i);
-        }
     }
 
     public void onClickMenuImage(View view) {
