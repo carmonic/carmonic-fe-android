@@ -11,6 +11,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.camsys.carmonic.networking.BackEndDAO;
@@ -31,6 +32,7 @@ public class SignInActivity extends AppCompatActivity {
     TextInputLayout txtInputLayEmail = null;
     TextInputLayout txtInputLayPassword = null;
     TextView subTitleTv = null;
+    Button btn_sign_in =  null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +66,31 @@ public class SignInActivity extends AppCompatActivity {
         TextInputEditText txtEditPwd2 = findViewById(R.id.txtEditPwd2);
         Typeface tfEditPwd2 = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         txtEditPwd2.setTypeface(tfEditPwd2);
+
+        btn_sign_in = findViewById(R.id.btn_sign_in);
+
+        btn_sign_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                onclick_regPage();
+            }
+        });
     }
 
     public void onclick_sign_in_back(View view) {
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
+//        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//        startActivity(i);
+        finish();
     }
 
-    public void onclick_back2(View view) {
-        Intent i = new Intent(getApplicationContext(), sign_upActivity.class);
-        startActivity(i);
-    }
+//    public void onclick_back2(View view) {
+//        Intent i = new Intent(getApplicationContext(), sign_upActivity.class);
+//        startActivity(i);
+//    }
 
-    public void onclick_regPage1(View view) {
+    public void onclick_regPage() {
+btn_sign_in.setEnabled(false);
         String email = txtInputLayEmail.getEditText().getText().toString();
         String password = txtInputLayPassword.getEditText().getText().toString();
 

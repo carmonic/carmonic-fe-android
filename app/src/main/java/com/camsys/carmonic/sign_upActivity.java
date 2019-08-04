@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -66,12 +67,26 @@ public class sign_upActivity extends AppCompatActivity {
 
         TextInputEditText txtEditMail = findViewById(R.id.txtEditEmail);
         txtEditMail.setTypeface(tfMail);
+
+
+        AppCompatImageButton btn =  (AppCompatImageButton)findViewById(R.id.appCompatImageButton);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
     }
 
-    public void onclick_back(View view) {
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
-    }
+//    public void onclick_back(View view) {
+//        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//        startActivity(i);
+//    }
+
+
+
 
     public void onclick_regPage1(View view) {
         String firstname = txtInName.getEditText().getText().toString();

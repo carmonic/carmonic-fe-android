@@ -18,11 +18,9 @@
         android:id="@+id/appCompatImageButton"
         android:layout_width="16dp"
         android:layout_height="16dp"
-
         android:layout_marginStart="21dp"
         android:layout_marginTop="60dp"
         android:background="@drawable/back_arrow_yellow"
-        android:onClick="onclick_back"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.AppCompatImageButton>

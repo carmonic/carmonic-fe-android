@@ -100,11 +100,9 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         Geocoder geoCoder = new Geocoder(getApplicationContext());
         List<Address> addresses;
         customerPosition = null;
-
         try {
             if (locationAddress != null) {
                 addresses = geoCoder.getFromLocationName(locationAddress, 5);
@@ -160,6 +158,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
             opts.callFactory = okHttpClient;
             opts.webSocketFactory = okHttpClient;
 
+
             socket = IO.socket(BackEndDAO.getBackendURL(), opts);
             socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
 
@@ -188,8 +187,10 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                             MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+
                                     popUpConstraintLayout.setVisibility(View.INVISIBLE);
                                     metadataConstraintLayout.setVisibility(View.VISIBLE);
+
                                 }
                             });
                         }

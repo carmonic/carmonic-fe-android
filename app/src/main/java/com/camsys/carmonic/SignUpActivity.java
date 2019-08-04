@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -59,11 +60,21 @@ public class SignUpActivity extends AppCompatActivity {
         TextInputEditText txtEditPwd2 = findViewById(R.id.txtEditPwd2);
         Typeface tfEditPwd2 = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         txtEditPwd2.setTypeface(tfEditPwd2);
+
+        AppCompatImageButton btn =  (AppCompatImageButton)findViewById(R.id.appCompatImageButton);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     public void onclick_back2(View view) {
-        Intent i = new Intent(getApplicationContext(), sign_upActivity.class);
-        startActivity(i);
+//        Intent i = new Intent(getApplicationContext(), sign_upActivity.class);
+//        startActivity(i);
+        finish();
     }
 
     public void onclick_regPage1(View view) {
