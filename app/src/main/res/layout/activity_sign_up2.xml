@@ -34,7 +34,7 @@
         android:layout_marginStart="57dp"
         android:layout_marginTop="107dp"
         android:fontFamily="@fonts/GlacialIndifferenceBold"
-        android:text="Almost Done!"
+        android:text="Final Step!"
 
         android:textColor="#EDD170"
         android:textSize="26dp"

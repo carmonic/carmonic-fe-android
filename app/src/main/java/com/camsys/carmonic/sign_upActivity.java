@@ -79,7 +79,7 @@ public class sign_upActivity extends AppCompatActivity {
         String email = txtInMail.getEditText().getText().toString();
         String phoneNumber = txtInPhone.getEditText().getText().toString();
 
-        Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
+        Intent i = new Intent(getApplicationContext(), InputCardDetailsActivity.class);
         i.putExtra("firstname", firstname);
         i.putExtra("lastname", lastname);
         i.putExtra("email", email);

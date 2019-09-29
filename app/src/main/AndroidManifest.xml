@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.camsys.carmonic">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -17,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".InputCardDetailsActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -30,9 +29,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <meta-data
+            android:name="co.paystack.android.PublicKey"
+            android:value="pk_test_9ec461ec865c630eaf8bf3ce6ceaf660b39b22f9"/>
+
         <activity
             android:name=".MapsActivityWithLocationConfirmed"
-            android:label="@string/title_activity_maps_with_location_confirmed"></activity>
+            android:label="@string/title_activity_maps_with_location_confirmed" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />

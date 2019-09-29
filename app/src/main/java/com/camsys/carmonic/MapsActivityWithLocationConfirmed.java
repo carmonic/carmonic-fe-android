@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.camsys.carmonic.networking.BackEndDAO;
+import com.camsys.carmonic.pojo.Bill;
 import com.camsys.carmonic.principals.Mechanic;
 import com.camsys.carmonic.principals.User;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -196,7 +197,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                     });
                 }
 
-            }).on("job_start", new Emitter.Listener() {
+            }).on("job_request", new Emitter.Listener() {
 
                 @Override
                 public void call(Object... args) {
@@ -208,10 +209,13 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
 
                 @Override
                 public void call(Object... args) {
-                    JSONObject jsonObject = (JSONObject) args[0];
-                    Mechanic mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
+                    JSONObject billJsonObject = (JSONObject) args[1];
+                    JSONObject mechanicJsonObject = (JSONObject) args[0];
+                    Bill bill = gson.fromJson(billJsonObject.toString(), Bill.class);
+                    Mechanic mechanic = gson.fromJson(mechanicJsonObject.toString(), Mechanic.class);
                     Intent i = new Intent(getApplicationContext(), BillingActivity.class);
                     i.putExtra("mechanicId", mechanic.getId());
+                    i.putExtra("bill", bill);
                     startActivity(i);
                 }
 

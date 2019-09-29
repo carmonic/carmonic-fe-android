@@ -12,7 +12,7 @@
     <string name="title_activity_sign_up2">sign_up2</string>
     <string name="billing_info_str"><u>Billing Information</u></string>
     <string name="billing_rider_msg">We hope we are able to help</string>
-    <string name="billing_total_amount_msg">&#160;&#160;<i>Your <u>total</u> of #6500 has been charged to \n &#160;your card <u>ending with 7789</u></i></string>
+    <string name="billing_total_amount_msg">&#160;&#160;<i>Your <u>total</u> of ₦%d has been charged to \n &#160;your card <u>ending with 7789</u></i></string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -53,4 +53,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_maps_with_location_confirmed">Map</string>
+
+    <string name="service">%s</string>
+    <string name="price">₦%d</string>
 </resources>

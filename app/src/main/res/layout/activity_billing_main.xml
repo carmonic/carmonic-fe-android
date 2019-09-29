@@ -129,137 +129,137 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/txtVwBillItemDesc0"
-                    android:layout_width="83dp"
-                    android:layout_height="17dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="56dp"
-                    android:fontFamily="@font/glacial_indifference_regular"
-                    android:lineHeight="14sp"
-                    android:text="Labor rate"
-                    android:textAlignment="textStart"
-                    android:textColor="#B9B9B9"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txtVwBillItemDesc0"-->
+<!--                    android:layout_width="83dp"-->
+<!--                    android:layout_height="17dp"-->
+<!--                    android:layout_marginStart="4dp"-->
+<!--                    android:layout_marginTop="56dp"-->
+<!--                    android:fontFamily="@font/glacial_indifference_regular"-->
+<!--                    android:lineHeight="14sp"-->
+<!--                    android:text="Labor rate"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:textColor="#B9B9B9"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <TextView
-                    android:id="@+id/txtVwBillItemAmt0"
-                    android:layout_width="50dp"
-                    android:layout_height="17dp"
-                    android:layout_marginEnd="31dp"
-                    android:layout_marginTop="56dp"
-                    android:fontFamily="@font/glacial_indifference_regular"
-                    android:lineHeight="14sp"
-                    android:text="#3500"
-                    android:textAlignment="textEnd"
-                    android:textColor="#B9B9B9"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txtVwBillItemAmt0"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="17dp"-->
+<!--                    android:layout_marginEnd="31dp"-->
+<!--                    android:layout_marginTop="56dp"-->
+<!--                    android:fontFamily="@font/glacial_indifference_regular"-->
+<!--                    android:lineHeight="14sp"-->
+<!--                    android:text="#3500"-->
+<!--                    android:textAlignment="textEnd"-->
+<!--                    android:textColor="#B9B9B9"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <TextView
-                    android:id="@+id/txtVwBillItemDesc1"
-                    android:layout_width="83dp"
-                    android:layout_height="17dp"
-                    android:layout_marginTop="89dp"
-                    android:fontFamily="@font/glacial_indifference_regular"
-                    android:lineHeight="14sp"
-                    android:text="Charges"
-                    android:textAlignment="textStart"
-                    android:textColor="#B9B9B9"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/txtVwBillItemDesc0"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txtVwBillItemDesc1"-->
+<!--                    android:layout_width="83dp"-->
+<!--                    android:layout_height="17dp"-->
+<!--                    android:layout_marginTop="89dp"-->
+<!--                    android:fontFamily="@font/glacial_indifference_regular"-->
+<!--                    android:lineHeight="14sp"-->
+<!--                    android:text="Charges"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:textColor="#B9B9B9"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/txtVwBillItemDesc0"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <TextView
-                    android:id="@+id/txtVwBillItemAmt1"
-                    android:layout_width="50dp"
-                    android:layout_height="17dp"
-                    android:layout_marginEnd="31dp"
-                    android:layout_marginTop="89dp"
-                    android:fontFamily="@font/glacial_indifference_regular"
-                    android:lineHeight="14sp"
-                    android:text="#500"
-                    android:textAlignment="textEnd"
-                    android:textColor="#B9B9B9"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txtVwBillItemAmt1"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="17dp"-->
+<!--                    android:layout_marginEnd="31dp"-->
+<!--                    android:layout_marginTop="89dp"-->
+<!--                    android:fontFamily="@font/glacial_indifference_regular"-->
+<!--                    android:lineHeight="14sp"-->
+<!--                    android:text="#500"-->
+<!--                    android:textAlignment="textEnd"-->
+<!--                    android:textColor="#B9B9B9"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <TextView
-                    android:id="@+id/txtVwBillItemDesc2"
-                    android:layout_width="83dp"
-                    android:layout_height="17dp"
-                    android:layout_marginTop="122dp"
-                    android:fontFamily="@font/glacial_indifference_regular"
-                    android:lineHeight="14sp"
-                    android:text="Lorem Ipsum"
-                    android:textAlignment="textStart"
-                    android:textColor="#B9B9B9"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/txtVwBillItemDesc1"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txtVwBillItemDesc2"-->
+<!--                    android:layout_width="83dp"-->
+<!--                    android:layout_height="17dp"-->
+<!--                    android:layout_marginTop="122dp"-->
+<!--                    android:fontFamily="@font/glacial_indifference_regular"-->
+<!--                    android:lineHeight="14sp"-->
+<!--                    android:text="Lorem Ipsum"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:textColor="#B9B9B9"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/txtVwBillItemDesc1"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <TextView
-                    android:id="@+id/txtVwBillItemAmt2"
-                    android:layout_width="50dp"
-                    android:layout_height="17dp"
-                    android:layout_marginEnd="31dp"
-                    android:layout_marginTop="122dp"
-                    android:fontFamily="@font/glacial_indifference_regular"
-                    android:lineHeight="14sp"
-                    android:text="#2100"
-                    android:textAlignment="textEnd"
-                    android:textColor="#B9B9B9"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txtVwBillItemAmt2"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="17dp"-->
+<!--                    android:layout_marginEnd="31dp"-->
+<!--                    android:layout_marginTop="122dp"-->
+<!--                    android:fontFamily="@font/glacial_indifference_regular"-->
+<!--                    android:lineHeight="14sp"-->
+<!--                    android:text="#2100"-->
+<!--                    android:textAlignment="textEnd"-->
+<!--                    android:textColor="#B9B9B9"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <TextView
-                    android:id="@+id/txtVwBillItemAmtTotal"
-                    android:layout_width="84dp"
-                    android:layout_height="17dp"
-                    android:layout_marginEnd="31dp"
-                    android:layout_marginTop="167dp"
-                    android:fontFamily="@font/glacial_indifference_regular"
-                    android:lineHeight="14sp"
-                    android:text="Total = #6500"
-                    android:textAlignment="textEnd"
-                    android:textColor="#B9B9B9"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txtVwBillItemAmtTotal"-->
+<!--                    android:layout_width="84dp"-->
+<!--                    android:layout_height="17dp"-->
+<!--                    android:layout_marginEnd="31dp"-->
+<!--                    android:layout_marginTop="167dp"-->
+<!--                    android:fontFamily="@font/glacial_indifference_regular"-->
+<!--                    android:lineHeight="14sp"-->
+<!--                    android:text="Total = #6500"-->
+<!--                    android:textAlignment="textEnd"-->
+<!--                    android:textColor="#B9B9B9"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <TextView
-                    android:id="@+id/txtVwBillingSummary"
-                    android:layout_width="292dp"
-                    android:layout_height="45dp"
+<!--                <TextView-->
+<!--                    android:id="@+id/txtVwBillingSummary"-->
+<!--                    android:layout_width="292dp"-->
+<!--                    android:layout_height="45dp"-->
 
 
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="195dp"
+<!--                    android:layout_marginEnd="24dp"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="195dp"-->
 
-                    android:fontFamily="@font/glacial_indifference_regular"
-                    android:lineHeight="17sp"
-                    android:lineSpacingExtra="8sp"
-                    android:paddingLeft="1dp"
+<!--                    android:fontFamily="@font/glacial_indifference_regular"-->
+<!--                    android:lineHeight="17sp"-->
+<!--                    android:lineSpacingExtra="8sp"-->
+<!--                    android:paddingLeft="1dp"-->
 
-                    android:text="@string/billing_total_amount_msg"
-                    android:textColor="#EDD170"
-                    android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                    android:text="@string/billing_total_amount_msg"-->
+<!--                    android:textColor="#EDD170"-->
+<!--                    android:textSize="14dp"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
             </android.support.constraint.ConstraintLayout>
 
