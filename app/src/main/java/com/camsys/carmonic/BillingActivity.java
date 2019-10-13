@@ -17,8 +17,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.camsys.carmonic.constants.Constants;
+import com.camsys.carmonic.financial.Utils;
 import com.camsys.carmonic.networking.BackEndDAO;
-import com.camsys.carmonic.pojo.Bill;
+import com.camsys.carmonic.financial.Bill;
 import com.camsys.carmonic.principals.User;
 import com.google.gson.Gson;
 
@@ -27,26 +28,30 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Set;
 
+import co.paystack.android.PaystackSdk;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
 public class BillingActivity extends AppCompatActivity {
 
+    User user;
     int mechanicId;
     int starRating;
     String feedback;
     String compliment;
     Bill bill;
+    int total = 0;
+
     SeekBar seekBar;
     TextView starRatingValue;
-
     private ConstraintLayout billConstraintLayout;
     private ConstraintSet set;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PaystackSdk.initialize(getApplicationContext());
         setContentView(R.layout.activity_billing_main);
         starRatingValue = findViewById(R.id.starRatingValue);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -63,7 +68,23 @@ public class BillingActivity extends AppCompatActivity {
         billConstraintLayout = findViewById(R.id.topconstraint);
         set = new ConstraintSet();
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Gson gson = new Gson();
+        user = gson.fromJson(preferences.getString("User", ""), User.class);
+
         updateConstraintLayoutWithBill();
+        BackEndDAO.charge(String.valueOf(total * 100), user.getEmail(), user.getToken(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+            //ToDo: Show message saying charge was not successful
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                updateConstraintLayoutWithDeductionMessage(total);
+            }
+        });
+
     }
 
     SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
@@ -90,10 +111,6 @@ public class BillingActivity extends AppCompatActivity {
     };
 
     public void onclick_bill_done(View view) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Gson gson = new Gson();
-        User user = gson.fromJson(preferences.getString("User", ""), User.class);
-
         BackEndDAO.postFeedback(starRating, compliment, feedback, String.valueOf(user.getId()), String.valueOf(mechanicId), user.getToken(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -116,7 +133,6 @@ public class BillingActivity extends AppCompatActivity {
 
     private void updateConstraintLayoutWithBill() {
         Field[] fields = bill.getClass().getDeclaredFields();
-        int total = 0;
 
         for(int i=0; i < fields.length; i++) {
             Field field = fields[i];
@@ -145,16 +161,16 @@ public class BillingActivity extends AppCompatActivity {
         }
 
         addEntryToBillConstraintLayout("Total", total, fields.length);
-        updateConstraintLayoutWithDeductionMessage(total, 0);
     }
 
-    //ToDo: Add last 4 digits of card to message
-    private void updateConstraintLayoutWithDeductionMessage(int total, int cardNumber) {
+    private void updateConstraintLayoutWithDeductionMessage(int total) {
         Resources res = getResources();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String cardLastFourDigits = preferences.getString("cardNumberLastFour", "");
 
         TextView deductionMessageTextView = new TextView(this);
         deductionMessageTextView.setId(View.generateViewId());
-        deductionMessageTextView.setText(String.format(res.getString(R.string.billing_total_amount_msg), total));
+        deductionMessageTextView.setText(String.format(res.getString(R.string.billing_total_amount_msg), total, cardLastFourDigits));
         deductionMessageTextView.setTextColor(Color.parseColor("#EDD170"));
         deductionMessageTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f);
         Typeface priceTypeface = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");

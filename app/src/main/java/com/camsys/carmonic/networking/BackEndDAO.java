@@ -19,7 +19,7 @@ import okhttp3.RequestBody;
 public class BackEndDAO {
 
     private static OkHttpClient client = getUnsafeOkHttpClient();
-    private static final String BACKEND_URL = "https://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:8443";
+    private static final String BACKEND_URL = "https://192.168.0.10:8443";
 
     public static OkHttpClient getClient() {
         return client;
@@ -29,7 +29,13 @@ public class BackEndDAO {
         return BACKEND_URL;
     }
 
-    public static void signUp(String firstName, String lastName, String email, String password, Callback callback) {
+    public static void signUp(String firstName,
+                              String lastName,
+                              String email,
+                              String password,
+                              String phoneNumber,
+                              String paymentReference,
+                              Callback callback) {
         String route = "/signup";
 
         RequestBody requestBody = new FormBody.Builder()
@@ -37,6 +43,8 @@ public class BackEndDAO {
                 .add("lastname", lastName)
                 .add("email", email)
                 .add("password", password)
+                .add("phoneNumber", phoneNumber)
+                .add("paymentReference", paymentReference)
                 .build();
 
         Request request = new Request.Builder()
@@ -70,6 +78,21 @@ public class BackEndDAO {
         HttpUrl.Builder httpBuider = HttpUrl.parse(BACKEND_URL + route).newBuilder();
         httpBuider.addQueryParameter("longitude", Double.toString(longitude));
         httpBuider.addQueryParameter("latitude", Double.toString(latitude));
+
+        Request request = new Request.Builder()
+                .addHeader("Authorization", "Bearer " + token)
+                .url(httpBuider.build())
+                .build();
+
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void charge(String amount, String email, String token, Callback callback) {
+        String route = "/charge";
+
+        HttpUrl.Builder httpBuider = HttpUrl.parse(BACKEND_URL + route).newBuilder();
+        httpBuider.addQueryParameter("amount", amount);
+        httpBuider.addQueryParameter("email", email);
 
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + token)

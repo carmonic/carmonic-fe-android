@@ -1,4 +1,4 @@
-package com.camsys.carmonic.pojo;
+package com.camsys.carmonic.financial;
 
 import java.io.Serializable;
 import java.util.Map;

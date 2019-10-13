@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.camsys.carmonic.networking.BackEndDAO;
-import com.camsys.carmonic.pojo.Bill;
+import com.camsys.carmonic.financial.Bill;
 import com.camsys.carmonic.principals.Mechanic;
 import com.camsys.carmonic.principals.User;
 import com.google.android.gms.maps.CameraUpdateFactory;
