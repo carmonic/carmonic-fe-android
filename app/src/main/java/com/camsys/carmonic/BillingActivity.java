@@ -81,10 +81,14 @@ public class BillingActivity extends AppCompatActivity {
             //ToDo: Show message saying charge was not successful
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                updateConstraintLayoutWithDeductionMessage(total);
+                BillingActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateConstraintLayoutWithDeductionMessage(total);
+                    }
+                });
             }
         });
-
     }
 
     SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
