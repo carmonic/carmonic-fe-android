@@ -80,7 +80,7 @@ public class SignInActivity extends AppCompatActivity {
         String email = txtInputLayEmail.getEditText().getText().toString();
         String password = txtInputLayPassword.getEditText().getText().toString();
 
-        Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+        Intent i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
 
         BackEndDAO.signIn(email, password, new Callback() {
             @Override

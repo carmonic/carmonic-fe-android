@@ -89,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
         String password = txtInputLayPwd.getEditText().getText().toString();
         String confirmPassword = txtInputLayPwd2.getEditText().getText().toString();
 
-        Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+        Intent i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
         i.putExtra("firstname", firstname);
         i.putExtra("lastname", lastname);
 

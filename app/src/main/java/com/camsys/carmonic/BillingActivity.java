@@ -123,7 +123,7 @@ public class BillingActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+                Intent i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
                 startActivity(i);
             }
         });

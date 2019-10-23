@@ -2,12 +2,15 @@ package com.camsys.carmonic;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Address;
-import android.location.Geocoder;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +19,8 @@ import com.camsys.carmonic.networking.BackEndDAO;
 import com.camsys.carmonic.financial.Bill;
 import com.camsys.carmonic.principals.Mechanic;
 import com.camsys.carmonic.principals.User;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -23,6 +28,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -47,12 +54,13 @@ import okhttp3.Response;
 //ToDo: Remove the websocket concerns from here
 public class MapsActivityWithLocationConfirmed extends FragmentActivity implements OnMapReadyCallback {
 
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private GoogleMap mMap;
-    private String locationAddress;
+    private boolean mLocationPermissionGranted;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
     private double longitude;
     private double latitude;
     private LatLng customerPosition = null;
-    private Marker customerMarker = null;
     private LatLng mechanicPosition = null;
     private Marker mechanicMarker = null;
 
@@ -63,10 +71,12 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     private TextView mechanicStarRating;
     private ImageView mechanicImage; //ToDo: fetch mechanic image from backend
     private TextView popUpMessage;
+    private ConstraintLayout bottomFrameConstraintLayout;
 
     private Socket socket;
     private List<Mechanic> mechanicList; //list of closest mechanics to user
     private User user;
+    private String token;
     private boolean mechanicJobAccepted; //true if a mechanic has accepted the job
     private Gson gson = new Gson();
 
@@ -81,58 +91,67 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
         popUpConstraintLayout = findViewById(R.id.networkActivityPopUp);
+        popUpConstraintLayout.setVisibility(View.INVISIBLE);
         popUpMessage = findViewById(R.id.txtVwScreen2SubTitle);
         mechanicName = findViewById(R.id.mechanicName);
         mechanicDistanceMessage = findViewById(R.id.mechanicDistanceMessage);
         mechanicStarRating = findViewById(R.id.mechanicStarRating);
         metadataConstraintLayout = findViewById(R.id.metadataConstraint);
         metadataConstraintLayout.setVisibility(View.INVISIBLE);
+        bottomFrameConstraintLayout = findViewById(R.id.bottomframe);
 
-        //This will be available if we came from the address confirmation page
-        locationAddress = getIntent().getStringExtra("locationAddress");
-
-        //This will be available if we came from the previous maps page
         longitude = getIntent().getDoubleExtra("longitude", 0.0);
         latitude = getIntent().getDoubleExtra("latitude", 0.0);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Gson gson = new Gson();
+        token = preferences.getString("Authorisation", "");
+        user = gson.fromJson(preferences.getString("User", ""), User.class);
+
         mapFragment.getMapAsync(this);
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        setupSocket();
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        Geocoder geoCoder = new Geocoder(getApplicationContext());
-        List<Address> addresses;
-        customerPosition = null;
-
         try {
-            if (locationAddress != null) {
-                addresses = geoCoder.getFromLocationName(locationAddress, 5);
-                // ToDo: Handle could not resolve this address, throw error or log
-                if (addresses != null || addresses.size() > 0) {
-                    Address location = addresses.get(0);
-                    customerPosition = new LatLng(location.getLatitude(), location.getLongitude());
-                }
-            } else {
-                customerPosition = new LatLng(latitude, longitude);
+            getLocationPermission();
+            if (mLocationPermissionGranted) {
+                Task locationResult = mFusedLocationProviderClient.getLastLocation();
+                locationResult.addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            customerPosition = new LatLng(location.getLatitude(), location.getLongitude());
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(customerPosition));
+                            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                        }
+                    }
+                });
             }
-            customerMarker = mMap.addMarker(new MarkerOptions().position(customerPosition));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(customerPosition));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-            setupSocket();
-            getMechanics();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        }  catch(SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage());
         }
     }
 
+    public void onclick_mechanic_request(View view) {
+        getMechanics();
+
+        MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                popUpConstraintLayout.setVisibility(View.VISIBLE);
+                metadataConstraintLayout.setVisibility(View.INVISIBLE);
+                bottomFrameConstraintLayout.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
     private void getMechanics() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Gson gson = new Gson();
-        String token = preferences.getString("Authorisation", "");
-        user = gson.fromJson(preferences.getString("User", ""), User.class);
 
         BackEndDAO.getMechanics(customerPosition.longitude, customerPosition.latitude, token, new Callback() {
             @Override
@@ -169,7 +188,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                     socket.emit("customer_register", gson.toJson(user));
                 }
 
-            }).on("job_accept", new Emitter.Listener() {
+            }).on("job_acc", new Emitter.Listener() {
 
                 @Override
                 public void call(Object... args) {
@@ -190,6 +209,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                                 @Override
                                 public void run() {
                                     popUpConstraintLayout.setVisibility(View.INVISIBLE);
+                                    bottomFrameConstraintLayout.setVisibility(View.INVISIBLE);
                                     metadataConstraintLayout.setVisibility(View.VISIBLE);
                                 }
                             });
@@ -197,15 +217,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                     });
                 }
 
-            }).on("job_request", new Emitter.Listener() {
-
-                @Override
-                public void call(Object... args) {
-                    JSONObject jsonObject = (JSONObject) args[0];
-                    Mechanic mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
-                }
-
-            }).on("job_conclude", new Emitter.Listener() {
+            }).on("job_con", new Emitter.Listener() {
 
                 @Override
                 public void call(Object... args) {
@@ -216,6 +228,8 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                     Intent i = new Intent(getApplicationContext(), BillingActivity.class);
                     i.putExtra("mechanicId", mechanic.getId());
                     i.putExtra("bill", bill);
+                    timer.cancel();
+                    timer.purge();
                     startActivity(i);
                 }
 
@@ -265,15 +279,28 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
             public void run() {
                 if (i >= mechanicList.size()) {
                     // Run through all the mechanics and none accepted
-                    timer.cancel();
-                    timer.purge();
                     i = 0;
                     MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             popUpMessage.setText("No mechanics available, try again later");
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    //ToDo: I'm not sure this needs a separate thread
+                                    MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            popUpConstraintLayout.setVisibility(View.INVISIBLE);
+                                            popUpMessage.setText("Just give  us a minute\nwe're trying to connect\nyou to nearby mechanic");
+                                            bottomFrameConstraintLayout.setVisibility(View.VISIBLE);                                }
+                                    });
+                                }
+                            }, 3000);
+
                         }
                     });
+                    cancel();
                 }
 
                 if (!mechanicJobAccepted && i < mechanicList.size()) {
@@ -282,9 +309,9 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                 } else {
                     // Job accepted
                     // ToDo: update UI with details of mechanic
-                    timer.cancel();
-                    timer.purge();
+                    cancel();
                     i = 0;
+                    mechanicJobAccepted = false;
                 }
             }
         }, 0, MECHANIC_TIME_OUT);
@@ -292,5 +319,22 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
 
     private String generateProximityMessage(String firstname, String distance) {
         return firstname + " is " + distance + " away";
+    }
+
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
     }
 }

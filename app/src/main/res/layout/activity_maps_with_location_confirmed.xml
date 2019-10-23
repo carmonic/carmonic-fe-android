@@ -24,6 +24,98 @@
         tools:context=".MapsActivityWithLocationConfirmed" />
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/bottomframe"
+        android:layout_width="320dp"
+        android:layout_height="103dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="527dp"
+        android:background="@drawable/rectangle_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="265dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="543dp"
+            android:fontFamily="@font/glacial_indifference_bold"
+            android:lineHeight="18sp"
+            android:text="What would you like to request today?"
+            android:textColor="#EDD170"
+            android:textSize="15dp" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/btn_container_left"
+            android:layout_width="90dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/dr_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_mechanic"
+                android:layout_width="65dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="1dp"
+                android:background="#00ffffff"
+                android:fontFamily="@font/glacial_indifference_bold"
+                android:gravity="center"
+                android:onClick="onclick_mechanic_request"
+                android:padding="1dp"
+                android:text="Mechanic"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryTextColor"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/btn_container_right"
+            android:layout_width="101dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/dr_button2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_towing_vehicle"
+                android:layout_width="114dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="1dp"
+                android:background="#00ffffff"
+                android:fontFamily="@font/glacial_indifference_bold"
+                android:onClick="onclick_mechanic_request"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:text="Towing Vehicle"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryTextColor"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/metadataConstraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
