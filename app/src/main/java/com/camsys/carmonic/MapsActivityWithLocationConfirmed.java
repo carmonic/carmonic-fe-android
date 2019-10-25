@@ -78,6 +78,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     private User user;
     private String token;
     private boolean mechanicJobAccepted; //true if a mechanic has accepted the job
+    private boolean mechanicJobStarted; //true if a mechanic has started the job
     private Gson gson = new Gson();
 
     private static int MECHANIC_TIME_OUT = 8000;
@@ -254,9 +255,38 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                             user.setLatitude(customerPosition.latitude);
                             user.setLongitude(customerPosition.longitude);
 
+                            BackEndDAO.getEstimatedDistance(mechanic.getLongitude(), mechanic.getLatitude(), customerPosition.longitude, customerPosition.latitude, user.getToken(), new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    mechanicDistanceMessage.setText(generateProximityMessage(mechanic.getName(), response.body().string()));
+                                    MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            popUpConstraintLayout.setVisibility(View.INVISIBLE);
+                                            bottomFrameConstraintLayout.setVisibility(View.INVISIBLE);
+                                            metadataConstraintLayout.setVisibility(View.VISIBLE);
+                                        }
+                                    });
+                                }
+                            });
+
                             socket.emit("customer_update_location", gson.toJson(mechanic), gson.toJson(user));
                         }
                     });
+                }
+
+            }).on("job_start", new Emitter.Listener() {
+
+                @Override
+                public void call(Object... args) {
+                    JSONObject jsonObject = (JSONObject) args[0];
+                    Mechanic mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
+                    mechanicJobStarted = true;
                 }
 
             }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
