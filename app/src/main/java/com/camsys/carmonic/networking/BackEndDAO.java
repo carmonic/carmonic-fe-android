@@ -105,16 +105,21 @@ public class BackEndDAO {
     public static void postFeedback(int starRating, String compliment, String feedback, String customerId, String mechanicId, String token, Callback callback) {
         String route = "/mechanicFeedback";
 
-        HttpUrl.Builder httpBuider = HttpUrl.parse(BACKEND_URL + route).newBuilder();
-        httpBuider.addQueryParameter("customerId", customerId);
-        httpBuider.addQueryParameter("mechanicId", mechanicId);
-        httpBuider.addQueryParameter("feedback", feedback);
-        httpBuider.addQueryParameter("compliment", compliment);
-        httpBuider.addQueryParameter("starRating", Integer.toString(starRating));
+        feedback = feedback != null ? feedback : "";
+        compliment = compliment != null ? compliment : "";
+
+        RequestBody requestBody = new FormBody.Builder()
+                .add("customerId", customerId)
+                .add("mechanicId", mechanicId)
+                .add("feedback", feedback)
+                .add("compliment", compliment)
+                .add("starRating", Integer.toString(starRating))
+                .build();
 
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + token)
-                .url(httpBuider.build())
+                .url(BACKEND_URL + route)
+                .post(requestBody)
                 .build();
 
         client.newCall(request).enqueue(callback);

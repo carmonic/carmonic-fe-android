@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class FeedbackActivity extends AppCompatActivity {
-    String compliment;
+    String compliment = "";
 
     ImageButton btn1a;
     TextView txtVw1a;

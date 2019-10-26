@@ -37,7 +37,7 @@ public class BillingActivity extends AppCompatActivity {
 
     User user;
     int mechanicId;
-    int starRating;
+    int starRating = 5;
     String feedback;
     String compliment;
     Bill bill;

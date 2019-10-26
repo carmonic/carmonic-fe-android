@@ -10,7 +10,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -72,6 +74,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     private ImageView mechanicImage; //ToDo: fetch mechanic image from backend
     private TextView popUpMessage;
     private ConstraintLayout bottomFrameConstraintLayout;
+    private DrawerLayout mDrawerLayout;
 
     private Socket socket;
     private List<Mechanic> mechanicList; //list of closest mechanics to user
@@ -100,6 +103,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         metadataConstraintLayout = findViewById(R.id.metadataConstraint);
         metadataConstraintLayout.setVisibility(View.INVISIBLE);
         bottomFrameConstraintLayout = findViewById(R.id.bottomframe);
+        mDrawerLayout = findViewById(R.id.drawerMain);
 
         longitude = getIntent().getDoubleExtra("longitude", 0.0);
         latitude = getIntent().getDoubleExtra("latitude", 0.0);
@@ -151,6 +155,11 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
             }
         });
     }
+
+    public void onClickMenuImage(View view) {
+        mDrawerLayout.openDrawer(Gravity.START);
+    }
+
 
     private void getMechanics() {
 
