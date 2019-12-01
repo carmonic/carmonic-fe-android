@@ -21,6 +21,7 @@ import com.camsys.carmonic.networking.BackEndDAO;
 import com.camsys.carmonic.financial.Bill;
 import com.camsys.carmonic.principals.Mechanic;
 import com.camsys.carmonic.principals.User;
+import com.camsys.carmonic.state.JobStatus;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -79,9 +80,9 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     private Socket socket;
     private List<Mechanic> mechanicList; //list of closest mechanics to user
     private User user;
+    private Mechanic mechanic;
     private String token;
-    private boolean mechanicJobAccepted; //true if a mechanic has accepted the job
-    private boolean mechanicJobStarted; //true if a mechanic has started the job
+    private JobStatus mechanicJobStatus = JobStatus.IDLE;
     private Gson gson = new Gson();
 
     private static int MECHANIC_TIME_OUT = 8000;
@@ -100,7 +101,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         mechanicName = findViewById(R.id.mechanicName);
         mechanicDistanceMessage = findViewById(R.id.mechanicDistanceMessage);
         mechanicStarRating = findViewById(R.id.mechanicStarRating);
-        metadataConstraintLayout = findViewById(R.id.metadataConstraint);
+        metadataConstraintLayout = findViewById(R.id.rectangle_2);
         metadataConstraintLayout.setVisibility(View.INVISIBLE);
         bottomFrameConstraintLayout = findViewById(R.id.bottomframe);
         mDrawerLayout = findViewById(R.id.drawerMain);
@@ -156,13 +157,23 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         });
     }
 
+    //ToDo: Pop up telling customer there will be a cancellation fee
+    public void onclick_cancel_request(View view) {
+        if (mechanicJobStatus == JobStatus.ACCEPTED) {
+            socket.emit("customer_cancel_job", gson.toJson(mechanic), gson.toJson(user));
+            mechanicJobStatus = JobStatus.IDLE;
+            metadataConstraintLayout.setVisibility(View.INVISIBLE);
+            bottomFrameConstraintLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
     public void onClickMenuImage(View view) {
         mDrawerLayout.openDrawer(Gravity.START);
     }
 
 
     private void getMechanics() {
-
+        mechanicJobStatus = JobStatus.REQUESTING;
         BackEndDAO.getMechanics(customerPosition.longitude, customerPosition.latitude, token, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -202,100 +213,117 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
 
                 @Override
                 public void call(Object... args) {
-                    JSONObject jsonObject = (JSONObject) args[0];
-                    Mechanic mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
-                    mechanicJobAccepted = true;
-                    mechanicName.setText(mechanic.getName());
-                    BackEndDAO.getEstimatedDistance(mechanic.getLongitude(), mechanic.getLatitude(), customerPosition.longitude, customerPosition.latitude, user.getToken(), new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-                            e.printStackTrace();
-                        }
+                    if (mechanicJobStatus == JobStatus.REQUESTING) {
+                        JSONObject jsonObject = (JSONObject) args[0];
+                        mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
+                        mechanicJobStatus = JobStatus.ACCEPTED;
+                        mechanicName.setText(mechanic.getName());
+                        BackEndDAO.getEstimatedDistance(mechanic.getLongitude(), mechanic.getLatitude(), customerPosition.longitude, customerPosition.latitude, user.getToken(), new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                e.printStackTrace();
+                            }
 
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            mechanicDistanceMessage.setText(generateProximityMessage(mechanic.getName(), response.body().string()));
-                            MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    popUpConstraintLayout.setVisibility(View.INVISIBLE);
-                                    bottomFrameConstraintLayout.setVisibility(View.INVISIBLE);
-                                    metadataConstraintLayout.setVisibility(View.VISIBLE);
-                                }
-                            });
-                        }
-                    });
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                mechanicDistanceMessage.setText(generateProximityMessage(mechanic.getName(), response.body().string()));
+                                MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        popUpConstraintLayout.setVisibility(View.INVISIBLE);
+                                        bottomFrameConstraintLayout.setVisibility(View.INVISIBLE);
+                                        metadataConstraintLayout.setVisibility(View.VISIBLE);
+                                    }
+                                });
+                            }
+                        });
+                    }
                 }
 
             }).on("job_con", new Emitter.Listener() {
 
                 @Override
                 public void call(Object... args) {
-                    JSONObject billJsonObject = (JSONObject) args[1];
-                    JSONObject mechanicJsonObject = (JSONObject) args[0];
-                    Bill bill = gson.fromJson(billJsonObject.toString(), Bill.class);
-                    Mechanic mechanic = gson.fromJson(mechanicJsonObject.toString(), Mechanic.class);
-                    Intent i = new Intent(getApplicationContext(), BillingActivity.class);
-                    i.putExtra("mechanicId", mechanic.getId());
-                    i.putExtra("bill", bill);
-                    timer.cancel();
-                    timer.purge();
-                    startActivity(i);
+                    if (mechanicJobStatus == JobStatus.ACCEPTED) {
+                        metadataConstraintLayout.setVisibility(View.INVISIBLE);
+                        mechanicJobStatus = JobStatus.CONCLUDED;
+                        JSONObject billJsonObject = (JSONObject) args[1];
+                        //JSONObject mechanicJsonObject = (JSONObject) args[0];
+                        Bill bill = gson.fromJson(billJsonObject.toString(), Bill.class);
+                        //Mechanic mechanic = gson.fromJson(mechanicJsonObject.toString(), Mechanic.class);
+                        Intent i = new Intent(getApplicationContext(), BillingActivity.class);
+                        i.putExtra("mechanicId", mechanic.getId());
+                        i.putExtra("bill", bill);
+                        timer.cancel();
+                        timer.purge();
+                        startActivity(i);
+                    }
                 }
 
             }).on("update_location", new Emitter.Listener() {
 
                 @Override
                 public void call(Object... args) {
-                    JSONObject jsonObject = (JSONObject) args[0];
-                    Mechanic mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
-                    mechanicPosition = new LatLng(mechanic.getLatitude(), mechanic.getLongitude());
-                    MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (mechanicMarker == null) {
-                                mechanicMarker = mMap.addMarker(new MarkerOptions().position(mechanicPosition));
-                            } else {
-                                mechanicMarker.setPosition(mechanicPosition);
+                    if (mechanicJobStatus == JobStatus.ACCEPTED) {
+                        JSONObject jsonObject = (JSONObject) args[0];
+                        Mechanic mechanicListened = gson.fromJson(jsonObject.toString(), Mechanic.class);
+                        mechanicPosition = new LatLng(mechanicListened.getLatitude(), mechanicListened.getLongitude());
+                        MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (mechanicMarker == null) {
+                                    mechanicMarker = mMap.addMarker(new MarkerOptions().position(mechanicPosition));
+                                } else {
+                                    mechanicMarker.setPosition(mechanicPosition);
+                                }
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(mechanicPosition));
+                                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+                                user.setLatitude(customerPosition.latitude);
+                                user.setLongitude(customerPosition.longitude);
+
+                                BackEndDAO.getEstimatedDistance(mechanicListened.getLongitude(), mechanicListened.getLatitude(), customerPosition.longitude, customerPosition.latitude, user.getToken(), new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        mechanicDistanceMessage.setText(generateProximityMessage(mechanicListened.getName(), response.body().string()));
+                                        MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                popUpConstraintLayout.setVisibility(View.INVISIBLE);
+                                                bottomFrameConstraintLayout.setVisibility(View.INVISIBLE);
+                                                metadataConstraintLayout.setVisibility(View.VISIBLE);
+                                            }
+                                        });
+                                    }
+                                });
+
+                                socket.emit("customer_update_location", gson.toJson(mechanicListened), gson.toJson(user));
                             }
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(mechanicPosition));
-                            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-                            user.setLatitude(customerPosition.latitude);
-                            user.setLongitude(customerPosition.longitude);
-
-                            BackEndDAO.getEstimatedDistance(mechanic.getLongitude(), mechanic.getLatitude(), customerPosition.longitude, customerPosition.latitude, user.getToken(), new Callback() {
-                                @Override
-                                public void onFailure(Call call, IOException e) {
-                                    e.printStackTrace();
-                                }
-
-                                @Override
-                                public void onResponse(Call call, Response response) throws IOException {
-                                    mechanicDistanceMessage.setText(generateProximityMessage(mechanic.getName(), response.body().string()));
-                                    MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            popUpConstraintLayout.setVisibility(View.INVISIBLE);
-                                            bottomFrameConstraintLayout.setVisibility(View.INVISIBLE);
-                                            metadataConstraintLayout.setVisibility(View.VISIBLE);
-                                        }
-                                    });
-                                }
-                            });
-
-                            socket.emit("customer_update_location", gson.toJson(mechanic), gson.toJson(user));
-                        }
-                    });
+                        });
+                    }
                 }
 
-            }).on("job_start", new Emitter.Listener() {
+            }).on("job_reject", new Emitter.Listener() {
 
                 @Override
                 public void call(Object... args) {
-                    JSONObject jsonObject = (JSONObject) args[0];
-                    Mechanic mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
-                    mechanicJobStarted = true;
+                    if (mechanicJobStatus == JobStatus.ACCEPTED) {
+                        JSONObject jsonObject = (JSONObject) args[0];
+                        Mechanic mechanicListened = gson.fromJson(jsonObject.toString(), Mechanic.class);
+                        MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mechanicJobStatus = JobStatus.IDLE;
+                                metadataConstraintLayout.setVisibility(View.INVISIBLE);
+                                bottomFrameConstraintLayout.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    }
                 }
 
             }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
@@ -319,6 +347,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                 if (i >= mechanicList.size()) {
                     // Run through all the mechanics and none accepted
                     i = 0;
+                    // mechanicJobStatus = JobStatus.IDLE;
                     MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -342,18 +371,48 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                     cancel();
                 }
 
-                if (!mechanicJobAccepted && i < mechanicList.size()) {
+                if (mechanicJobStatus != JobStatus.ACCEPTED && i < mechanicList.size()) {
                     socket.emit("customer_request_job", gson.toJson(mechanicList.get(i)), gson.toJson(user));
                     i++;
                 } else {
-                    // Job accepted
-                    // ToDo: update UI with details of mechanic
+                    //A mechanic accepted job
                     cancel();
                     i = 0;
-                    mechanicJobAccepted = false;
                 }
             }
         }, 0, MECHANIC_TIME_OUT);
+//
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                if (i >= mechanicList.size()) {
+//                    // Run through all the mechanics and none accepted
+//                    i = 0;
+//                    // mechanicJobStatus = JobStatus.IDLE;
+//                    MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            popUpMessage.setText("No mechanics available, try again later");
+//                            timer.schedule(new TimerTask() {
+//                                @Override
+//                                public void run() {
+//                                    //ToDo: I'm not sure this needs a separate thread
+//                                    MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            popUpConstraintLayout.setVisibility(View.INVISIBLE);
+//                                            popUpMessage.setText("Just give  us a minute\nwe're trying to connect\nyou to nearby mechanic");
+//                                            bottomFrameConstraintLayout.setVisibility(View.VISIBLE);                                }
+//                                    });
+//                                }
+//                            }, 3000);
+//
+//                        }
+//                    });
+//                    cancel();
+//                }
+//            }
+//        }, MECHANIC_TIME_OUT);
     }
 
     private String generateProximityMessage(String firstname, String distance) {
