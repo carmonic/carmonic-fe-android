@@ -87,7 +87,6 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
 
     private static int MECHANIC_TIME_OUT = 8000;
     private Timer timer = new Timer();
-    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,7 +245,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                 public void call(Object... args) {
                     if (mechanicJobStatus == JobStatus.ACCEPTED) {
                         metadataConstraintLayout.setVisibility(View.INVISIBLE);
-                        mechanicJobStatus = JobStatus.CONCLUDED;
+                        mechanicJobStatus = JobStatus.IDLE;
                         JSONObject billJsonObject = (JSONObject) args[1];
                         //JSONObject mechanicJsonObject = (JSONObject) args[0];
                         Bill bill = gson.fromJson(billJsonObject.toString(), Bill.class);
@@ -341,13 +340,15 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
 
     // ToDo: Extract this logic from the class
     private void notifyMechanics() {
-        timer.scheduleAtFixedRate(new TimerTask() {
+        for (int i=0; i<mechanicList.size() && mechanicJobStatus != JobStatus.ACCEPTED; i++) {
+            socket.emit("customer_request_job", gson.toJson(mechanicList.get(i)), gson.toJson(user));
+        }
+
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if (i >= mechanicList.size()) {
-                    // Run through all the mechanics and none accepted
-                    i = 0;
-                    // mechanicJobStatus = JobStatus.IDLE;
+                if (mechanicJobStatus == JobStatus.REQUESTING) {
+                    mechanicJobStatus = JobStatus.IDLE;
                     MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -355,7 +356,6 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                             timer.schedule(new TimerTask() {
                                 @Override
                                 public void run() {
-                                    //ToDo: I'm not sure this needs a separate thread
                                     MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -365,54 +365,11 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                                     });
                                 }
                             }, 3000);
-
                         }
                     });
-                    cancel();
-                }
-
-                if (mechanicJobStatus != JobStatus.ACCEPTED && i < mechanicList.size()) {
-                    socket.emit("customer_request_job", gson.toJson(mechanicList.get(i)), gson.toJson(user));
-                    i++;
-                } else {
-                    //A mechanic accepted job
-                    cancel();
-                    i = 0;
                 }
             }
-        }, 0, MECHANIC_TIME_OUT);
-//
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                if (i >= mechanicList.size()) {
-//                    // Run through all the mechanics and none accepted
-//                    i = 0;
-//                    // mechanicJobStatus = JobStatus.IDLE;
-//                    MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            popUpMessage.setText("No mechanics available, try again later");
-//                            timer.schedule(new TimerTask() {
-//                                @Override
-//                                public void run() {
-//                                    //ToDo: I'm not sure this needs a separate thread
-//                                    MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            popUpConstraintLayout.setVisibility(View.INVISIBLE);
-//                                            popUpMessage.setText("Just give  us a minute\nwe're trying to connect\nyou to nearby mechanic");
-//                                            bottomFrameConstraintLayout.setVisibility(View.VISIBLE);                                }
-//                                    });
-//                                }
-//                            }, 3000);
-//
-//                        }
-//                    });
-//                    cancel();
-//                }
-//            }
-//        }, MECHANIC_TIME_OUT);
+        }, MECHANIC_TIME_OUT);
     }
 
     private String generateProximityMessage(String firstname, String distance) {
