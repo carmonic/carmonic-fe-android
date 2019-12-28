@@ -16,6 +16,8 @@ public class LandingPageActivity extends AppCompatActivity {
         setContentView(R.layout.main_landing);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+
     }
 
     public void onclick_Register(View view) {

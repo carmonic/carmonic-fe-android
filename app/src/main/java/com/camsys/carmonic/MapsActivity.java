@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,11 +57,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void onclick_mechanic_request(View view) {
-        Intent i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
-                i.putExtra("longitude", customerPosition.longitude);
-                i.putExtra("latitude", customerPosition.latitude);
 
-            startActivity(i);
+
+
+        Intent i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
+                i.putExtra("longitude", customerPosition.longitude);    //3.5139274969697);
+                i.putExtra("latitude", customerPosition.latitude); //6.63271477634256);
+                startActivity(i);
     }
 
     public void onClickMenuImage(View view) {
@@ -99,8 +103,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         } catch(SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
+            System.out.println(e.toString());
         }
     }
+
+
 
     private void getLocationPermission() {
         /*

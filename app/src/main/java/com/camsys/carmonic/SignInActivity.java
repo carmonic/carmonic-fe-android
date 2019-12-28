@@ -1,5 +1,6 @@
 package com.camsys.carmonic;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -34,6 +35,8 @@ public class SignInActivity extends AppCompatActivity {
     TextView subTitleTv = null;
     Button btn_sign_in =  null;
 
+    ProgressDialog mDialog =  null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -66,12 +69,17 @@ public class SignInActivity extends AppCompatActivity {
         TextInputEditText txtEditPwd2 = findViewById(R.id.txtEditPwd2);
         Typeface tfEditPwd2 = Typeface.createFromAsset(getAssets(), "fonts/GlacialIndifferenceRegular.ttf");
         txtEditPwd2.setTypeface(tfEditPwd2);
-
+        mDialog = new ProgressDialog(SignInActivity.this);
         btn_sign_in = findViewById(R.id.btn_sign_in);
 
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+//                mDialog.setMessage("Please wait...");
+//                mDialog.setCancelable(false);
+//                mDialog.show();
 
                 onclick_regPage();
             }
@@ -90,7 +98,7 @@ public class SignInActivity extends AppCompatActivity {
 //    }
 
     public void onclick_regPage() {
-btn_sign_in.setEnabled(false);
+       // btn_sign_in.setEnabled(false);
         String email = txtInputLayEmail.getEditText().getText().toString();
         String password = txtInputLayPassword.getEditText().getText().toString();
 
@@ -112,6 +120,7 @@ btn_sign_in.setEnabled(false);
                     Gson gson = new Gson();
                     LoginResponse loginResponse = gson.fromJson(responseBodyString, LoginResponse.class);
                     User user = loginResponse.getUser();
+                   //   mDialog.hide();
 
                     SignInActivity.this.runOnUiThread(new Runnable() {
                         @Override

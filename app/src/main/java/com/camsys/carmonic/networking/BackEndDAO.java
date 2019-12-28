@@ -19,7 +19,7 @@ import okhttp3.RequestBody;
 public class BackEndDAO {
 
     private static OkHttpClient client = getUnsafeOkHttpClient();
-    private static final String BACKEND_URL = "https://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:8443";
+    private static final String BACKEND_URL ="https://192.168.43.237:8443";  //"https://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:8443";
 
     public static OkHttpClient getClient() {
         return client;
@@ -31,14 +31,12 @@ public class BackEndDAO {
 
     public static void signUp(String firstName, String lastName, String email, String password, Callback callback) {
         String route = "/signup";
-
         RequestBody requestBody = new FormBody.Builder()
                 .add("firstname", firstName)
                 .add("lastname", lastName)
                 .add("email", email)
                 .add("password", password)
                 .build();
-
         Request request = new Request.Builder()
                 .url(BACKEND_URL + route)
                 .post(requestBody)

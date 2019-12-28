@@ -69,7 +69,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     private boolean mechanicJobAccepted; //true if a mechanic has accepted the job
     private Gson gson = new Gson();
 
-    private static int MECHANIC_TIME_OUT = 8000;
+    private static int MECHANIC_TIME_OUT = 100000;
     private Timer timer = new Timer();
     int i = 0;
 
@@ -93,6 +93,10 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         //This will be available if we came from the previous maps page
         longitude = getIntent().getDoubleExtra("longitude", 0.0);
         latitude = getIntent().getDoubleExtra("latitude", 0.0);
+
+
+
+
 
         mapFragment.getMapAsync(this);
     }
@@ -131,6 +135,11 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         String token = preferences.getString("Authorisation", "");
         user = gson.fromJson(preferences.getString("User", ""), User.class);
 
+
+        System.out.println("token = " + token);
+        System.out.println("customerPosition.longitude = " + customerPosition.longitude);
+        System.out.println("customerPosition.latitude = " + customerPosition.latitude);
+
         BackEndDAO.getMechanics(customerPosition.longitude, customerPosition.latitude, token, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -140,6 +149,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String responseBodyString = response.body().string();
+
                 Gson gson = new Gson();
                 mechanicList = gson.fromJson(responseBodyString, new TypeToken<ArrayList<Mechanic>>(){}.getType());
                 notifyMechanics();
@@ -164,6 +174,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
 
                 @Override
                 public void call(Object... args) {
+
                     socket.emit("customer_register", gson.toJson(user));
                 }
 
