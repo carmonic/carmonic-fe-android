@@ -85,7 +85,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     private JobStatus mechanicJobStatus = JobStatus.IDLE;
     private Gson gson = new Gson();
 
-    private static int MECHANIC_TIME_OUT = 8000;
+    private static int MECHANIC_TIME_OUT = 300000;
     private Timer timer = new Timer();
 
     @Override
@@ -213,6 +213,8 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                 @Override
                 public void call(Object... args) {
                     if (mechanicJobStatus == JobStatus.REQUESTING) {
+                        timer.cancel();
+                        timer.purge();
                         JSONObject jsonObject = (JSONObject) args[0];
                         mechanic = gson.fromJson(jsonObject.toString(), Mechanic.class);
                         mechanicJobStatus = JobStatus.ACCEPTED;
@@ -364,7 +366,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                                             bottomFrameConstraintLayout.setVisibility(View.VISIBLE);                                }
                                     });
                                 }
-                            }, 3000);
+                            }, 7000);
                         }
                     });
                 }
