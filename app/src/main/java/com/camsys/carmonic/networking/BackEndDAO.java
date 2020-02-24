@@ -1,5 +1,7 @@
 package com.camsys.carmonic.networking;
 
+import com.camsys.carmonic.constants.Constants;
+
 import java.security.cert.CertificateException;
 
 import javax.net.ssl.HostnameVerifier;
@@ -19,14 +21,14 @@ import okhttp3.RequestBody;
 public class BackEndDAO {
 
     private static OkHttpClient client = getUnsafeOkHttpClient();
-    private static final String BACKEND_URL = "https://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:8443";
+
 
     public static OkHttpClient getClient() {
         return client;
     }
 
     public static String getBackendURL() {
-        return BACKEND_URL;
+        return Constants.EndPoint.Base_URL_local;
     }
 
     public static void signUp(String firstName,
@@ -48,7 +50,7 @@ public class BackEndDAO {
                 .build();
 
         Request request = new Request.Builder()
-                .url(BACKEND_URL + route)
+                .url(getBackendURL() + route)
                 .post(requestBody)
                 .build();
 
@@ -64,7 +66,7 @@ public class BackEndDAO {
                 .build();
 
         Request request = new Request.Builder()
-                .url(BACKEND_URL + route)
+                .url(getBackendURL() + route)
                 .post(requestBody)
                 .build();
 
@@ -72,13 +74,12 @@ public class BackEndDAO {
 
     }
 
-    public static void getMechanics(double longitude, double latitude, String token, Callback callback) {
+    public static void getMechanics(double longitude, double latitude,String token, Callback callback) {
         String route = "/getMechanics";
 
-        HttpUrl.Builder httpBuider = HttpUrl.parse(BACKEND_URL + route).newBuilder();
+        HttpUrl.Builder httpBuider = HttpUrl.parse(getBackendURL() + route).newBuilder();
         httpBuider.addQueryParameter("longitude", Double.toString(longitude));
         httpBuider.addQueryParameter("latitude", Double.toString(latitude));
-
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + token)
                 .url(httpBuider.build())
@@ -90,7 +91,7 @@ public class BackEndDAO {
     public static void charge(String amount, String email, String token, Callback callback) {
         String route = "/charge";
 
-        HttpUrl.Builder httpBuider = HttpUrl.parse(BACKEND_URL + route).newBuilder();
+        HttpUrl.Builder httpBuider = HttpUrl.parse(getBackendURL() + route).newBuilder();
         httpBuider.addQueryParameter("amount", amount);
         httpBuider.addQueryParameter("email", email);
 
@@ -118,7 +119,7 @@ public class BackEndDAO {
 
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + token)
-                .url(BACKEND_URL + route)
+                .url(getBackendURL() + route)
                 .post(requestBody)
                 .build();
 
@@ -128,7 +129,7 @@ public class BackEndDAO {
     public static void getEstimatedDistance(double fromLongitude, double fromLatitude, double toLongitude, double toLatitude, String token, Callback callback) {
         String route = "/getEstimatedDistance";
 
-        HttpUrl.Builder httpBuider = HttpUrl.parse(BACKEND_URL + route).newBuilder();
+        HttpUrl.Builder httpBuider = HttpUrl.parse(getBackendURL() + route).newBuilder();
         httpBuider.addQueryParameter("fromLongitude", Double.toString(fromLongitude));
         httpBuider.addQueryParameter("fromLatitude", Double.toString(fromLatitude));
         httpBuider.addQueryParameter("toLongitude", Double.toString(toLongitude));

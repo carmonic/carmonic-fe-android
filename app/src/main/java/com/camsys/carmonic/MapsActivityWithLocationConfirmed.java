@@ -1,27 +1,31 @@
 package com.camsys.carmonic;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.preference.PreferenceManager;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.DrawerLayout;
+import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.camsys.carmonic.networking.BackEndDAO;
+import com.camsys.carmonic.networking.*;
 import com.camsys.carmonic.financial.Bill;
-import com.camsys.carmonic.principals.Mechanic;
-import com.camsys.carmonic.principals.User;
+//import com.camsys.carmonic.model.Mechanic;
+//import com.camsys.carmonic.model.User;
+import com.camsys.carmonic.model.Mechanic;
+import com.camsys.carmonic.model.User;
 import com.camsys.carmonic.state.JobStatus;
+import com.camsys.carmonic.utilities.SharedData;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -87,12 +91,18 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
 
     private static int MECHANIC_TIME_OUT = 300000;
     private Timer timer = new Timer();
+    String  car = null;
+    String  address =  null;
+
+    SharedData sharedData =  null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps_with_location_confirmed);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
+        sharedData = new SharedData(getApplicationContext());
 
         popUpConstraintLayout = findViewById(R.id.networkActivityPopUp);
         popUpConstraintLayout.setVisibility(View.INVISIBLE);
@@ -107,15 +117,29 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
 
         longitude = getIntent().getDoubleExtra("longitude", 0.0);
         latitude = getIntent().getDoubleExtra("latitude", 0.0);
+        car = getIntent().getStringExtra("car");
+        address = getIntent().getStringExtra("car");
+
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         Gson gson = new Gson();
-        token = preferences.getString("Authorisation", "");
-        user = gson.fromJson(preferences.getString("User", ""), User.class);
+       // token = preferences.getString("Authorisation", "");
+        user = gson.fromJson(sharedData.Get("",""),User.class); //gson.fromJson(preferences.getString("User", ""), User.class);
 
         mapFragment.getMapAsync(this);
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         setupSocket();
+
+        getMechanics(longitude,latitude,car);
+
+        MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                popUpConstraintLayout.setVisibility(View.VISIBLE);
+                metadataConstraintLayout.setVisibility(View.INVISIBLE);
+                bottomFrameConstraintLayout.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     @Override
@@ -144,16 +168,16 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     }
 
     public void onclick_mechanic_request(View view) {
-        getMechanics();
-
-        MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                popUpConstraintLayout.setVisibility(View.VISIBLE);
-                metadataConstraintLayout.setVisibility(View.INVISIBLE);
-                bottomFrameConstraintLayout.setVisibility(View.INVISIBLE);
-            }
-        });
+//        getMechanics();
+//
+//        MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                popUpConstraintLayout.setVisibility(View.VISIBLE);
+//                metadataConstraintLayout.setVisibility(View.INVISIBLE);
+//                bottomFrameConstraintLayout.setVisibility(View.INVISIBLE);
+//            }
+//        });
     }
 
     //ToDo: Pop up telling customer there will be a cancellation fee
@@ -166,14 +190,16 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         }
     }
 
+    @SuppressLint("WrongConstant")
     public void onClickMenuImage(View view) {
         mDrawerLayout.openDrawer(Gravity.START);
     }
 
 
-    private void getMechanics() {
+    private void getMechanics(double longitude, double latitude,String  carObjectString) {
         mechanicJobStatus = JobStatus.REQUESTING;
-        BackEndDAO.getMechanics(customerPosition.longitude, customerPosition.latitude, token, new Callback() {
+        //customerPosition.longitude, customerPosition.latitude
+        BackEndDAO.getMechanics(longitude,latitude,car, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -184,7 +210,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                 String responseBodyString = response.body().string();
                 Gson gson = new Gson();
                 mechanicList = gson.fromJson(responseBodyString, new TypeToken<ArrayList<Mechanic>>(){}.getType());
-                notifyMechanics();
+                notifyMechanics(carObjectString);
             }
         });
     }
@@ -341,9 +367,9 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     }
 
     // ToDo: Extract this logic from the class
-    private void notifyMechanics() {
+    private void notifyMechanics(String  carObjectString) {
         for (int i=0; i<mechanicList.size() && mechanicJobStatus != JobStatus.ACCEPTED; i++) {
-            socket.emit("customer_request_job", gson.toJson(mechanicList.get(i)), gson.toJson(user));
+            socket.emit("customer_request_job", gson.toJson(mechanicList.get(i)), gson.toJson(user),car);
         }
 
         timer.schedule(new TimerTask() {
@@ -373,6 +399,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
             }
         }, MECHANIC_TIME_OUT);
     }
+
 
     private String generateProximityMessage(String firstname, String distance) {
         return firstname + " is " + distance + " away";

@@ -3,23 +3,23 @@ package com.camsys.carmonic;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.camsys.carmonic.fragments.ComplementFragment;
-import com.camsys.carmonic.fragments.ConfirmLocationFragment;
-import com.camsys.carmonic.fragments.HomeFragment;
+import com.camsys.carmonic.onboarding.SignInActivity;
+import com.camsys.carmonic.onboarding.sign_upActivity;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar = null;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        GoToHomeFragment();
+        //GoToHomeFragment();
     }
 
     @Override
@@ -115,8 +115,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_camera) {
 
-            ComplementFragment cameraFragment = new ComplementFragment();
-            transaction.replace(R.id.activityPage, cameraFragment);
+          //  ComplementFragment cameraFragment = new ComplementFragment();
+          //  transaction.replace(R.id.activityPage, cameraFragment);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -139,26 +139,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void GoToHomeFragment() {
-        GoToFragment(new HomeFragment());
-    }
-
-    public void GoToConfirmLocationFragment() {
-        GoToFragment(new ConfirmLocationFragment());
-    }
-
-    public void GoToFeedbackComplementFragment() {
-        GoToFragment(new ComplementFragment());
-    }
-
-    public void GoToFragment(Fragment sampleFragment) {
-
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-
-        transaction.replace(R.id.activityPage, sampleFragment);
-        transaction.commit();
-    }
+//    public void GoToHomeFragment() {
+//        GoToFragment(new HomeFragment());
+//    }
+//
+//    public void GoToConfirmLocationFragment() {
+//        GoToFragment(new ConfirmLocationFragment());
+//    }
+//
+//    public void GoToFeedbackComplementFragment() {
+//        GoToFragment(new ComplementFragment());
+//    }
+//
+//    public void GoToFragment(Fragment sampleFragment) {
+//
+//        FragmentManager manager = getSupportFragmentManager();
+//        FragmentTransaction transaction = manager.beginTransaction();
+//
+//        transaction.replace(R.id.activityPage, sampleFragment);
+//        transaction.commit();
+//    }
 
 
 }

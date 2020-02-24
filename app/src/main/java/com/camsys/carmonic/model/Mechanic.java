@@ -1,4 +1,4 @@
-package com.camsys.carmonic.principals;
+package com.camsys.carmonic.model;
 
 public class Mechanic {
 

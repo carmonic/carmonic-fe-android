@@ -49,6 +49,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
@@ -56,4 +57,24 @@
 
     <string name="service">%s</string>
     <string name="price">₦%d</string>
+    <string name="One_moment_please">One moment please...</string>
+    <string name="confirm_location">Confirm your location</string>
+    <string name="click_more_address">Click on the address to edit</string>
+    <string name="title_activity_confirm_location_layout">ConfirmLocationLayout</string>
+    <string name="title_activity_additional_information_layout">Additional Information</string>
+    <string name="add_more">Give the mechanic some useful info</string>
+    <string name="title_activity_amazon_test">AmazonTest</string>
+
+
+    <!--Fetch Address-->
+    <string name="no_geocoder_available">No geocoder available</string>
+    <string name="fetch_address">Fetch address</string>
+    <string name="address_found">Address found</string>
+    <string name="no_address_found">Sorry, no address found</string>
+    <string name="no_location_data_provided">No location data provided</string>
+    <string name="service_not_available">Sorry, the service is not available</string>
+    <string name="invalid_lat_long_used">Invalid latitude or longitude used</string>
+
+    <string name="google_map_key">AIzaSyAkWJ1pkiUSJAAU7BM9AuM9dkWzR--h4VE</string>
+
 </resources>

@@ -11,6 +11,25 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="mainAppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorWhite</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!--<item name="android:windowBackground">@drawable/background_img</item>-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+
+    </style>
+
+
     <style name="AppTheme.NoActionBar">
         <!--<item name="windowActionBar">false</item> -->
         <item name="windowNoTitle">true</item>
@@ -68,4 +87,32 @@
 
 
     </style>
+
+
+    <style name="splash_textinputlayout" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHighlight">@color/colorYellow</item>
+        <item name="android:textColorLink">@color/colorYellow</item>
+        <item name="android:textColorHint">@color/colorYellow</item>
+        <item name="android:textSize">16sp</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/colorYellow</item>
+        <item name="colorControlNormal">@color/colorYellow</item>
+        <item name="colorControlActivated">@color/colorYellow</item>
+
+        <item name="android:textColor">@color/colorYellow</item>
+    </style>
+
+
+    <style name="large_code_face">
+        <!--<item name="colorControlHighlight">#589398</item>
+        <item name="colorButtonNormal">#fa8392</item>-->
+        <!--<item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>-->
+        <item name="android:textColor">@color/colorYellow</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">@color/colorBlueHeader</item>
+    </style>
+
+
 </resources>

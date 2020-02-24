@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.camsys.carmonic">
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -8,6 +10,16 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- <uses-permission android:name="android.permission.CALL_PRIVILEGED"/> -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +28,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InputCardDetailsActivity"></activity>
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -29,9 +41,15 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+<!--        <activity-->
+<!--            android:name=".MapViews.AmazonTest"-->
+<!--            android:label="@string/title_activity_amazon_test"-->
+<!--            android:theme="@style/AppTheme.NoActionBar" />-->
+        <activity android:name=".InputCardDetailsActivity" />
+
         <meta-data
             android:name="co.paystack.android.PublicKey"
-            android:value="pk_test_9ec461ec865c630eaf8bf3ce6ceaf660b39b22f9"/>
+            android:value="pk_test_9ec461ec865c630eaf8bf3ce6ceaf660b39b22f9" />
 
         <activity
             android:name=".MapsActivityWithLocationConfirmed"
@@ -42,7 +60,7 @@
         <activity
             android:name=".LandingPageActivity"
             android:label=""
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/mainAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,15 +68,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".sign_upActivity"
+            android:name=".onboarding.sign_upActivity"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".onboarding.SignInActivity"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".onboarding.SignUpActivity"
             android:label="@string/title_activity_sign_up2"
             android:theme="@style/AppTheme" />
         <activity android:name=".home_screen" />

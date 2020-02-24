@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
@@ -14,13 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/innerScrollConstraint"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bottomConstraint"
                 android:layout_width="match_parent"
                 android:layout_height="198dp"
@@ -30,7 +30,7 @@
 
                 >
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
 
 
                     android:id="@+id/imgClose"
@@ -115,9 +115,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ConstraintLayer2"
                 android:layout_width="match_parent"
                 android:layout_height="124dp"
@@ -149,7 +149,7 @@
 
 
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/comImageIa"
                     android:layout_width="35dp"
                     android:layout_height="31.51dp"
@@ -198,7 +198,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/comImg2a"
                     android:layout_width="35dp"
                     android:layout_height="32.54dp"
@@ -246,7 +246,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/comImg3a"
                     android:layout_width="35dp"
                     android:layout_height="33.77dp"
@@ -294,7 +294,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/comImg4a"
                     android:layout_width="35dp"
                     android:layout_height="37.8dp"
@@ -342,7 +342,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/comImg5a"
                     android:layout_width="35dp"
                     android:layout_height="37.8dp"
@@ -390,9 +390,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ConstraintLayer3"
                 android:layout_width="match_parent"
                 android:layout_height="124dp"
@@ -450,9 +450,9 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ConstraintLayer4"
                 android:layout_width="match_parent"
                 android:layout_height="124dp"
@@ -482,7 +482,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/appCompatImageButton2C"
                     android:layout_width="35dp"
                     android:layout_height="31.51dp"
@@ -525,7 +525,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/appCompatImageButton3C"
                     android:layout_width="35dp"
                     android:layout_height="33.77dp"
@@ -567,7 +567,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/appCompatImageButton4C"
                     android:layout_width="35dp"
                     android:layout_height="33.77dp"
@@ -610,9 +610,9 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ConstraintLayer5"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
@@ -625,7 +625,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
 
-                <android.support.v7.widget.AppCompatButton
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_sign_in"
                     style="@style/home_page_button"
                     android:layout_width="99dp"
@@ -641,7 +641,7 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
 
-            </android.support.constraint.ConstraintLayout>
-        </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

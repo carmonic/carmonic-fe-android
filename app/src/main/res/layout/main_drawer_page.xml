@@ -14,11 +14,11 @@
     </FrameLayout>
 
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_alignParentTop="true"
         android:layout_marginTop="50sp"
-        app:title=""></android.support.v7.widget.Toolbar>
+        app:title=""></androidx.appcompat.widget.Toolbar>
 </RelativeLayout>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="4dp"
+    android:orientation="vertical"
+    tools:ignore="UnusedAttribute">
+
+
+
+    <LinearLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/coordinatorLayout2"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:background="@drawable/grad_hom"
+            >
+
+
+            <TextView
+                android:id="@+id/cancel_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="left"
+                android:text="X"
+                android:textColor="@color/colorYellow"
+                android:textStyle="normal"
+                android:textSize="20dp"
+                />
+
+
+            <LinearLayout
+                android:id="@+id/infoPanel"
+                android:layout_below="@+id/cancel_action"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="20dp"
+                android:visibility="visible"
+                android:layout_gravity="top"
+                android:gravity="top|center"
+                >
+
+
+
+                <TextView
+                    android:id="@+id/txtCustomerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_picture"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/title_activity_additional_information_layout"
+                    android:textColor="@color/colorYellow"
+                    android:textSize="20dp"
+                    android:textStyle="normal" />
+
+
+
+                <TextView
+                    android:id="@+id/txtDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/container"
+                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="40dp"
+
+                    android:layout_marginRight="40dp"
+                    android:fontFamily="@fonts/GlacialIndifferenceRegular"
+                    android:gravity="center"
+                    android:text="@string/add_more"
+                    android:textColor="#B9B9B9"
+                    android:textSize="15dp" />
+
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|top"
+                    android:gravity="left"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_head_bar"
+                        android:layout_gravity="left"
+                        android:layout_weight="80"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#00ffffff"
+                            android:enabled="false"
+                            android:text="Car Color:"
+                            android:lineHeight="15sp"
+                            android:textColor="@color/colorYellow"
+                            android:textSize="15sp"
+                            android:textStyle="normal" />
+
+                        <EditText
+                            android:id="@+id/txtCarColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:imeOptions="actionNext"
+                            android:hint="Red"
+                            android:lineHeight="17sp"
+                            android:drawablePadding="5dp"
+                            android:textColor="@color/colorYellow"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_head_bar_2"
+                        android:layout_gravity="left"
+                        android:layout_weight="80"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#00ffffff"
+                            android:enabled="false"
+                            android:text="Car Brand:"
+                            android:lineHeight="15sp"
+                            android:textColor="@color/colorYellow"
+                            android:textSize="15sp"
+                            android:textStyle="normal" />
+
+                        <EditText
+                            android:id="@+id/txtCarBrand"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:imeOptions="actionNext"
+                            android:hint="Toyota"
+                            android:lineHeight="17sp"
+                            android:drawablePadding="5dp"
+                            android:textColor="@color/colorYellow"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_head_bar_3"
+                        android:layout_gravity="left"
+                        android:layout_weight="80"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#00ffffff"
+                            android:enabled="false"
+                            android:text="Car Model:"
+                            android:lineHeight="15sp"
+                            android:textColor="@color/colorYellow"
+                            android:textSize="15sp"
+                            android:textStyle="normal" />
+
+                        <EditText
+                            android:id="@+id/txtCarModel"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:imeOptions="actionNext"
+                            android:hint="Camry"
+                            android:lineHeight="17sp"
+                            android:drawablePadding="5dp"
+                            android:textColor="@color/colorYellow"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_head_bar_4"
+                        android:layout_gravity="left"
+                        android:layout_weight="80"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#00ffffff"
+                            android:enabled="false"
+                            android:text="Model Year:"
+                            android:lineHeight="15sp"
+                            android:textColor="@color/colorYellow"
+                            android:textSize="15sp"
+                            android:textStyle="normal" />
+
+                        <EditText
+                            android:id="@+id/txtModelYear"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:imeOptions="actionNext"
+                            android:hint="2009"
+                            android:lineHeight="17sp"
+                            android:drawablePadding="5dp"
+                            android:textColor="@color/colorYellow"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_head_bar_5"
+                        android:layout_gravity="left"
+                        android:layout_weight="80"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#00ffffff"
+                            android:enabled="false"
+                            android:text="Issue with the Car:"
+                            android:lineHeight="15sp"
+                            android:textColor="@color/colorYellow"
+                            android:textSize="15sp"
+                            android:textStyle="normal" />
+
+                        <EditText
+                            android:id="@+id/txtIssueWithCar"
+                            android:layout_width="match_parent"
+                            android:layout_height="88dp"
+                            android:drawablePadding="5dp"
+                            android:inputType="textMultiLine"
+                            android:imeOptions="actionNext"
+                            android:lineHeight="17sp"
+                            android:maxLines="16"
+                            android:gravity="top|left"
+                            android:hint="Engine issue"
+                            android:textColor="@color/colorYellow"
+                            android:textSize="17sp"
+                            android:textStyle="normal" />
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/txtTimer"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="20dp"
+                    android:gravity = "bottom"
+                    android:background="@android:color/transparent"
+                    android:padding="5dp">
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnNext"
+                        style="@style/home_page_button"
+                        android:layout_width="99dp"
+                        android:layout_height="37dp"
+                        android:layout_marginEnd="25dp"
+                        android:layout_marginBottom="28dp"
+                        android:background="@drawable/register_button"
+                        android:layout_alignParentRight="true"
+                        android:imeOptions="actionSend"
+                        android:textStyle="bold"
+                        android:text="@string/Next"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</LinearLayout>

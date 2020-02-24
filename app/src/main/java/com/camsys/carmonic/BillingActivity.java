@@ -7,9 +7,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.support.v7.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,10 +17,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.camsys.carmonic.constants.Constants;
-import com.camsys.carmonic.financial.Utils;
 import com.camsys.carmonic.networking.BackEndDAO;
 import com.camsys.carmonic.financial.Bill;
-import com.camsys.carmonic.principals.User;
+import com.camsys.carmonic.model.User;
 import com.google.gson.Gson;
 
 import java.io.IOException;

@@ -3,9 +3,12 @@ package com.camsys.carmonic;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
+
+import com.camsys.carmonic.onboarding.SignInActivity;
+import com.camsys.carmonic.onboarding.sign_upActivity;
 
 public class LandingPageActivity extends AppCompatActivity {
 

@@ -6,4 +6,7 @@
     <color name="colorBlueHeader">#003D73</color>
     <color name="colorYellow">#EDD170</color>
     <color name="colorPrimaryTextColor">#edd170</color>
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="red">#FF0000</color>
 </resources>
