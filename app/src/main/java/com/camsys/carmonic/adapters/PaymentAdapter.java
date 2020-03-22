@@ -15,37 +15,45 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.camsys.carmonic.History.HistoryActivity;
 import com.camsys.carmonic.History.HistoryDetailActivity;
 import com.camsys.carmonic.R;
+import com.camsys.carmonic.model.Card;
 import com.camsys.carmonic.model.HistoryItem;
+import com.camsys.carmonic.payment.PaymentActivity;
 
 import java.util.ArrayList;
 
-public class HistoryFragmentAdapter extends RecyclerView.Adapter<HistoryFragmentAdapter.ViewHolder> {
+public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
 
-    private final ArrayList<HistoryItem> accList;
-    private final HistoryActivity.OnListFragmentInteractionListener mListener;
+    private final ArrayList<Card> accList;
+    //private final HistoryActivity.OnListFragmentInteractionListener mListener;
 
     Context context;
 
-    public HistoryFragmentAdapter(ArrayList<HistoryItem> accList, HistoryActivity.OnListFragmentInteractionListener listener, Context context) {
+    public PaymentAdapter(ArrayList<Card> accList, Context context) {
         this.accList = accList;
-        mListener = listener;
+
         this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.history_item, parent, false);
+                .inflate(R.layout.payment_card_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.txtItemDate.setText(accList.get(position).getItemDate());
-        holder.txtRequester.setText(accList.get(position).getItemRequester());
-        holder.txtAmount.setText(accList.get(position).getAmount());
-        setRating(holder,accList.get(position).getNumberOfStar());
+
+        holder.txtRequester.setText(accList.get(position).getCardDescription());
+        holder.txtAmount.setText(accList.get(position).getLastUsed());
+        if(accList.get(position).getCardType().equalsIgnoreCase("MasterCard")) {
+            holder.cardLogo.setImageResource(R.drawable.mastercard);
+        }else if( accList.get(position).getCardType().equalsIgnoreCase("visa")){
+            holder.cardLogo.setImageResource(R.drawable.visa);
+        }else{
+            holder.cardLogo.setImageResource(android.R.drawable.btn_plus);
+        }
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,62 +71,29 @@ public class HistoryFragmentAdapter extends RecyclerView.Adapter<HistoryFragment
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
-        final TextView txtItemDate;
+
         final TextView txtRequester;
         final TextView txtAmount;
-        final ImageView star1;
-        final ImageView star2;
-        final ImageView star3;
-        final ImageView star4;
-        final ImageView star5;
+        final ImageView cardLogo;
+
 
         public HistoryItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            txtItemDate = (TextView) view.findViewById(R.id.txtItemDate);
+
             txtRequester = (TextView) view.findViewById(R.id.txtItemRequester);
             txtAmount = (TextView) view.findViewById(R.id.txtAmount);
-            star1 = (ImageView) view.findViewById(R.id.start1);
-            star2 = (ImageView) view.findViewById(R.id.start2);
-            star3 = (ImageView) view.findViewById(R.id.start3);
-            star4 = (ImageView) view.findViewById(R.id.start4);
-            star5 = (ImageView) view.findViewById(R.id.start5);
+            cardLogo = (ImageView) view.findViewById(R.id.item_picture);
+
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + txtItemDate.getText() + "'";
+            return super.toString() + " '" + txtRequester.getText() + "'";
         }
     }
 
-    public void setRating(final ViewHolder holder,int  numberOfStart){
-        if(numberOfStart == 1){
-            holder.star1.setVisibility(View.VISIBLE);
-        }
-        if(numberOfStart == 2){
-            holder.star1.setVisibility(View.VISIBLE);
-            holder.star2.setVisibility(View.VISIBLE);
-        }
-        if(numberOfStart == 3){
-            holder.star1.setVisibility(View.VISIBLE);
-            holder.star2.setVisibility(View.VISIBLE);
-            holder.star3.setVisibility(View.VISIBLE);
-        }
-        if(numberOfStart == 4){
-            holder.star1.setVisibility(View.VISIBLE);
-            holder.star2.setVisibility(View.VISIBLE);
-            holder.star3.setVisibility(View.VISIBLE);
-            holder.star4.setVisibility(View.VISIBLE);
-        }
-        if(numberOfStart == 5){
-            holder.star1.setVisibility(View.VISIBLE);
-            holder.star2.setVisibility(View.VISIBLE);
-            holder.star3.setVisibility(View.VISIBLE);
-            holder.star4.setVisibility(View.VISIBLE);
-            holder.star5.setVisibility(View.VISIBLE);
 
-        }
-    }
 }

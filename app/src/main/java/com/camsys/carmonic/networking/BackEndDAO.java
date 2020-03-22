@@ -28,7 +28,7 @@ public class BackEndDAO {
     }
 
     public static String getBackendURL() {
-        return Constants.EndPoint.Base_URL_local;
+        return Constants.EndPoint.Base_URL_remote;
     }
 
     public static void signUp(String firstName,
@@ -76,7 +76,6 @@ public class BackEndDAO {
 
     public static void getMechanics(double longitude, double latitude,String token, Callback callback) {
         String route = "/getMechanics";
-
         HttpUrl.Builder httpBuider = HttpUrl.parse(getBackendURL() + route).newBuilder();
         httpBuider.addQueryParameter("longitude", Double.toString(longitude));
         httpBuider.addQueryParameter("latitude", Double.toString(latitude));

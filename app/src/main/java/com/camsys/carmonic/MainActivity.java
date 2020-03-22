@@ -1,11 +1,19 @@
 package com.camsys.carmonic;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.camsys.carmonic.constants.Constants;
+import com.camsys.carmonic.utilities.SharedData;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.view.GravityCompat;
@@ -13,12 +21,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.camsys.carmonic.onboarding.SignInActivity;
 import com.camsys.carmonic.onboarding.sign_upActivity;
+import com.google.gson.Gson;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,33 +39,97 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawer = null;
     NavigationView navigationView;
 
+    Gson gson  = null;
+    SharedData sharedData =  null;
+    int navActiveId;
+
+    Menu drawerMenu;
+
+
+    String regID;
+    TextView txtBack;
+    TextView txtNext;
+    TextView title;
+
+    private GoogleMap mMap;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    String  TripReq ;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedData =  new SharedData(getApplicationContext());
+        //String userkey = sharedData.Get(Constants.USER_KEY,"");
+        gson  =  new Gson();
+//        if(userkey == ""){
+//            sharedData.Clear(Constants.USER_KEY);
+//            startActivity(new Intent(getApplicationContext(),LandingPage.class));
+//            finish();
+//            return;
+//        }
+       // Users user  =  gson.fromJson(userkey,Users.class);
+       // System.out.println("------------------- " + userkey);
+
+
         setContentView(R.layout.activity_main);
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }*/
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setBackgroundColor(Color.TRANSPARENT);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        drawer = findViewById(R.id.drawer_layout);
+        // Status bar :: Transparent
+        Window window = this.getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+
+
+
+
+
+        title = (TextView) toolbar.findViewById(R.id.txtTitle);
+        title.setTextSize((float) 16.0);
+        title.setText("");
+        // title.setText(getResources().getString(R.string.app_name));
+        txtBack = (TextView) toolbar.findViewById(R.id.txtBack);
+        txtNext = (TextView) toolbar.findViewById(R.id.txtNext);
+        txtNext.setVisibility(View.INVISIBLE);
+        txtBack.setVisibility(View.INVISIBLE);
+
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+        drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = findViewById(R.id.nav_view);
+
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorYellow)));
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //GoToHomeFragment();
+
+        loadFragment(getIntent());
     }
+
+    public void loadFragment(Intent intent) {
+
+        Fragment fragment = MapViewFragment.newInstance(intent);     //new MapViewFragment(TripReq);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.mapFrame, fragment);
+        ft.commit();
+
+    }
+
 
     @Override
     public void onBackPressed() {

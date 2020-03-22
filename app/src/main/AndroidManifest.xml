@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.camsys.carmonic">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -28,7 +27,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".payment.AddPayment"
+            android:label="@string/title_activity_add_payment"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".payment.PaymentActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -39,12 +42,10 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
-<!--        <activity-->
-<!--            android:name=".MapViews.AmazonTest"-->
-<!--            android:label="@string/title_activity_amazon_test"-->
-<!--            android:theme="@style/AppTheme.NoActionBar" />-->
+            android:value="@string/google_maps_key" /> <!-- <activity -->
+        <!-- android:name=".MapViews.AmazonTest" -->
+        <!-- android:label="@string/title_activity_amazon_test" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity android:name=".InputCardDetailsActivity" />
 
         <meta-data
@@ -54,6 +55,8 @@
         <activity
             android:name=".MapsActivityWithLocationConfirmed"
             android:label="@string/title_activity_maps_with_location_confirmed" />
+        <activity android:name=".History.HistoryActivity" />
+        <activity android:name=".History.HistoryDetailActivity" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />

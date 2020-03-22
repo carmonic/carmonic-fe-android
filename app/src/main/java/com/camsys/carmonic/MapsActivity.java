@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
@@ -15,23 +16,37 @@ import android.location.LocationListener;
 import android.os.Build;
 import android.os.Handler;
 import android.os.ResultReceiver;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.camsys.carmonic.History.HistoryActivity;
 import com.camsys.carmonic.MapViews.ConfirmCustomerLocationFragment;
 import com.camsys.carmonic.constants.Constants;
 import com.camsys.carmonic.financial.Bill;
@@ -39,6 +54,7 @@ import com.camsys.carmonic.model.Car;
 import com.camsys.carmonic.model.Mechanic;
 import com.camsys.carmonic.model.User;
 import com.camsys.carmonic.networking.BackEndDAO;
+import com.camsys.carmonic.payment.PaymentActivity;
 import com.camsys.carmonic.service.FetchAddressIntentService;
 import com.camsys.carmonic.state.JobStatus;
 import com.camsys.carmonic.utilities.SharedData;
@@ -60,6 +76,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -128,9 +145,16 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     Location mLastLocation ;
     LocationRequest mLocationRequest;
 
+
+    int navActiveId;
+    DrawerLayout drawer;
+    Menu drawerMenu;
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         sharedData =  new SharedData(getApplicationContext());
         gson  =  new Gson();
         String userkey = sharedData.Get(Constants.SharedDataCst.USER_KEY,"");
@@ -156,9 +180,51 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         layout_overlay = (LinearLayout) findViewById(R.id.layout_overlay);
         layout_overlay.setVisibility(View.GONE);
 
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+        navigationView = (NavigationView) findViewById(R.id.nv);
+        navigationView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorYellow)));
+        navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        int id = item.getItemId();
+
+        if (id == R.id.nav_profle) {
+            Toast.makeText(this, "I am camera", Toast.LENGTH_SHORT).show();
+
+        }else if(id ==  R.id.nav_history){
+             startActivity(new Intent(this,HistoryActivity.class));
+        }else if(id == R.id.nav_account){
+            startActivity(new Intent(this, PaymentActivity.class));
+        }
+
+        transaction.commit();
+
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
     private void getMechanics(double latitude,double  longitude,String  token) {
 
@@ -197,20 +263,20 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             public void onReturnValue(boolean indicator, String address, double latitude, double longitude, Car car) {
                 String  gsonCar = gson.toJson(car);
 
-//                layout_overlay.setVisibility(View.VISIBLE);
-//                if(mechanicList != null){
-//                    notifyMechanics(mechanicList,gsonCar);
+                layout_overlay.setVisibility(View.VISIBLE);
+               // if(mechanicList != null){
+                    notifyMechanics(mechanicList,gsonCar);
 //                }else{
 //                    Toast.makeText(MapsActivity.this, "No mechanic available", Toast.LENGTH_SHORT).show();
 //                }
 
 
-                Intent i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
-                i.putExtra("longitude", latitude==0.0?customerPosition.latitude:latitude);
-                i.putExtra("latitude", longitude==0.0?customerPosition.longitude:longitude);
-                i.putExtra("Address",address==null?txtMyLocation.getText().toString():address);
-                i.putExtra("car",gsonCar);
-                startActivity(i);
+//                Intent i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
+//                i.putExtra("longitude", latitude==0.0?customerPosition.latitude:latitude);
+//                i.putExtra("latitude", longitude==0.0?customerPosition.longitude:longitude);
+//                i.putExtra("Address",address==null?txtMyLocation.getText().toString():address);
+//                i.putExtra("car",gsonCar);
+//                startActivity(i);
 
             }
         });
@@ -221,8 +287,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
 
 
-    @SuppressLint("WrongConstant")
+
     public void onClickMenuImage(View view) {
+        System.out.println("Aaayeeee ");
         mDrawerLayout.openDrawer(Gravity.START);
     }
 
@@ -486,7 +553,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         //stop location updates when Activity is no longer active
         try {
             if (mGoogleApiClient != null) {
-                LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, (com.google.android.gms.location.LocationListener) this);
+//                LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, (com.google.android.gms.location.LocationListener) this);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -523,55 +590,60 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         mGoogleApiClient.connect();
     }
 
+//    @Override
+//    public void onConnected(Bundle bundle) {
+//        try {
+//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                // TODO: Consider calling
+//                //    ActivityCompat#requestPermissions
+//                // here to request the missing permissions, and then overriding
+//                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                //                                          int[] grantResults)
+//                // to handle the case where the user grants the permission. See the documentation
+//                // for ActivityCompat#requestPermissions for more details.
+//                return;
+//            }
+//
+//            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+//                    mGoogleApiClient);
+//            if (mLastLocation != null) {
+//                // changeMap(mLastLocation);
+//                initCamera(mLastLocation);
+//                startIntentService(mLastLocation);
+//
+//
+//            } else
+//                try {
+//                    LocationServices.FusedLocationApi.removeLocationUpdates(
+//                            mGoogleApiClient, (com.google.android.gms.location.LocationListener) this);
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            try {
+//                mLocationRequest = new LocationRequest();
+//                mLocationRequest.setInterval(60000);
+//                mLocationRequest.setFastestInterval(10000);
+//                mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//                LocationServices.FusedLocationApi.requestLocationUpdates(
+//                        mGoogleApiClient, mLocationRequest, (com.google.android.gms.location.LocationListener) this);
+//                //Toast.makeText(getActivity(),"Longitude = " +mLastLocation.getLongitude()+ " Latyitude = " + mLastLocation.getLatitude() + "" ,Toast.LENGTH_LONG).show();
+//                startIntentService(mLastLocation);
+//                //    socketLocationUpdate(mLastLocation);
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//
+//        }
+//
+//    }
+
     @Override
-    public void onConnected(Bundle bundle) {
-        try {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                    mGoogleApiClient);
-            if (mLastLocation != null) {
-                // changeMap(mLastLocation);
-                initCamera(mLastLocation);
-                startIntentService(mLastLocation);
-
-
-            } else
-                try {
-                    LocationServices.FusedLocationApi.removeLocationUpdates(
-                            mGoogleApiClient, (com.google.android.gms.location.LocationListener) this);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            try {
-                mLocationRequest = new LocationRequest();
-                mLocationRequest.setInterval(60000);
-                mLocationRequest.setFastestInterval(10000);
-                mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                LocationServices.FusedLocationApi.requestLocationUpdates(
-                        mGoogleApiClient, mLocationRequest, (com.google.android.gms.location.LocationListener) this);
-                //Toast.makeText(getActivity(),"Longitude = " +mLastLocation.getLongitude()+ " Latyitude = " + mLastLocation.getLatitude() + "" ,Toast.LENGTH_LONG).show();
-                startIntentService(mLastLocation);
-                //    socketLocationUpdate(mLastLocation);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-
-        }
-
+    public void onConnected(@Nullable Bundle bundle) {
+        System.out.println("---------------------------");
     }
 
     @Override

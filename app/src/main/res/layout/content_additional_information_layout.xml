@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:elevation="4dp"
     android:orientation="vertical"
+    android:background="@drawable/grad_hom"
     tools:ignore="UnusedAttribute">
 
 

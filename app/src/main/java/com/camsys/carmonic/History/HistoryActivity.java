@@ -1,12 +1,9 @@
-package com.camsys.carmonic.mechanic.History;
+package com.camsys.carmonic.History;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import com.camsys.carmonic.mechanic.Adapters.HistoryFragmentAdapter;
-import com.camsys.carmonic.mechanic.Model.HistoryItem;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -14,10 +11,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
-import android.widget.TextView;
 
-import com.camsys.carmonic.mechanic.R;
+import com.camsys.carmonic.R;
+import com.camsys.carmonic.adapters.HistoryFragmentAdapter;
+import com.camsys.carmonic.model.HistoryItem;
 
 import java.util.ArrayList;
 
@@ -26,7 +23,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     private OnListFragmentInteractionListener mListener;
     Context mContext =  null;
-    private   Toolbar toolbar = null;
+    private Toolbar toolbar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

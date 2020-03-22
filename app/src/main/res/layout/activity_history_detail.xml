@@ -86,33 +86,40 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="March 24, 2018"
-                    android:layout_marginBottom="20dp"
-                    android:layout_gravity="center"
-                    android:textColor="@color/colorYellow"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+
 
 
                 <RelativeLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="120dp"
                     android:layout_marginLeft="26dp"
                     android:layout_marginRight="26dp"
                     android:background="@drawable/dr_billing_top"
                     android:padding="10dp"
                    >
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="March 24,2017"
+                        android:textColor="@color/colorYellow"
+                        android:id="@+id/txtItemDate"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentTop="true"
+                        android:textStyle="bold" />
+
+
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/item_picture"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginStart="15dp"
                         android:src="@drawable/user"
                         android:layout_centerInParent="false"
                         android:layout_alignParentLeft="true"
@@ -123,27 +130,24 @@
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
                         android:layout_gravity="center_vertical"
                         android:layout_centerInParent="false"
                         android:layout_toEndOf="@+id/item_picture"
+                        android:layout_marginTop="35dp"
                         >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="March 24, 2017, 1:20pm"
-                            android:textColor="@color/colorYellow"
-                            android:id="@+id/txtItemDate"
-                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:text="Request with Sanni"
+                            android:gravity="center"
                             android:textColor="@color/colorYellow"
                             android:id="@+id/txtItemRequester" />
+
+
+
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -156,56 +160,7 @@
 
 
 
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:gravity="left"
-                            android:layout_toEndOf="@+id/user_picture"
-                            >
 
-                            <ImageView
-                                android:id="@+id/start1"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center"
-                                android:visibility="visible"
-                                android:src="@android:drawable/star_off" />
-
-                            <ImageView
-                                android:id="@+id/start2"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center"
-                                android:visibility="gone"
-                                android:src="@android:drawable/star_off" />
-
-                            <ImageView
-                                android:id="@+id/start3"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center"
-                                android:visibility="gone"
-                                android:src="@android:drawable/star_off" />
-
-                            <ImageView
-                                android:id="@+id/start4"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center"
-                                android:visibility="gone"
-                                android:src="@android:drawable/star_off" />
-
-                            <ImageView
-                                android:id="@+id/start5"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center"
-                                android:visibility="gone"
-                                android:src="@android:drawable/star_off" />
-
-                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -231,124 +186,117 @@
 
 
                     <TextView
-                        android:id="@+id/txtBillHeader1"
+                        android:id="@+id/ratingHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="Bill Breakdown"
+                        android:text="@string/rating_msg"
                         android:textColor="@color/colorYellow"
-                        android:textSize="17dp"
+                        android:textSize="14dp"
                         android:textStyle="bold" />
 
 
-
-                    <RelativeLayout
-                        android:id="@+id/baseFareContainer1"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/txtBillHeader"
-                        android:layout_margin="15dp"
-                        android:orientation="horizontal">
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        >
 
-                        <TextView
-                            android:id="@+id/txtBaseFareHeader1"
+                        <RatingBar
+                            android:id="@+id/rating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:text="Base fare:"
-                            android:layout_alignParentLeft="true"
-                            android:textColor="@color/dialog_text"
-                            android:textSize="17dp"
-                            android:textStyle="normal" />
+                            android:saveEnabled="true"
+                            android:numStars="5"/>
 
-                        <TextView
-                            android:id="@+id/txtBaseFare1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentRight="true"
-                            android:text="N300"
-                            android:textColor="@color/colorYellow"
-                            android:textSize="17dp"
-                            android:textStyle="bold" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/start1"-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:visibility="visible"-->
+<!--                            android:src="@android:drawable/star_off" />-->
 
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:id="@+id/baseFareContainer21"
-                        android:layout_width="match_parent"
+<!--                        <ImageView-->
+<!--                            android:id="@+id/start2"-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:visibility="visible"-->
+<!--                            android:src="@android:drawable/star_off" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/start3"-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:visibility="visible"-->
+<!--                            android:src="@android:drawable/star_off" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/start4"-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:visibility="visible"-->
+<!--                            android:src="@android:drawable/star_off" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/start5"-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:visibility="visible"-->
+<!--                            android:src="@android:drawable/star_off" />-->
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/ratingNoteHeader"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/baseFareContainer"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:orientation="horizontal">
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/rating_note_header"
+                        android:textColor="@color/colorYellow"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/txtBaseFareHeader11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:text="Calculated fare:"
-                            android:layout_alignParentLeft="true"
-                            android:textColor="@color/dialog_text"
-                            android:textSize="17dp"
-                            android:textStyle="normal" />
 
-                        <TextView
-                            android:id="@+id/txtBaseFare11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentRight="true"
-                            android:text="N600"
-                            android:textColor="@color/colorYellow"
-                            android:textSize="17dp"
-                            android:textStyle="bold" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/baseFareContainer31"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/ratingNote"
+                        android:layout_width="219dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/baseFareContainer"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:orientation="horizontal">
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:text="@string/rating_note"
+                        android:textColor="@color/dialog_text"
+                        android:textSize="12dp"
+                        android:textStyle="italic" />
 
-                        <TextView
-                            android:id="@+id/txtBaseFareHeader211"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:text="Total fare:"
-                            android:layout_alignParentLeft="true"
-                            android:textColor="@color/dialog_text"
-                            android:textSize="17dp"
-                            android:textStyle="normal" />
 
-                        <TextView
-                            android:id="@+id/txtBaseFare211"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentRight="true"
-                            android:text="N900"
-                            android:textColor="@color/colorYellow"
-                            android:textSize="17dp"
-                            android:textStyle="bold" />
 
-                    </RelativeLayout>
+
 
                 </LinearLayout>
 
                 <LinearLayout
 
                     android:layout_width="match_parent"
-                    android:layout_height="192dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/dr_billing_top"
-                    android:layout_margin="26dp"
+                    android:padding="10dp"
+                    android:layout_marginLeft="26dp"
+                    android:layout_marginRight="26dp"
+                    android:layout_marginTop ="0dp"
+                    android:layout_marginBottom="80dp"
                     android:gravity="center|top"
                     android:orientation="vertical">
 
@@ -361,7 +309,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="Bill Breakdown"
+                        android:text="Billing Information"
+
                         android:textColor="@color/colorYellow"
                         android:textSize="17dp"
                         android:textStyle="bold" />
@@ -369,7 +318,7 @@
 
 
                     <RelativeLayout
-                        android:id="@+id/baseFareContainer234"
+                        android:id="@+id/baseFareContainer4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txtBillHeader"
@@ -391,10 +340,10 @@
                             android:id="@+id/txtBaseFare234"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_alignParentRight="true"
+                            android:layout_centerHorizontal="true"
                             android:text="N300"
-                            android:textColor="@color/colorYellow"
+                            android:textColor="@color/dialog_text"
                             android:textSize="17dp"
                             android:textStyle="bold" />
 
@@ -424,10 +373,10 @@
                             android:id="@+id/txtBaseFare1345"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_alignParentRight="true"
+                            android:layout_centerHorizontal="true"
                             android:text="N600"
-                            android:textColor="@color/colorYellow"
+                            android:textColor="@color/dialog_text"
                             android:textSize="17dp"
                             android:textStyle="bold" />
 
@@ -457,143 +406,74 @@
                             android:id="@+id/txtBaseFare2345"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_alignParentRight="true"
+                            android:layout_centerHorizontal="true"
                             android:text="N900"
-                            android:textColor="@color/colorYellow"
+                            android:textColor="@color/dialog_text"
                             android:textSize="17dp"
                             android:textStyle="bold" />
 
                     </RelativeLayout>
 
-                </LinearLayout>
 
 
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="192dp"
-                    android:background="@drawable/dr_billing_top"
-                    android:layout_margin="26dp"
-                    android:gravity="center|top"
-                    android:orientation="vertical">
-
-
-
-
-                    <TextView
-                        android:id="@+id/txtBillHeader"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:id="@+id/baseFareContainer345"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="Bill Breakdown"
-                        android:textColor="@color/colorYellow"
-                        android:textSize="17dp"
-                        android:textStyle="bold" />
-
-
-
-                    <RelativeLayout
-                        android:id="@+id/baseFareContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/txtBillHeader"
-                        android:layout_margin="15dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txtBaseFareHeader"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:text="Base fare:"
-                            android:layout_alignParentLeft="true"
-                            android:textColor="@color/dialog_text"
-                            android:textSize="17dp"
-                            android:textStyle="normal" />
-
-                        <TextView
-                            android:id="@+id/txtBaseFare"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentRight="true"
-                            android:text="N300"
-                            android:textColor="@color/colorYellow"
-                            android:textSize="17dp"
-                            android:textStyle="bold" />
-
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:id="@+id/baseFareContainer2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:layout_below="@+id/baseFareContainer"
                         android:layout_marginRight="15dp"
                         android:layout_marginLeft="15dp"
-                        android:layout_marginBottom="15dp"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/txtBaseFareHeader1234"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:text="Calculated fare:"
-                            android:layout_alignParentLeft="true"
-                            android:textColor="@color/dialog_text"
-                            android:textSize="17dp"
-                            android:textStyle="normal" />
+
 
                         <TextView
-                            android:id="@+id/txtBaseFare1234"
+                            android:id="@+id/txtTotal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:layout_alignParentRight="true"
-                            android:text="N600"
-                            android:textColor="@color/colorYellow"
+                            android:text="Total: N900"
+                            android:textColor="@color/dialog_text"
                             android:textSize="17dp"
                             android:textStyle="bold" />
 
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/baseFareContainer3"
+                        android:id="@+id/note"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/baseFareContainer"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:layout_marginRight="15dp"
                         android:layout_marginLeft="15dp"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/txtBaseFareHeader2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:text="Total fare:"
-                            android:layout_alignParentLeft="true"
-                            android:textColor="@color/dialog_text"
-                            android:textSize="17dp"
-                            android:textStyle="normal" />
+
 
                         <TextView
-                            android:id="@+id/txtBaseFare2"
+                            android:id="@+id/txtNote"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:layout_alignParentRight="true"
-                            android:text="N900"
-                            android:textColor="@color/colorYellow"
+                            android:gravity="left"
+                            android:text="@string/bottom_note"
+                            android:textColor="@color/dialog_text"
                             android:textSize="17dp"
-                            android:textStyle="bold" />
+                            android:textStyle="italic" />
 
                     </RelativeLayout>
 
                 </LinearLayout>
+
+
+
+
 
 
 

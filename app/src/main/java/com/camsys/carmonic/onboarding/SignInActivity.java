@@ -163,14 +163,14 @@ public class SignInActivity extends AppCompatActivity {
                          BackEndDAO.signIn(username, password, new Callback() {
                              @Override
                              public void onFailure(Call call, IOException e) {
-
+                                 e.printStackTrace();
                           //   subTitleTv.setTextColor(getResources().getColor(R.color.red));
 //                                 txtInputLayEmail.getEditText().setText("");
 //                                 txtInputLayPassword.getEditText().setText("");
 
                                  wait_icon.setVisibility(View.INVISIBLE);
-                                 signlayout.setVisibility(View.VISIBLE);
-                                 e.printStackTrace();
+                                  signlayout.setVisibility(View.VISIBLE);
+
                              }
 
                              @Override
@@ -195,7 +195,7 @@ public class SignInActivity extends AppCompatActivity {
                                              if (user.getToken() != null) {
                                                  String json = gson.toJson(user);
                                                  sharedData.Set(Constants.SharedDataCst.USER_KEY, json);
-                                                 Intent i = new Intent(SignInActivity.this, MapsActivity.class);
+                                                 Intent i = new Intent(SignInActivity.this, MainActivity.class);     //MapsActivity.class); //MapsActivity.class);
                                                  startActivity(i);
                                                  //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                                  finish();

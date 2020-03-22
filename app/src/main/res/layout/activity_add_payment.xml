@@ -1,33 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".payment.AddPayment">
-
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:background="@drawable/grad_hom"
+    android:fitsSystemWindows="true"
+        tools:ignore="UnusedAttribute">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_add_payment" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/tool_bar"
+        />
+
+
+
+            <LinearLayout
+                android:id="@+id/coordinatorLayout2"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:gravity="top"
+                android:orientation="vertical"
+                android:layout_height="match_parent"
+                android:background="@drawable/grad_hom"
+                >
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/infoPanel"
+                    android:layout_below="@+id/cancel_action"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="20dp"
+                    android:visibility="visible"
+                    android:layout_gravity="top"
+                    android:gravity="top|center"
+                    >
+
+
+
+
+
+
+
+                    <LinearLayout
+                        android:id="@+id/cardLayout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|top"
+                        android:gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="30dp"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:id="@+id/ll_head_bar"
+                            android:layout_gravity="left"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/txtLayoutCardPan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingBottom="1dp"
+                                app:hintTextAppearance="@style/txtLabel"
+                                android:theme="@style/splash_textinputlayout"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/txtCardPan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorWhite"
+                                    android:hint="Card Pan"
+                                    android:inputType="number"
+                                    />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_head_bar_exp"
+                            android:layout_gravity="left"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/txtLayoutExpDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingBottom="1dp"
+                                app:hintTextAppearance="@style/txtLabel"
+                                android:theme="@style/splash_textinputlayout"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/txtExpDate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorWhite"
+                                    android:hint="Expiry Date"
+                                    android:inputType="number"
+                                    />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:id="@+id/ll_head_bar_cvv"
+                            android:layout_gravity="left"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/txtLayoutCVV"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingBottom="1dp"
+                                app:hintTextAppearance="@style/txtLabel"
+                                android:theme="@style/splash_textinputlayout"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/txtCVV"
+                                    android:maxLength="3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorWhite"
+                                    android:hint="CVV"
+                                    android:inputType="number"
+                                    />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/ll_head_bar_pin"
+                            android:layout_gravity="left"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/txtLayoutPIN"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingBottom="1dp"
+                                app:hintTextAppearance="@style/txtLabel"
+                                android:theme="@style/splash_textinputlayout"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/txtPIN"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorWhite"
+                                    android:maxLength ="4"
+                                    android:hint="PIN"
+                                    android:inputType="number"
+                                    />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                   <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:layout_margin="50dp"
+                    android:id="@+id/wait_icon">
+
+                    <include layout="@layout/wait_icon_layout"
+                        android:layout_gravity="center|center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+
+
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_below="@+id/txtTimer"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="20dp"
+                        android:gravity = "bottom"
+                        android:background="@android:color/transparent"
+                        android:padding="5dp">
+
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnNext"
+                            style="@style/home_page_button"
+                            android:layout_width="99dp"
+                            android:layout_height="37dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_marginBottom="28dp"
+                            android:background="@drawable/register_button"
+                            android:layout_alignParentRight="true"
+                            android:imeOptions="actionSend"
+                            android:textStyle="bold"
+                            android:text="@string/Next"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+</LinearLayout>

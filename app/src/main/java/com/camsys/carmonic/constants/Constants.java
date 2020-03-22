@@ -5,6 +5,9 @@ import com.google.android.gms.maps.GoogleMap;
 public class Constants {
 
     // Shared pref mode
+    public static final String USER_KEY = "userKey";
+    public static  String TAG = "CarmonicLog";
+
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -13,8 +16,7 @@ public class Constants {
             GoogleMap.MAP_TYPE_HYBRID,
             GoogleMap.MAP_TYPE_TERRAIN,
             GoogleMap.MAP_TYPE_NONE};
-
-
+    public static final String API_KEYS = "" ;
 
 
     public  class  EndPoint{

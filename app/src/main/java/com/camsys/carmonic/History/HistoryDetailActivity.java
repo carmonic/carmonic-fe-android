@@ -1,10 +1,13 @@
-package com.camsys.carmonic.mechanic.History;
+package com.camsys.carmonic.History;
 
+
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
-import com.camsys.carmonic.mechanic.R;
+
+import com.camsys.carmonic.R;
+
 
 public class HistoryDetailActivity extends AppCompatActivity {
 

@@ -77,4 +77,13 @@
 
     <string name="google_map_key">AIzaSyAkWJ1pkiUSJAAU7BM9AuM9dkWzR--h4VE</string>
 
+    <string name="rating_msg">You gave xxxx a yyyy star rating:</string>
+    <string name="rating_note_header">Here’s the note you left for xxxxx:</string>
+    <string name="rating_note">Thanks for being on time! You were so friendly and helpful!</string>
+
+    <string name="bottom_note">Your total of #6788 has was charged card ending with 7789</string>
+    <string name="title_activity_add_payment">AddPayment</string>
+
+    <string name="_card_expiry_format">%1$02d / %2$d</string>
+
 </resources>

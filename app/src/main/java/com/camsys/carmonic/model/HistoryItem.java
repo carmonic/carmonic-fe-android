@@ -1,27 +1,30 @@
 package com.camsys.carmonic.model;
 
 public class HistoryItem {
-    String jobDate;
-    String mechanic;
+
+    String itemDate;
+    String itemRequester;
     String amount;
-    int numberOfStars;
+    int numberOfStar;
 
 
-    public void setJobDate(String jobDate){
-        this.jobDate = jobDate;
+    public void  setItemDate(String itemDate){
+        this.itemDate = itemDate;
     }
 
-    public String getJobDate(){
-        return jobDate;
+    public String getItemDate(){
+        return  itemDate;
     }
 
-    public void setMechanic(String mechanic){
-        this.mechanic = mechanic;
+
+    public void  setItemRequester(String itemRequester){
+        this.itemRequester = itemRequester;
     }
 
-    public String getMechanic(){
-        return mechanic;
+    public String getItemRequester(){
+        return  itemRequester;
     }
+
 
     public void  setAmount(String amount){
         this.amount = amount;
@@ -31,11 +34,12 @@ public class HistoryItem {
         return  amount;
     }
 
-    public void setNumberOfStars(int numberOfStars){
-        this.numberOfStars = numberOfStars;
+
+    public void  setNumberOfStar(int numberOfStar){
+        this.numberOfStar = numberOfStar;
     }
 
-    public int getNumberOfStars(){
-        return numberOfStars;
+    public int getNumberOfStar(){
+        return  numberOfStar;
     }
 }
