@@ -57,6 +57,24 @@ public class BackEndDAO {
         client.newCall(request).enqueue(callback);
     }
 
+
+    public static void getHistoryWithPost(int customerId, String token, Callback callback) {
+        String route = "/history";
+
+        RequestBody requestBody = new FormBody.Builder()
+                .add("customerId", "86")
+                .build();
+
+        Request request = new Request.Builder()
+                .addHeader("Authorization", "Bearer " + token)
+                .url(getBackendURL() + route)
+                .post(requestBody)
+                .build();
+
+        client.newCall(request).enqueue(callback);
+
+    }
+
     public static void signIn(String email, String password, Callback callback) {
         String route = "/login";
 
@@ -73,6 +91,19 @@ public class BackEndDAO {
         client.newCall(request).enqueue(callback);
 
     }
+
+    public static void getHistory(int userId, String token, Callback callback) {
+        String route = "/history";
+        HttpUrl.Builder httpBuider = HttpUrl.parse(getBackendURL() + route).newBuilder();
+        httpBuider.addQueryParameter("customerId", "86");  //userId + "");
+        Request request = new Request.Builder()
+                .addHeader("Authorization", "Bearer " + token)
+                .url(httpBuider.build())
+                .build();
+
+        client.newCall(request).enqueue(callback);
+    }
+
 
     public static void getMechanics(double longitude, double latitude,String token, Callback callback) {
         String route = "/getMechanics";

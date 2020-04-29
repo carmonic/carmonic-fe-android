@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.camsys.carmonic.InputCardDetailsActivity;
-import com.camsys.carmonic.MainActivity;
+import com.camsys.carmonic.onboarding.MainActivity;
 import com.camsys.carmonic.R;
 
 

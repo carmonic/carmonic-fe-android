@@ -46,6 +46,7 @@ import com.camsys.carmonic.R;
 import com.camsys.carmonic.constants.Constants;
 import com.camsys.carmonic.service.FetchAddressIntentService;
 import com.camsys.carmonic.utilities.DirectionClassUtil;
+import com.camsys.carmonic.utilities.FireabseAnalyticsLog;
 import com.camsys.carmonic.utilities.Util;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -140,8 +141,8 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,
     AppCompatButton btnCallCustomer = null;
     String  customerPhoneNumber =  "";
 
-
-
+    LinearLayout layout_overlay = null;
+    FireabseAnalyticsLog fireabseAnalyticsLog;
 
     public static MapViewFragment newInstance(Intent intent) {
         MapViewFragment fragment = new MapViewFragment();
@@ -160,18 +161,19 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map_view, container, false);
         setHasOptionsMenu(true);
-        mMapView = (MapView) rootView.findViewById(R.id.mapView);
-        txtMyLocation = (EditText) rootView.findViewById(R.id.txtMyLocation);
+        mMapView = rootView.findViewById(R.id.mapView);
+        txtMyLocation = rootView.findViewById(R.id.txtMyLocation);
         //txtOrderStatus = (TextView) rootView.findViewById(R.id.txtOrderStatus);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume(); // needed to get the map to display immediately
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
 
-        mLinearLayout = (LinearLayout) rootView.findViewById(R.id.bottomContainer);
-        mLinearLayout.setVisibility(View.GONE);
+        mLinearLayout = rootView.findViewById(R.id.bottomContainer);
+        //mLinearLayout.setVisibility(View.GONE);
 
-
+        layout_overlay = rootView.findViewById(R.id.layout_overlay);
+        layout_overlay.setVisibility(View.GONE);
 
 
         checkPlayService(getActivity());
@@ -179,21 +181,8 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,
         mMapView.getMapAsync(this);
         mResultReceiver = new AddressResultReceiver(new Handler());
 
-        btnCallCustomer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(customerPhoneNumber != ""  && customerPhoneNumber.length() > 10){
 
-                    String phoneNumber  = String.format("tel:%s",customerPhoneNumber);
-
-                    Intent intent =new Intent(Intent.ACTION_DIAL);
-                    intent.setData(Uri.parse(phoneNumber));
-                    startActivity(intent);
-
-                }
-            }
-        });
-
+        fireabseAnalyticsLog = new FireabseAnalyticsLog(getActivity());
 
 
         return rootView;
@@ -300,6 +289,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,
                 LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             }
         } catch (Exception ex) {
+            fireabseAnalyticsLog.logEvent(ex.toString(), "MapViewFragment", "onPause");
             ex.printStackTrace();
         }
     }
@@ -411,6 +401,8 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    fireabseAnalyticsLog.logEvent(e.toString(), "MapViewFragment", "onMapReady");
+
                 }
             }
         });
@@ -505,10 +497,14 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,
             Intent intent = new Intent(getActivity(), FetchAddressIntentService.class);
             intent.putExtra(Constants.LocationConstants.RECEIVER, mResultReceiver);
             intent.putExtra(Constants.LocationConstants.LOCATION_DATA_EXTRA, mLocation);
+            fireabseAnalyticsLog.logEvent(mLocation.toString(), "MapViewFragment", "onPause");
+
             getActivity().startService(intent);
 
         } catch (Exception ex) {
             System.out.println(ex.toString());
+            fireabseAnalyticsLog.logEvent(ex.toString(), "MapViewFragment", "startIntentService");
+
         }
 
     }
@@ -550,7 +546,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case Constants.MY_PERMISSIONS_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
@@ -933,10 +929,10 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback,
                     HashMap<String, String> point = path.get(j);
 
                     if (j == 0) {    // Get distance from the list
-                        distance = (String) point.get("distance");
+                        distance = point.get("distance");
                         continue;
                     } else if (j == 1) { // Get duration from the list
-                        duration = (String) point.get("duration");
+                        duration = point.get("duration");
                         continue;
                     }
 

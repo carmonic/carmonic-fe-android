@@ -28,7 +28,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.camsys.carmonic.History.HistoryActivity;
-import com.camsys.carmonic.MapViewFragment;
+
+import com.camsys.carmonic.MapViews.MapViewFragment;
 import com.camsys.carmonic.R;
 import com.camsys.carmonic.constants.Constants;
 
@@ -77,7 +78,7 @@ implements NavigationView.OnNavigationItemSelectedListener
         System.out.println("Firstname ::: " + user.getFirstname());
 
         setContentView(R.layout.activity_amazon_test);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setSupportActionBar(toolbar);
         toolbar.setBackgroundColor(Color.TRANSPARENT);
@@ -94,35 +95,31 @@ implements NavigationView.OnNavigationItemSelectedListener
         }
 
 
-
-
-
-        title = (TextView) toolbar.findViewById(R.id.txtTitle);
+        title = toolbar.findViewById(R.id.txtTitle);
         title.setTextSize((float) 16.0);
         title.setText("");
         // title.setText(getResources().getString(R.string.app_name));
-        txtBack = (TextView) toolbar.findViewById(R.id.txtBack);
-        txtNext = (TextView) toolbar.findViewById(R.id.txtNext);
+        txtBack = toolbar.findViewById(R.id.txtBack);
+        txtNext = toolbar.findViewById(R.id.txtNext);
         txtNext.setVisibility(View.INVISIBLE);
         txtBack.setVisibility(View.INVISIBLE);
 
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
 
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorYellow)));
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header);
-        ImageView imageView = (ImageView)headerView.findViewById(R.id.user_picture);
-        TextView txtFName = (TextView) headerView.findViewById(R.id.fName);
-        TextView txtUsername = (TextView) headerView.findViewById(R.id.username);
+        ImageView imageView = headerView.findViewById(R.id.user_picture);
+        TextView txtFName = headerView.findViewById(R.id.fName);
+        TextView txtUsername = headerView.findViewById(R.id.username);
 
 
 
@@ -135,7 +132,7 @@ System.out.println("===getACtion====" + getIntent().getAction());
 
     public void loadFragment(Intent intent) {
 
-        Fragment fragment = MapViewFragment.newInstance(intent);     //new MapViewFragment(TripReq);
+        Fragment fragment = com.camsys.carmonic.MapViews.MapViewFragment.newInstance(intent);   //MapViewFragment.newInstance(intent);     //new MapViewFragment(TripReq);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.mapFrame, fragment);
         ft.commit();
@@ -152,7 +149,7 @@ System.out.println("===getACtion====" + getIntent().getAction());
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
@@ -214,6 +211,7 @@ System.out.println("===getACtion====" + getIntent().getAction());
     @Override
     protected void onNewIntent(Intent intent) {
 
+        super.onNewIntent(intent);
         handleIntent(intent);
     }
 

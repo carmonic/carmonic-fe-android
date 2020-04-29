@@ -150,6 +150,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     DrawerLayout drawer;
     Menu drawerMenu;
     NavigationView navigationView;
+    String fcmTokenId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +159,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         sharedData =  new SharedData(getApplicationContext());
         gson  =  new Gson();
         String userkey = sharedData.Get(Constants.SharedDataCst.USER_KEY,"");
+        fcmTokenId = sharedData.Get(Constants.SharedDataCst.FCM_REG_TOKEN, "");
         user  =  gson.fromJson(userkey,User.class);
 
         setContentView(R.layout.activity_maps);
@@ -174,17 +176,17 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         mDrawerLayout = findViewById(R.id.drawerMain);
 
-        txtMyLocation = (EditText) findViewById(R.id.txtMyLocation);
+        txtMyLocation = findViewById(R.id.txtMyLocation);
         mResultReceiver = new AddressResultReceiver(new Handler());
 
-        layout_overlay = (LinearLayout) findViewById(R.id.layout_overlay);
+        layout_overlay = findViewById(R.id.layout_overlay);
         layout_overlay.setVisibility(View.GONE);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
-        navigationView = (NavigationView) findViewById(R.id.nv);
+        navigationView = findViewById(R.id.nv);
         navigationView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorYellow)));
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
 
@@ -228,11 +230,11 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     private void getMechanics(double latitude,double  longitude,String  token) {
 
+        System.out.println("fcmTokenId" + fcmTokenId);
         //customerPosition.longitude, customerPosition.latitude
-        BackEndDAO.getMechanics(longitude,latitude, token, new Callback() {
+        BackEndDAO.getMechanics(longitude, latitude, fcmTokenId, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
                 e.printStackTrace();
             }
 
@@ -263,20 +265,20 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             public void onReturnValue(boolean indicator, String address, double latitude, double longitude, Car car) {
                 String  gsonCar = gson.toJson(car);
 
-                layout_overlay.setVisibility(View.VISIBLE);
+                //layout_overlay.setVisibility(View.VISIBLE);
                // if(mechanicList != null){
-                    notifyMechanics(mechanicList,gsonCar);
+                // notifyMechanics(mechanicList,gsonCar);
 //                }else{
 //                    Toast.makeText(MapsActivity.this, "No mechanic available", Toast.LENGTH_SHORT).show();
 //                }
 
+                Intent i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
+                i.putExtra("longitude", latitude == 0.0 ? customerPosition.latitude : latitude);
+                i.putExtra("latitude", longitude == 0.0 ? customerPosition.longitude : longitude);
+                i.putExtra("Address", address == null ? txtMyLocation.getText().toString() : address);
+                i.putExtra("car", gsonCar);
+                startActivity(i);
 
-//                Intent i = new Intent(getApplicationContext(), MapsActivityWithLocationConfirmed.class);
-//                i.putExtra("longitude", latitude==0.0?customerPosition.latitude:latitude);
-//                i.putExtra("latitude", longitude==0.0?customerPosition.longitude:longitude);
-//                i.putExtra("Address",address==null?txtMyLocation.getText().toString():address);
-//                i.putExtra("car",gsonCar);
-//                startActivity(i);
 
             }
         });
@@ -326,6 +328,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                             getMechanics(location.getLatitude(),location.getLongitude(),user.getToken());
                             startIntentService(location);
+                            System.out.println("cameraPosition.latitude" + location.getLatitude());
+                            System.out.println("cameraPosition.latitude" + location.getLongitude());
+
                             //    socketLocationUpdate(mLastLocation);
                         }
                     }
@@ -341,6 +346,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         Location mLocation = new Location("");// Location("");
                         mLocation.setLatitude(cameraPosition.target.latitude);
                         mLocation.setLongitude(cameraPosition.target.longitude);
+                        System.out.println("cameraPosition.target.latitude" + cameraPosition.target.latitude);
+                        System.out.println("cameraPosition.target.latitude" + cameraPosition.target.latitude);
                         startIntentService(mLocation);
 
                     } catch (Exception e) {
@@ -389,10 +396,12 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         // Create an intent for passing to the intent service responsible for fetching the address.
         try {
 
+            System.out.println("mLocation.getLongitude " + mLocation.getLongitude());
+            System.out.println("mLocation.getLatitude " + mLocation.getLatitude());
             Intent intent = new Intent(getApplicationContext(), FetchAddressIntentService.class);
             intent.putExtra(Constants.LocationConstants.RECEIVER, mResultReceiver);
             intent.putExtra(Constants.LocationConstants.LOCATION_DATA_EXTRA, mLocation);
-            startService(intent);
+            getApplicationContext().startService(intent);
 
         } catch (Exception ex) {
             System.out.println("Exception:::::" + ex.toString());
@@ -413,6 +422,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String responseBodyString = response.body().string();
+                System.out.println("responseBodyString:::: " + responseBodyString);
                 Gson gson = new Gson();
                 mechanicList = gson.fromJson(responseBodyString, new TypeToken<ArrayList<Mechanic>>(){}.getType());
 
@@ -484,6 +494,13 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             mAreaOutput = resultData.getString(Constants.LocationConstants.LOCATION_DATA_AREA);
             mCityOutput = resultData.getString(Constants.LocationConstants.LOCATION_DATA_CITY);
             mStateOutput = resultData.getString(Constants.LocationConstants.LOCATION_DATA_STREET);
+
+
+            System.out.println("mAddressOutput" + mAddressOutput);
+            System.out.println("mAddressOutput " + mAreaOutput);
+            System.out.println("mAddressOutput " + mCityOutput);
+            System.out.println("mAddressOutput " + mStateOutput);
+
             // Show a toast message if an address was found.
             if (resultCode == Constants.LocationConstants.SUCCESS_RESULT) {
                 txtMyLocation.setText(mStateOutput);

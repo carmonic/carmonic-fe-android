@@ -70,9 +70,42 @@
             </androidx.recyclerview.widget.RecyclerView>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:layout_margin="50dp"
+                android:id="@+id/wait_icon">
+
+                <include
+                    layout="@layout/wait_icon_layout"
+                    android:layout_gravity="center|center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:layout_margin="50dp"
+                android:gravity="center"
+                android:id="@+id/noAvailableHistory">
+
+                <TextView
+                    android:id="@+id/txtNoAvailableHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No available history."
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/colorYellow"
+                    android:textSize="15dp"
+                    android:textStyle="normal" />
 
 
-
+            </LinearLayout>
 
 
 

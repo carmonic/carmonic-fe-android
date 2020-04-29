@@ -16,17 +16,26 @@ import com.camsys.carmonic.History.HistoryActivity;
 import com.camsys.carmonic.History.HistoryDetailActivity;
 import com.camsys.carmonic.R;
 import com.camsys.carmonic.model.HistoryItem;
+import com.camsys.carmonic.model.HistoryModel;
+import com.camsys.carmonic.model.Result;
+import com.google.gson.Gson;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.stream.IntStream;
 
 public class HistoryFragmentAdapter extends RecyclerView.Adapter<HistoryFragmentAdapter.ViewHolder> {
 
-    private final ArrayList<HistoryItem> accList;
+    private final ArrayList<Result> accList;
     private final HistoryActivity.OnListFragmentInteractionListener mListener;
 
     Context context;
+    Gson gson = new Gson();
 
-    public HistoryFragmentAdapter(ArrayList<HistoryItem> accList, HistoryActivity.OnListFragmentInteractionListener listener, Context context) {
+    public HistoryFragmentAdapter(ArrayList<Result> accList, HistoryActivity.OnListFragmentInteractionListener listener, Context context) {
         this.accList = accList;
         mListener = listener;
         this.context = context;
@@ -42,14 +51,26 @@ public class HistoryFragmentAdapter extends RecyclerView.Adapter<HistoryFragment
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.txtItemDate.setText(accList.get(position).getItemDate());
-        holder.txtRequester.setText(accList.get(position).getItemRequester());
-        holder.txtAmount.setText(accList.get(position).getAmount());
-        setRating(holder,accList.get(position).getNumberOfStar());
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("D yyyy").parse(accList.get(position).getDate() + " " + Calendar.getInstance().get(Calendar.YEAR));
+
+            System.out.println(date.toString());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        holder.txtItemDate.setText(date + "");
+//        holder.txtRequester.setText(accList.get(position).getItemRequester());
+//        holder.txtAmount.setText(accList.get(position).getAmount());
+        setRating(holder, Integer.parseInt(accList.get(position).getStarRating()));
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(context, HistoryDetailActivity.class);
+                intent.putExtra("historyitem", gson.toJson(accList.get(position)));
                 context.startActivity(intent);
 
             }
@@ -77,14 +98,14 @@ public class HistoryFragmentAdapter extends RecyclerView.Adapter<HistoryFragment
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            txtItemDate = (TextView) view.findViewById(R.id.txtItemDate);
-            txtRequester = (TextView) view.findViewById(R.id.txtItemRequester);
-            txtAmount = (TextView) view.findViewById(R.id.txtAmount);
-            star1 = (ImageView) view.findViewById(R.id.start1);
-            star2 = (ImageView) view.findViewById(R.id.start2);
-            star3 = (ImageView) view.findViewById(R.id.start3);
-            star4 = (ImageView) view.findViewById(R.id.start4);
-            star5 = (ImageView) view.findViewById(R.id.start5);
+            txtItemDate = view.findViewById(R.id.txtItemDate);
+            txtRequester = view.findViewById(R.id.txtItemRequester);
+            txtAmount = view.findViewById(R.id.txtAmount);
+            star1 = view.findViewById(R.id.start1);
+            star2 = view.findViewById(R.id.start2);
+            star3 = view.findViewById(R.id.start3);
+            star4 = view.findViewById(R.id.start4);
+            star5 = view.findViewById(R.id.start5);
         }
 
         @Override

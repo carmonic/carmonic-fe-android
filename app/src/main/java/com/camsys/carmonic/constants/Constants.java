@@ -22,7 +22,7 @@ public class Constants {
     public  class  EndPoint{
 
         private static final String BACKEND_URL = "https://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:8443";
-        public  static final String  Base_URL_local = "https://192.168.43.237:8443";//192.168.43.237
+        //public  static final String  Base_URL_local = "https://192.168.43.237:8443";//192.168.43.237
         public  static final String  Base_URL_remote =   "https://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:8443";
 
     }
@@ -35,7 +35,7 @@ public class Constants {
         public static final String IS_LOG_OUT = "IsLoggedOut";
         public static final String USER_KEY = "userKey";
         public static final  String TAG = "CarmonicLog";
-
+        public static final String FCM_REG_TOKEN = "registrationToken";
     }
 
     public class Prices {
@@ -69,6 +69,17 @@ public class Constants {
         public static final String LOCATION_DATA_AREA = PACKAGE_NAME + ".LOCATION_DATA_AREA";
         public static final String LOCATION_DATA_CITY = PACKAGE_NAME + ".LOCATION_DATA_CITY";
         public static final String LOCATION_DATA_STREET = PACKAGE_NAME + ".LOCATION_DATA_STREET";
+
+    }
+
+    public class SetAction {
+
+        public static final String PACKAGE_NAME = "com.camsys.carmonic";
+        public static final String MECHANIC_REQUEST = PACKAGE_NAME + ".request";
+        public static final String LOGIN = PACKAGE_NAME + ".login";
+        public static final String PUSH_NOTIFICATION = "pushNotification";
+        public static final String REGISTRATION_COMPLETE = "registrationComplete";
+
 
     }
 

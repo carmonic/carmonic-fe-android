@@ -112,20 +112,20 @@ public class SignInActivity extends AppCompatActivity {
         txtEditPwd2.setTypeface(tfEditPwd2);
 
 
-        ImageButton imgButton = (ImageButton) findViewById(R.id.appBackButton);
-        final Button btnSubmit = (Button) findViewById(R.id.btn_sign_in);
+        ImageButton imgButton = findViewById(R.id.appBackButton);
+        final Button btnSubmit = findViewById(R.id.btn_sign_in);
 
 
-        txtEmailAddress = (EditText) findViewById(R.id.txtEmailAddress);
-        txtPassowrd = (EditText) findViewById(R.id.txtPassword);
-        inputLayoutEmailAddress = (TextInputLayout) findViewById(R.id.txtinputLayEmail);
-        inputLayoutPassword = (TextInputLayout) findViewById(R.id.txtinputLayPwd);
+        txtEmailAddress = findViewById(R.id.txtEmailAddress);
+        txtPassowrd = findViewById(R.id.txtPassword);
+        inputLayoutEmailAddress = findViewById(R.id.txtinputLayEmail);
+        inputLayoutPassword = findViewById(R.id.txtinputLayPwd);
 
         txtEmailAddress.addTextChangedListener(new MyTextWatcher(txtEmailAddress));
         txtPassowrd.addTextChangedListener(new MyTextWatcher(txtPassowrd));
 
-        wait_icon = (LinearLayout) findViewById(R.id.wait_icon);
-        signlayout = (LinearLayout) findViewById(R.id.signlayout);
+        wait_icon = findViewById(R.id.wait_icon);
+        signlayout = findViewById(R.id.signlayout);
 
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,7 +195,7 @@ public class SignInActivity extends AppCompatActivity {
                                              if (user.getToken() != null) {
                                                  String json = gson.toJson(user);
                                                  sharedData.Set(Constants.SharedDataCst.USER_KEY, json);
-                                                 Intent i = new Intent(SignInActivity.this, MainActivity.class);     //MapsActivity.class); //MapsActivity.class);
+                                                 Intent i = new Intent(SignInActivity.this, MapsActivity.class); //MapsActivity.class);
                                                  startActivity(i);
                                                  //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                                  finish();

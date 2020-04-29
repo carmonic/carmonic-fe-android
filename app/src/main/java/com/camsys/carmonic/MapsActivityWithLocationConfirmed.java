@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.camsys.carmonic.constants.Constants;
 import com.camsys.carmonic.networking.*;
 import com.camsys.carmonic.financial.Bill;
 //import com.camsys.carmonic.model.Mechanic;
@@ -95,6 +96,7 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     String  address =  null;
 
     SharedData sharedData =  null;
+    String fcmTokenId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,13 +126,29 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         Gson gson = new Gson();
        // token = preferences.getString("Authorisation", "");
-        user = gson.fromJson(sharedData.Get("",""),User.class); //gson.fromJson(preferences.getString("User", ""), User.class);
+        // user = gson.fromJson(sharedData.Get("",""),User.class); //gson.fromJson(preferences.getString("User", ""), User.class);
+        String userkey = sharedData.Get(Constants.SharedDataCst.USER_KEY, "");
+        fcmTokenId = sharedData.Get(Constants.SharedDataCst.FCM_REG_TOKEN, "");
+        System.out.println("User Key :::: " + userkey);
+
+        user = gson.fromJson(userkey, User.class);
+
+
+        token = user.getToken();
+
+
 
         mapFragment.getMapAsync(this);
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        getMechanics(longitude, latitude, car);
         setupSocket();
 
-        getMechanics(longitude,latitude,car);
+        System.out.println("longitude ::: " + longitude);
+        System.out.println("latitude ::: " + latitude);
+        System.out.println("latitude ::: " + car);
+
+
 
         MapsActivityWithLocationConfirmed.this.runOnUiThread(new Runnable() {
             @Override
@@ -199,7 +217,8 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
     private void getMechanics(double longitude, double latitude,String  carObjectString) {
         mechanicJobStatus = JobStatus.REQUESTING;
         //customerPosition.longitude, customerPosition.latitude
-        BackEndDAO.getMechanics(longitude,latitude,car, new Callback() {
+        System.out.println("fcmTokenId::: " + fcmTokenId);
+        BackEndDAO.getMechanics(longitude, latitude, fcmTokenId, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -239,6 +258,9 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
                 @Override
                 public void call(Object... args) {
                     if (mechanicJobStatus == JobStatus.REQUESTING) {
+
+                        System.out.println("I am starting  a  job for customer requesting");
+
                         timer.cancel();
                         timer.purge();
                         JSONObject jsonObject = (JSONObject) args[0];

@@ -3,6 +3,7 @@ package com.camsys.carmonic.History;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +15,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.camsys.carmonic.R;
 import com.camsys.carmonic.adapters.HistoryFragmentAdapter;
+import com.camsys.carmonic.constants.Constants;
 import com.camsys.carmonic.model.HistoryItem;
+import com.camsys.carmonic.model.HistoryModel;
+import com.camsys.carmonic.model.Mechanic;
+import com.camsys.carmonic.model.Result;
+import com.camsys.carmonic.model.User;
+import com.camsys.carmonic.networking.BackEndDAO;
+import com.camsys.carmonic.utilities.SharedData;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -25,22 +43,47 @@ public class HistoryActivity extends AppCompatActivity {
     Context mContext =  null;
     private Toolbar toolbar = null;
 
+    SharedData sharedData = null;
+    Gson gson = null;
+    User user = null;
+
+    LinearLayout wait_icon = null;
+    RecyclerView recyclerView = null;
+    LinearLayout noAvailableHistory = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedData = new SharedData(getApplicationContext());
+        gson = new Gson();
+        String userkey = sharedData.Get(Constants.SharedDataCst.USER_KEY, "");
+        user = gson.fromJson(userkey, User.class);
+
+
+
         setContentView(R.layout.fragment_history);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         mContext =  HistoryActivity.this;
 
-        TextView txtTitle  =  (TextView) toolbar.findViewById(R.id.txtTitle);
+        TextView txtTitle = toolbar.findViewById(R.id.txtTitle);
         txtTitle.setText("History");
 
+        wait_icon = findViewById(R.id.wait_icon);
+        noAvailableHistory = findViewById(R.id.noAvailableHistory);
+        recyclerView = findViewById(R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(15);
+        recyclerView.setVisibility(View.GONE);
+        noAvailableHistory.setVisibility(View.GONE);
+        wait_icon.setVisibility(View.VISIBLE);
 
-        AppCompatImageButton button  =  (AppCompatImageButton) toolbar.findViewById(R.id.appBackButton);
+        AppCompatImageButton button = toolbar.findViewById(R.id.appBackButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,81 +91,17 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
-        ArrayList<HistoryItem> list =  new ArrayList<>();
 
-        HistoryItem acc1 =  new HistoryItem();
-        acc1.setItemDate("March 14, 2017, 1:20pm");
-        acc1.setItemRequester("Requested by Abeeb");
-        acc1.setNumberOfStar(4);
-        acc1.setAmount("N8765");
-        list.add(acc1);
-
-        HistoryItem acc2 =  new HistoryItem();
-        acc2.setItemDate("March 14, 2017, 1:20pm");
-        acc2.setItemRequester("Requested by Abiola");
-        acc2.setNumberOfStar(2);
-        acc2.setAmount("N7988");
-        list.add(acc2);
-
-        HistoryItem acc3 =  new HistoryItem();
-        acc3.setItemDate("March 21, 2017, 1:20pm");
-        acc3.setItemRequester("Requested by ``micheal from orile");
-        acc3.setNumberOfStar(3);
-        acc3.setAmount("N6500");
-        list.add(acc3);
-
-
-        HistoryItem acc4 =  new HistoryItem();
-        acc4.setItemDate("March 27, 2017, 1:20pm");
-        acc4.setItemRequester("Requested by Abeeb");
-        acc4.setNumberOfStar(2);
-        acc4.setAmount("N900");
-        list.add(acc4);
+        getCustomerHistory(user.getId(), user.getToken());
 
 
 
-        HistoryItem acc5 =  new HistoryItem();
-        acc5.setItemDate("March 27, 2017, 1:20pm");
-        acc5.setItemRequester("Requested by Abeeb");
-        acc5.setNumberOfStar(2);
-        acc5.setAmount("N900");
-        list.add(acc5);
 
 
 
-        HistoryItem acc6 =  new HistoryItem();
-        acc6.setItemDate("March 27, 2017, 1:20pm");
-        acc6.setItemRequester("Requested by Abeeb");
-        acc6.setNumberOfStar(2);
-        acc6.setAmount("N1900");
-        list.add(acc6);
-
-        HistoryItem acc7 =  new HistoryItem();
-        acc7.setItemDate("March 27, 2017, 1:20pm");
-        acc7.setItemRequester("Requested by Abeeb");
-        acc7.setNumberOfStar(2);
-        acc7.setAmount("N900");
-        list.add(acc7);
-
-
-
-        HistoryItem acc8 =  new HistoryItem();
-        acc8.setItemDate("March 27, 2017, 1:20pm");
-        acc8.setItemRequester("Requested by Abeeb");
-        acc8.setNumberOfStar(2);
-        acc8.setAmount("N1900");
-        list.add(acc8);
-
-
-
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setItemViewCacheSize(15);
 //        RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(),R.drawable.transparent);
 //        recyclerView.addItemDecoration(dividerItemDecoration);
-        recyclerView.setAdapter(new HistoryFragmentAdapter(list, mListener,mContext));
+        // recyclerView.setAdapter(new HistoryFragmentAdapter(list, mListener,mContext));
     }
 
     public interface OnListFragmentInteractionListener {
@@ -130,4 +109,68 @@ public class HistoryActivity extends AppCompatActivity {
         void onListFragmentInteraction(HistoryItem item);
         void onItemClick(View view, int position);
     }
+
+
+    private void getCustomerHistory(int customerId, String token) {
+
+        //customerPosition.longitude, customerPosition.latitude
+        BackEndDAO.getHistoryWithPost(customerId, token, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        noAvailableHistory.setVisibility(View.VISIBLE);
+                        wait_icon.setVisibility(View.GONE);
+                    }
+                });
+
+
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseBodyString = response.body().string();
+                System.out.println("responseBodyString for History  " + responseBodyString);
+                Gson gson = new Gson();
+                HistoryModel items = gson.fromJson(responseBodyString, HistoryModel.class);
+                System.out.println("history item" + items.getResult().get(0).getId());
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        if (items != null) {
+
+                            if (items.getMessage().equalsIgnoreCase("success")) {
+
+                                noAvailableHistory.setVisibility(View.GONE);
+                                wait_icon.setVisibility(View.GONE);
+                                recyclerView.setVisibility(View.VISIBLE);
+
+
+                                recyclerView.setAdapter(new HistoryFragmentAdapter(items.getResult(), mListener, mContext));
+
+                            } else {
+
+                            }
+                        } else {
+                            noAvailableHistory.setVisibility(View.VISIBLE);
+                            wait_icon.setVisibility(View.GONE);
+                            System.out.println("No History available");
+                        }
+
+
+                    }
+                });
+
+
+            }
+        });
+    }
+
 }
