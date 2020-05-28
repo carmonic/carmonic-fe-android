@@ -39,7 +39,7 @@ public class FetchAddressIntentService extends IntentService {
     public FetchAddressIntentService() {
         // Use the TAG to name the worker thread.
         super(TAG);
-        System.out.println("YYYYYYYYYYY");
+
     }
 
 
@@ -55,12 +55,6 @@ public class FetchAddressIntentService extends IntentService {
            }
            // Get the location passed to this service through an extra.
            Location location = intent.getParcelableExtra(Constants.LocationConstants.LOCATION_DATA_EXTRA);
-
-           System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::");
-           System.out.println(":::::::I:::am:::here:::to:::start:::the:::::SERVICE::::");
-           System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::");
-           System.out.println("::Latitude:::::::" + location.getLatitude() + "::::::::Longitude:::::::::" + location.getLongitude() + ":::::::::::::::::::::::");
-
 
            if (location == null) {
                errorMessage = getString(R.string.no_location_data_provided);

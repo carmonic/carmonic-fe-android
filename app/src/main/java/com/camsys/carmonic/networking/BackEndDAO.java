@@ -118,6 +118,43 @@ public class BackEndDAO {
         client.newCall(request).enqueue(callback);
     }
 
+    public static void initiateJob(String customerId, double longitude, double latitude, String token, String fcmToken, Callback callback) {
+        String route = "/initiateJob";
+        HttpUrl.Builder httpBuider = HttpUrl.parse(getBackendURL() + route).newBuilder();
+        httpBuider.addQueryParameter("longitude", Double.toString(longitude));
+        httpBuider.addQueryParameter("latitude", Double.toString(latitude));
+        httpBuider.addQueryParameter("customerId", customerId);
+        httpBuider.addQueryParameter("fcmtoken", fcmToken);
+        Request request = new Request.Builder()
+                .addHeader("Authorization", "Bearer " + token)
+                .url(httpBuider.build())
+                .build();
+
+        client.newCall(request).enqueue(callback);
+    }
+
+
+    public static void setCustomerStatusChange(int customerId, double longitude, double latitude, String fcmToken, String accessToken, Callback callback) {
+        String route = "/custStatusChange";
+        HttpUrl.Builder httpBuider = HttpUrl.parse(getBackendURL() + route).newBuilder();
+        httpBuider.addQueryParameter("customerId", String.valueOf(customerId));
+        httpBuider.addQueryParameter("longitude", Double.toString(longitude));
+        httpBuider.addQueryParameter("latitude", Double.toString(latitude));
+        httpBuider.addQueryParameter("fcmToken", fcmToken);
+        Request request = new Request.Builder()
+                .addHeader("Authorization", "Bearer " + accessToken)
+                .url(httpBuider.build())
+                .build();
+
+        System.out.println("fcmToken::: " + fcmToken);
+        System.out.println("customerId::: " + customerId);
+        System.out.println("longitude::: " + longitude);
+        System.out.println("latitude::: " + latitude);
+
+        client.newCall(request).enqueue(callback);
+    }
+
+
     public static void charge(String amount, String email, String token, Callback callback) {
         String route = "/charge";
 

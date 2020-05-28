@@ -85,5 +85,6 @@
     <string name="title_activity_add_payment">AddPayment</string>
 
     <string name="_card_expiry_format">%1$02d / %2$d</string>
+    <string name="title_activity_testactivity">Map</string>
 
 </resources>

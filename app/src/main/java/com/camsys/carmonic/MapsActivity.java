@@ -326,6 +326,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(customerPosition));
                             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
+
                             getMechanics(location.getLatitude(),location.getLongitude(),user.getToken());
                             startIntentService(location);
                             System.out.println("cameraPosition.latitude" + location.getLatitude());
@@ -427,6 +428,24 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                 mechanicList = gson.fromJson(responseBodyString, new TypeToken<ArrayList<Mechanic>>(){}.getType());
 
                 notifyMechanics(mechanicList,carObjectString);
+            }
+        });
+    }
+
+
+    private void setCustomerStatusChange(int customerId, double longitude, double latitude, String fcmTokenId, String accessToken) {
+
+        BackEndDAO.setCustomerStatusChange(customerId, longitude, latitude, fcmTokenId, accessToken, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseBodyString = response.body().string();
+                System.out.println("getCustomerStatusChange response :::: " + responseBodyString);
+
             }
         });
     }

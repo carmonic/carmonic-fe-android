@@ -29,7 +29,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.camsys.carmonic.History.HistoryActivity;
 
-import com.camsys.carmonic.MapViews.MapViewFragment;
+//import com.camsys.carmonic.MapViews.MapViewFragment;
 import com.camsys.carmonic.R;
 import com.camsys.carmonic.constants.Constants;
 
@@ -132,10 +132,10 @@ System.out.println("===getACtion====" + getIntent().getAction());
 
     public void loadFragment(Intent intent) {
 
-        Fragment fragment = com.camsys.carmonic.MapViews.MapViewFragment.newInstance(intent);   //MapViewFragment.newInstance(intent);     //new MapViewFragment(TripReq);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.mapFrame, fragment);
-        ft.commit();
+//        Fragment fragment = com.camsys.carmonic.MapViews.MapViewFragment.newInstance(intent);   //MapViewFragment.newInstance(intent);     //new MapViewFragment(TripReq);
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.replace(R.id.mapFrame, fragment);
+//        ft.commit();
 
     }
 
@@ -166,13 +166,13 @@ System.out.println("===getACtion====" + getIntent().getAction());
             List<Fragment> fragmentList = fragmentManager.getFragments();
             for (Fragment fragment : fragmentList) {
                 if (fragment != null && fragment.isVisible()) {
-                    if (fragment instanceof MapViewFragment) {
-                        showHome = false;
-                    } else if (fragment.getChildFragmentManager().getBackStackEntryCount() > 0) {
-                        //popchildbackstack
-                        fragment.getChildFragmentManager().popBackStackImmediate();
-                        return;
-                    }
+//                    if (fragment instanceof MapViewFragment) {
+//                        showHome = false;
+//                    } else if (fragment.getChildFragmentManager().getBackStackEntryCount() > 0) {
+//                        //popchildbackstack
+//                        fragment.getChildFragmentManager().popBackStackImmediate();
+//                        return;
+//                    }
                 }
             }
 

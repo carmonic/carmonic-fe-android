@@ -120,7 +120,13 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         longitude = getIntent().getDoubleExtra("longitude", 0.0);
         latitude = getIntent().getDoubleExtra("latitude", 0.0);
         car = getIntent().getStringExtra("car");
-        address = getIntent().getStringExtra("car");
+        address = getIntent().getStringExtra("address");
+
+        longitude = 3.5144028;
+        latitude = 6.632553;
+
+
+
 
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -129,7 +135,22 @@ public class MapsActivityWithLocationConfirmed extends FragmentActivity implemen
         // user = gson.fromJson(sharedData.Get("",""),User.class); //gson.fromJson(preferences.getString("User", ""), User.class);
         String userkey = sharedData.Get(Constants.SharedDataCst.USER_KEY, "");
         fcmTokenId = sharedData.Get(Constants.SharedDataCst.FCM_REG_TOKEN, "");
+
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        System.out.println("longitude " + longitude);
+        System.out.println("latitude " + latitude);
+        System.out.println("car " + car);
+        System.out.println("address " + address);
         System.out.println("User Key :::: " + userkey);
+        System.out.println("fcmTokenId Key :::: " + fcmTokenId);
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
         user = gson.fromJson(userkey, User.class);
 

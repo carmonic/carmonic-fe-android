@@ -22,8 +22,8 @@ public class Constants {
     public  class  EndPoint{
 
         private static final String BACKEND_URL = "https://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:8443";
-        //public  static final String  Base_URL_local = "https://192.168.43.237:8443";//192.168.43.237
-        public  static final String  Base_URL_remote =   "https://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:8443";
+        public static final String Base_URL_local = "https://192.168.43.103:8443";//192.168.43.237
+        public static final String Base_URL_remote = "https://ec2-35-177-219-101.eu-west-2.compute.amazonaws.com:8443";
 
     }
 
